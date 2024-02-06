@@ -1,9 +1,15 @@
-const PlaceCard = (): JSX.Element => (
-  <article className="cities__card place-card">
+const BLOCK_NAME = 'favorites';
+
+type PlaceCardProp = {
+  blockName: string;
+};
+
+const PlaceCard = ({blockName}: PlaceCardProp): JSX.Element => (
+  <article className={`${blockName}__card place-card`}>
     <div className="place-card__mark">
       <span>Premium</span>
     </div>
-    <div className="cities__image-wrapper place-card__image-wrapper">
+    <div className={`${blockName}__image-wrapper place-card__image-wrapper`}>
       <a href="#">
         <img
           className="place-card__image"
@@ -14,7 +20,7 @@ const PlaceCard = (): JSX.Element => (
         />
       </a>
     </div>
-    <div className="place-card__info">
+    <div className={`${blockName === BLOCK_NAME ? 'favorites__card-info' : ''} place-card__info`}>
       <div className="place-card__price-wrapper">
         <div className="place-card__price">
           <b className="place-card__price-value">€120</b>

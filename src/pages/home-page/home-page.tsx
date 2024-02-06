@@ -2,9 +2,10 @@ import PlaceCard from '../../components/place-card/place-card';
 
 type HomePageProps = {
   placeCount: number;
+  blockName: string;
 };
 
-const HomePage = ({placeCount}: HomePageProps): JSX.Element => (
+const HomePage = ({placeCount, blockName}: HomePageProps): JSX.Element => (
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -114,11 +115,11 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => (
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
+              <PlaceCard blockName={blockName} />
+              <PlaceCard blockName={blockName} />
+              <PlaceCard blockName={blockName} />
+              <PlaceCard blockName={blockName} />
+              <PlaceCard blockName={blockName} />
             </div>
           </section>
           <div className="cities__right-section">
