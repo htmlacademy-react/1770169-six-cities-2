@@ -10,11 +10,11 @@ type HomePageProps = {
 
 const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [checkedFilter, setCheckedFilter] = useState<null | number>(null);
-  const [checkedOption, setCheckedOption] = useState<null | number>(null);
+  const [checkedFilter, setCheckedFilter] = useState<null | string>(null);
+  const [checkedOption, setCheckedOption] = useState<null | string>(null);
   const sortClickHandler = () => setIsOpen(() => !isOpen);
-  const filterClickHandler = (id: number) => setCheckedFilter(id);
-  const optionClickHandler = (id: number) => setCheckedOption(id);
+  const filterClickHandler = (name: string) => setCheckedFilter(name);
+  const optionClickHandler = (name: string) => setCheckedOption(name);
   const optionsOpen = isOpen ? 'places__options--opened' : '';
 
   return (
@@ -23,11 +23,11 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {CITIES.map((city) => (
+            {CITIES.map(({id, name}) => (
               <Location
-                key={city.id}
-                city={city}
-                isActive={checkedFilter === city.id}
+                key={id}
+                name={name}
+                isActive={checkedFilter === name}
                 onClick={filterClickHandler}
               />
             ))}
@@ -48,11 +48,11 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
                 </svg>
               </span>
               <ul className={`places__options places__options--custom ${optionsOpen}`}>
-                {OPTIONS.map((option) => (
+                {OPTIONS.map(({id, name}) => (
                   <PlacesOption
-                    key={option.id}
-                    option={option}
-                    isActive={checkedOption === option.id}
+                    key={id}
+                    name={name}
+                    isActive={checkedOption === name}
                     onClick={optionClickHandler}
                   />
                 ))}

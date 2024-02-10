@@ -1,15 +1,15 @@
 import {PropsWithChildren} from 'react';
 
 type FavoriteProps = PropsWithChildren<{
-  city: string;
+  name: string;
 }>;
 
-const Favorite = ({city, children}:FavoriteProps): JSX.Element => (
+const Favorite = ({name, children}:FavoriteProps): JSX.Element => (
   <li className="favorites__locations-items">
     <div className="favorites__locations locations locations--current">
       <div className="locations__item">
         <a className="locations__item-link" href="#">
-          <span>{city}</span>
+          <span>{name}</span>
         </a>
       </div>
     </div>
