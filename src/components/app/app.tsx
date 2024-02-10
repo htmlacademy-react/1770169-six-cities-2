@@ -11,9 +11,10 @@ import PrivateRoute from '../private-route/private-route';
 type AppProps = {
   placeCount: number;
   favorites: number;
+  images: string[];
 };
 
-const App = ({placeCount, favorites}: AppProps): JSX.Element => (
+const App = ({placeCount, favorites, images}: AppProps): JSX.Element => (
   <BrowserRouter>
     <Routes>
       <Route
@@ -38,7 +39,7 @@ const App = ({placeCount, favorites}: AppProps): JSX.Element => (
         />
         <Route
           path={AppRoute.offer}
-          element={<OfferPage />}
+          element={<OfferPage images={images} />}
         />
       </Route>
       <Route
