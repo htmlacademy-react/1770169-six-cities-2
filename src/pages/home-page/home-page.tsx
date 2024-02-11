@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import {CITIES, OPTIONS} from '../../const';
 import Location from '../../components/location/location';
 import PlacesOption from '../../components/places-option/places-option';
@@ -13,8 +13,8 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
   const [checkedFilter, setCheckedFilter] = useState<null | string>(null);
   const [checkedOption, setCheckedOption] = useState<null | string>(null);
   const sortClickHandler = () => setIsOpen(() => !isOpen);
-  const filterClickHandler = (name: string) => setCheckedFilter(name);
-  const optionClickHandler = (name: string) => setCheckedOption(name);
+  const filterClickHandler = useCallback((name: string) => setCheckedFilter(name), []);
+  const optionClickHandler = useCallback((name: string) => setCheckedOption(name), []);
   const optionsOpen = isOpen ? 'places__options--opened' : '';
 
   return (
