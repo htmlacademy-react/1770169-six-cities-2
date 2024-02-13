@@ -3,6 +3,7 @@ import {CITIES, OPTIONS} from '../../const';
 import Location from '../../components/location/location';
 import PlacesOption from '../../components/places-option/places-option';
 import PlaceCard from '../../components/place-card/place-card';
+import Layout from '../../components/layout/layout';
 
 type HomePageProps = {
   placeCount: number;
@@ -18,7 +19,7 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
   const optionsOpen = isOpen ? 'places__options--opened' : '';
 
   return (
-    <>
+    <Layout>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -71,7 +72,7 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

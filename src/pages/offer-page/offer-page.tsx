@@ -1,19 +1,20 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import OfferImage from '../../components/offer-image/offer-image';
 import PlaceCard from '../../components/place-card/place-card';
 import Rating from '../../components/rating/rating';
 import {FEATURES, RATINGS} from '../../const';
 import ReviewCard from '../../components/review-card/review-card';
+import Layout from '../../components/layout/layout';
 
 type OfferPageProps = {
   images: string[];
 };
 
-const OfferPage = ({images}: OfferPageProps): JSX.Element => {
-  const [ratingValue, setRatingValue] = useState<null | string>(null);
+const OfferPage = ({images}: OfferPageProps) => {
+  const [, setRatingValue] = useState<null | string>(null);
 
   return (
-    <>
+    <Layout containerClassName='page' mainClassName='page__main page__main--offer'>
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
@@ -144,7 +145,7 @@ const OfferPage = ({images}: OfferPageProps): JSX.Element => {
           </div>
         </section>
       </div>
-    </>
+    </Layout>
   );
 };
 
