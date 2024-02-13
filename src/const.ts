@@ -12,7 +12,7 @@ const AuthorizationStatus = {
   Unknown: 'UNKNOWN'
 } as const;
 
-const CITIES = [
+const cities = [
   {
     id: 1,
     name: 'Paris'
@@ -39,7 +39,7 @@ const CITIES = [
   }
 ] as const;
 
-const OPTIONS = [
+const sortTypes = [
   {
     id: 1,
     name: 'Popular'
@@ -58,7 +58,7 @@ const OPTIONS = [
   }
 ] as const;
 
-const RATINGS = [
+const ratings = [
   {
     id: 1,
     title: 'terribly'
@@ -81,47 +81,47 @@ const RATINGS = [
   },
 ];
 
-const FEATURES = [
+const features = [
   {
     id: 1,
-    feature: 'Wi-Fi'
+    name: 'Wi-Fi'
   },
   {
     id: 2,
-    feature: 'Washing machine'
+    name: 'Washing machine'
   },
   {
     id: 3,
-    feature: 'Towels'
+    name: 'Towels'
   },
   {
     id: 4,
-    feature: 'Heating'
+    name: 'Heating'
   },
   {
     id: 5,
-    feature: 'Coffee machine'
+    name: 'Coffee machine'
   },
   {
     id: 6,
-    feature: 'Baby seat'
+    name: 'Baby seat'
   },
   {
     id: 7,
-    feature: 'Kitchen'
+    name: 'Kitchen'
   },
   {
     id: 8,
-    feature: 'Dishwasher'
+    name: 'Dishwasher'
   },
   {
     id: 9,
-    feature: 'Cabel TV'
+    name: 'Cabel TV'
   },
   {
     id: 10,
-    feature: 'Fridge'
+    name: 'Fridge'
   }
 ];
 
-export {Path, AppRoute, AuthorizationStatus, CITIES, OPTIONS, RATINGS, FEATURES};
+export {AppRoute, AuthorizationStatus, cities, sortTypes, ratings, features};

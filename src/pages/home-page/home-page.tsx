@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react';
-import {CITIES, OPTIONS} from '../../const';
+import {cities, sortTypes} from '../../const';
 import Location from '../../components/location/location';
 import PlacesOption from '../../components/places-option/places-option';
 import PlaceCard from '../../components/place-card/place-card';
@@ -24,7 +24,7 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {CITIES.map(({id, name}) => (
+            {cities.map(({id, name}) => (
               <Location
                 key={id}
                 name={name}
@@ -49,7 +49,7 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
                 </svg>
               </span>
               <ul className={`places__options places__options--custom ${optionsOpen}`}>
-                {OPTIONS.map(({id, name}) => (
+                {sortTypes.map(({id, name}) => (
                   <PlacesOption
                     key={id}
                     name={name}

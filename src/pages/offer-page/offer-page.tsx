@@ -2,7 +2,7 @@ import {useState} from 'react';
 import OfferImage from '../../components/offer-image/offer-image';
 import PlaceCard from '../../components/place-card/place-card';
 import Rating from '../../components/rating/rating';
-import {FEATURES, RATINGS} from '../../const';
+import {features, ratings} from '../../const';
 import ReviewCard from '../../components/review-card/review-card';
 import Layout from '../../components/layout/layout';
 
@@ -65,7 +65,7 @@ const OfferPage = ({images}: OfferPageProps) => {
             <div className="offer__inside">
               <h2 className="offer__inside-title">What&apos;s inside</h2>
               <ul className="offer__inside-list">
-                {FEATURES.map(({id, feature}) => <li key={id} className="offer__inside-item">{feature}</li>)}
+                {features.map(({id, name}) => <li key={id} className="offer__inside-item">{name}</li>)}
               </ul>
             </div>
             <div className="offer__host">
@@ -108,7 +108,7 @@ const OfferPage = ({images}: OfferPageProps) => {
                   Your review
                 </label>
                 <div className="reviews__rating-form form__rating">
-                  {RATINGS.map((rating) => <Rating key={rating.id} rating={rating} onChange={(evt) => setRatingValue(evt.target.value)} />)}
+                  {ratings.map((rating) => <Rating key={rating.id} rating={rating} onChange={(evt) => setRatingValue(evt.target.value)} />)}
                 </div>
                 <textarea
                   className="reviews__textarea form__textarea"
