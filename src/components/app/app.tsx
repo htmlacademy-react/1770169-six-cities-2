@@ -3,7 +3,7 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import HomePage from '../../pages/home-page/home-page';
 import LoginPage from '../../pages/login-page/login-page';
-import NoFoundPage from '../../pages/no-found-page/no-found-page';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 
@@ -12,32 +12,32 @@ type AppProps = {
   images: string[];
 };
 
-const App = ({placeCount, images}: AppProps): JSX.Element => (
+const App = ({placeCount, images}: AppProps) => (
   <BrowserRouter>
     <Routes>
       <Route
-        path={AppRoute.home}
+        path={AppRoute.HOME}
         element={<HomePage placeCount={placeCount} />}
       />
       <Route
-        path={AppRoute.login}
+        path={AppRoute.LOGIN}
         element={<LoginPage />}
       />
       <Route
-        path={AppRoute.favorites}
+        path={AppRoute.FAVORITES}
         element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
             <FavoritesPage />
           </PrivateRoute>
         }
       />
       <Route
-        path={AppRoute.offer}
+        path={AppRoute.OFFER}
         element={<OfferPage images={images} />}
       />
       <Route
-        path={AppRoute.noFound}
-        element={<NoFoundPage />}
+        path={AppRoute.NOT_FOUND}
+        element={<NotFoundPage />}
       />
     </Routes>
   </BrowserRouter>

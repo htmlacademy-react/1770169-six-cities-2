@@ -15,11 +15,23 @@ const FavoritesPage = () => {
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
             <Favorite name={'Amsterdam'}>
-              <PlaceCard />
-              <PlaceCard />
+              <PlaceCard
+                placeCardClassName = 'favorites__card place-card'
+                imageWrapperClassName = 'favorites__image-wrapper place-card__image-wrapper'
+                cardInfoClassName = 'favorites__card-info place-card__info'
+              />
+              <PlaceCard
+                placeCardClassName = 'cities__card place-card'
+                imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper'
+                cardInfoClassName = 'favorites__card-info place-card__info'
+              />
             </Favorite>
             <Favorite name={'Cologne'}>
-              <PlaceCard />
+              <PlaceCard
+                placeCardClassName = 'cities__card place-card'
+                imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper'
+                cardInfoClassName = 'favorites__card-info place-card__info'
+              />
             </Favorite>
           </ul>
         </section>

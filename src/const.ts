@@ -1,17 +1,9 @@
-const Path = {
-  HOME: 'home',
-  LOGIN: 'login',
-  FAVORITES: 'favorites',
-  OFFER: 'offer',
-  NO_FOUND: 'noFound'
-};
-
 const AppRoute = {
-  [Path.HOME]: '/',
-  [Path.LOGIN]: '/login',
-  [Path.FAVORITES]: '/favorites',
-  [Path.OFFER]: '/offer/:id',
-  [Path.NO_FOUND]: '*'
+  HOME: '/',
+  LOGIN: '/login',
+  FAVORITES: '/favorites',
+  OFFER: '/offer/:id',
+  NOT_FOUND: '*'
 } as const;
 
 const AuthorizationStatus = {

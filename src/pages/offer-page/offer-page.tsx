@@ -139,9 +139,18 @@ const OfferPage = ({images}: OfferPageProps) => {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <PlaceCard />
-            <PlaceCard />
-            <PlaceCard />
+            <PlaceCard
+              placeCardClassName = 'near-places__card place-card'
+              imageWrapperClassName = 'near-places__image-wrapper place-card__image-wrapper'
+            />
+            <PlaceCard
+              placeCardClassName = 'near-places__card place-card'
+              imageWrapperClassName = 'near-places__image-wrapper place-card__image-wrapper'
+            />
+            <PlaceCard
+              placeCardClassName = 'near-places__card place-card'
+              imageWrapperClassName = 'near-places__image-wrapper place-card__image-wrapper'
+            />
           </div>
         </section>
       </div>
