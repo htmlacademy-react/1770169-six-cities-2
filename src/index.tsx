@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
 const PLACE_COUNT = 312;
-const BLOCK_NAME = 'cities';
+const IMAGES = ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/studio-01.jpg', 'img/apartment-01.jpg'];
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,6 +11,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App placeCount={PLACE_COUNT} blockName={BLOCK_NAME} />
+    <App placeCount={PLACE_COUNT} images={IMAGES} />
   </React.StrictMode>
 );

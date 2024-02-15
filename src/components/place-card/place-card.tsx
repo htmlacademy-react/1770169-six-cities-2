@@ -1,15 +1,20 @@
-const BLOCK_NAME = 'favorites';
-
-type PlaceCardProp = {
-  blockName: string;
+type PlaceCardProps = {
+  placeCardClassName?: string;
+  imageWrapperClassName?: string;
+  cardInfoClassName?: string;
 };
 
-const PlaceCard = ({blockName}: PlaceCardProp): JSX.Element => (
-  <article className={`${blockName}__card place-card`}>
+const PlaceCard = (
+  {
+    placeCardClassName = 'cities__card place-card',
+    imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper',
+    cardInfoClassName = 'place-card__info'
+  }: PlaceCardProps) => (
+  <article className={placeCardClassName}>
     <div className="place-card__mark">
       <span>Premium</span>
     </div>
-    <div className={`${blockName}__image-wrapper place-card__image-wrapper`}>
+    <div className={imageWrapperClassName}>
       <a href="#">
         <img
           className="place-card__image"
@@ -20,7 +25,7 @@ const PlaceCard = ({blockName}: PlaceCardProp): JSX.Element => (
         />
       </a>
     </div>
-    <div className={`${blockName === BLOCK_NAME ? 'favorites__card-info' : ''} place-card__info`}>
+    <div className={cardInfoClassName}>
       <div className="place-card__price-wrapper">
         <div className="place-card__price">
           <b className="place-card__price-value">€120</b>
