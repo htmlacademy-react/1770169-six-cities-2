@@ -1,4 +1,5 @@
 import {ChangeEvent, useState} from 'react';
+import {Helmet} from 'react-helmet-async';
 import {features} from '../../const';
 import Layout from '../../components/layout/layout';
 import PlaceCard from '../../components/place-card/place-card';
@@ -15,6 +16,9 @@ const OfferPage = ({images}: OfferPageProps) => {
 
   return (
     <Layout containerClassName='page' mainClassName='page__main page__main--offer'>
+      <Helmet>
+        <title>6 cities | Beautiful &amp; luxurious studio at great location</title>
+      </Helmet>
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
