@@ -26,7 +26,7 @@ const App = ({placeCount, images}: AppProps) => (
       <Route
         path={AppRoute.FAVORITES}
         element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
             <FavoritesPage />
           </PrivateRoute>
         }

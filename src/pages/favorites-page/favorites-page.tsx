@@ -1,12 +1,31 @@
-import Favorite from '../../components/favorite/favorite';
 import Layout from '../../components/layout/layout';
 import PlaceCard from '../../components/place-card/place-card';
 
-const FAVORITE_COUNT = 2;
+const favorites = [
+  {
+    id: '1',
+    city: {
+      name: 'Amsterdam'
+    }
+  },
+  {
+    id: '2',
+    city: {
+      name: 'Amsterdam'
+    }
+  },
+  {
+    id: '3',
+    city: {
+      name: 'Cologne'
+    },
+  }
+];
 
 const FavoritesPage = () => {
-  const containerClassName = FAVORITE_COUNT ? 'page' : 'page page--favorites-empty';
-  const mainClassName = FAVORITE_COUNT ? 'page__main page__main--favorites' : 'page__main page__main--favorites page__main--favorites-empty';
+  const containerClassName = favorites.length ? 'page' : 'page page--favorites-empty';
+  const mainClassName = favorites.length ? 'page__main page__main--favorites' : 'page__main page__main--favorites page__main--favorites-empty';
+  const favoriteCities = new Set(favorites.map((favorite) => favorite.city.name));
 
   return (
     <Layout containerClassName={containerClassName} mainClassName={mainClassName}>
@@ -14,25 +33,27 @@ const FavoritesPage = () => {
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-            <Favorite name={'Amsterdam'}>
-              <PlaceCard
-                placeCardClassName = 'favorites__card place-card'
-                imageWrapperClassName = 'favorites__image-wrapper place-card__image-wrapper'
-                cardInfoClassName = 'favorites__card-info place-card__info'
-              />
-              <PlaceCard
-                placeCardClassName = 'cities__card place-card'
-                imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper'
-                cardInfoClassName = 'favorites__card-info place-card__info'
-              />
-            </Favorite>
-            <Favorite name={'Cologne'}>
-              <PlaceCard
-                placeCardClassName = 'cities__card place-card'
-                imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper'
-                cardInfoClassName = 'favorites__card-info place-card__info'
-              />
-            </Favorite>
+            {[...favoriteCities].map((city) => (
+              <li className="favorites__locations-items" key={city}>
+                <div className="favorites__locations locations locations--current">
+                  <div className="locations__item">
+                    <a className="locations__item-link" href="#">
+                      <span>{city}</span>
+                    </a>
+                  </div>
+                </div>
+                <div className="favorites__places">
+                  {favorites.filter((favorite) => favorite.city.name === city).map((place) => (
+                    <PlaceCard
+                      placeCardClassName = 'favorites__card place-card'
+                      imageWrapperClassName = 'favorites__image-wrapper place-card__image-wrapper'
+                      cardInfoClassName = 'favorites__card-info place-card__info'
+                      key={place.id}
+                    />
+                  ))}
+                </div>
+              </li>
+            ))}
           </ul>
         </section>
       </div>

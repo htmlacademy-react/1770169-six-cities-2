@@ -1,7 +1,6 @@
-import {useCallback, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {useState} from 'react';
 import {cities, sortTypes} from '../../const';
-import Location from '../../components/location/location';
-import PlacesOption from '../../components/places-option/places-option';
 import PlaceCard from '../../components/place-card/place-card';
 import Layout from '../../components/layout/layout';
 
@@ -9,14 +8,10 @@ type HomePageProps = {
   placeCount: number;
 };
 
-const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [checkedFilter, setCheckedFilter] = useState<null | string>(null);
-  const [checkedOption, setCheckedOption] = useState<null | string>(null);
-  const sortClickHandler = () => setIsOpen(() => !isOpen);
-  const filterClickHandler = useCallback((name: string) => setCheckedFilter(name), []);
-  const optionClickHandler = useCallback((name: string) => setCheckedOption(name), []);
-  const optionsOpen = isOpen ? 'places__options--opened' : '';
+const HomePage = ({placeCount}: HomePageProps) => {
+  const [sortOpened, setSortOpened] = useState(false);
+  const [selectedCity, setSelectedCity] = useState<string>(cities[0].name);
+  const [selectedSortType, setSelectedSortType,] = useState<string>(sortTypes[0].name);
 
   return (
     <Layout>
@@ -25,12 +20,19 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
         <section className="locations container">
           <ul className="locations__list tabs__list">
             {cities.map(({id, name}) => (
-              <Location
-                key={id}
-                name={name}
-                isActive={checkedFilter === name}
-                onClick={filterClickHandler}
-              />
+              <li className="locations__item" key={id}>
+                <Link
+                  className={
+                    selectedCity === name ?
+                      'locations__item-link tabs__item tabs__item--active' :
+                      'locations__item-link tabs__item'
+                  }
+                  to="#"
+                  onClick={() => setSelectedCity(name)}
+                >
+                  <span>{name}</span>
+                </Link>
+              </li>
             ))}
           </ul>
         </section>
@@ -40,7 +42,12 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{placeCount} places to stay in Amsterdam</b>
-            <form className="places__sorting" action="#" method="get" onClick={sortClickHandler}>
+            <form
+              className="places__sorting"
+              action="#"
+              method="get"
+              onClick={() => setSortOpened((prevState) => !prevState)}
+            >
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
                 Popular
@@ -48,14 +55,20 @@ const HomePage = ({placeCount}: HomePageProps): JSX.Element => {
                   <use xlinkHref="#icon-arrow-select" />
                 </svg>
               </span>
-              <ul className={`places__options places__options--custom ${optionsOpen}`}>
+              <ul className={`places__options places__options--custom ${sortOpened ? 'places__options--opened' : ''}`}>
                 {sortTypes.map(({id, name}) => (
-                  <PlacesOption
+                  <li
+                    className={
+                      selectedSortType === name ?
+                        'places__option places__option--active' :
+                        'places__option'
+                    }
+                    tabIndex={0}
+                    onClick={() => setSelectedSortType(name)}
                     key={id}
-                    name={name}
-                    isActive={checkedOption === name}
-                    onClick={optionClickHandler}
-                  />
+                  >
+                    {name}
+                  </li>
                 ))}
               </ul>
             </form>

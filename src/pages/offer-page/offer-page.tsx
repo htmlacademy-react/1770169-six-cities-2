@@ -1,10 +1,9 @@
-import {useState} from 'react';
-import OfferImage from '../../components/offer-image/offer-image';
+import {ChangeEvent, useState} from 'react';
+import {features} from '../../const';
+import Layout from '../../components/layout/layout';
 import PlaceCard from '../../components/place-card/place-card';
 import Rating from '../../components/rating/rating';
-import {features, ratings} from '../../const';
-import ReviewCard from '../../components/review-card/review-card';
-import Layout from '../../components/layout/layout';
+import ReviewList from '../../components/review-list/review-list';
 
 type OfferPageProps = {
   images: string[];
@@ -12,18 +11,22 @@ type OfferPageProps = {
 
 const OfferPage = ({images}: OfferPageProps) => {
   const [, setRatingValue] = useState<null | string>(null);
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => setRatingValue(evt.target.value);
 
   return (
     <Layout containerClassName='page' mainClassName='page__main page__main--offer'>
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
-            <OfferImage imagePath={images[0]} />
-            <OfferImage imagePath={images[1]} />
-            <OfferImage imagePath={images[2]} />
-            <OfferImage imagePath={images[3]} />
-            <OfferImage imagePath={images[4]} />
-            <OfferImage imagePath={images[5]} />
+            {images.map((image) => (
+              <div className="offer__image-wrapper" key={image}>
+                <img
+                  className="offer__image"
+                  src={image}
+                  alt="Photo studio"
+                />
+              </div>
+            ))}
           </div>
         </div>
         <div className="offer__container container">
@@ -100,16 +103,12 @@ const OfferPage = ({images}: OfferPageProps) => {
               <h2 className="reviews__title">
                 Reviews · <span className="reviews__amount">1</span>
               </h2>
-              <ul className="reviews__list">
-                <ReviewCard />
-              </ul>
+              <ReviewList />
               <form className="reviews__form form" action="#" method="post">
                 <label className="reviews__label form__label" htmlFor="review">
                   Your review
                 </label>
-                <div className="reviews__rating-form form__rating">
-                  {ratings.map((rating) => <Rating key={rating.id} rating={rating} onChange={(evt) => setRatingValue(evt.target.value)} />)}
-                </div>
+                <Rating onChange={handleRatingChange} />
                 <textarea
                   className="reviews__textarea form__textarea"
                   id="review"
