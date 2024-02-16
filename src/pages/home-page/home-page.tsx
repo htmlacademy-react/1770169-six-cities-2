@@ -1,17 +1,21 @@
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
 import {cities, sortTypes} from '../../const';
-import PlaceCard from '../../components/place-card/place-card';
+import {getFilteredOffers} from '../../components/utils/app';
+import {Offers} from '../../types/offer-type';
 import Layout from '../../components/layout/layout';
+import PlaceList from '../../components/place-list/place-list';
 
 type HomePageProps = {
-  placeCount: number;
+  offers: Offers;
 };
 
-const HomePage = ({placeCount}: HomePageProps) => {
+const HomePage = ({offers}: HomePageProps) => {
   const [sortOpened, setSortOpened] = useState(false);
   const [selectedCity, setSelectedCity] = useState<string>(cities[0].name);
   const [selectedSortType, setSelectedSortType,] = useState<string>(sortTypes[0].name);
+
+  const filteredOffers = getFilteredOffers(offers, selectedCity);
 
   return (
     <Layout>
@@ -41,7 +45,7 @@ const HomePage = ({placeCount}: HomePageProps) => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{placeCount} places to stay in Amsterdam</b>
+            <b className="places__found">{filteredOffers.length} places to stay in {selectedCity}</b>
             <form
               className="places__sorting"
               action="#"
@@ -72,13 +76,7 @@ const HomePage = ({placeCount}: HomePageProps) => {
                 ))}
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-            </div>
+            <PlaceList offers={filteredOffers} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map" />

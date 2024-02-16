@@ -16,20 +16,21 @@ export type Offer = {
   title: string;
   type: string;
   price: number;
-  previewImage: string;
   city: City;
   location: Location;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+  previewImage: string;
+}
+
+export type ExtendedOffer = Offer & {
   description: string;
-  bedrooms: number;
+  images: string[];
   goods: string[];
   host: User;
-  images: string[];
+  bedrooms: number;
   maxAdults: number;
 }
 
-export type OfferPreview = Omit<Offer, 'description' | 'bedrooms' | 'goods' | 'host' | 'images' | 'maxAdults'>;
-
-export type Offers = OfferPreview[];
+export type Offers = ExtendedOffer[];

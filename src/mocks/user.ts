@@ -1,4 +1,6 @@
-export const user = {
+import {FullUser} from '../types/user-type';
+
+export const user: FullUser = {
   name: 'Oliver Conner',
   avatarUrl: 'https://url-to-image/image.png',
   isPro: false,

@@ -7,19 +7,19 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
+import {Offers} from '../../types/offer-type';
 
 type AppProps = {
-  placeCount: number;
-  images: string[];
+  offers: Offers;
 };
 
-const App = ({placeCount, images}: AppProps) => (
+const App = ({offers}: AppProps) => (
   <HelmetProvider>
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.HOME}
-          element={<HomePage placeCount={placeCount} />}
+          element={<HomePage offers={offers} />}
         />
         <Route
           path={AppRoute.LOGIN}
@@ -29,13 +29,13 @@ const App = ({placeCount, images}: AppProps) => (
           path={AppRoute.FAVORITES}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage />
+              <FavoritesPage offers={offers} />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.OFFER}
-          element={<OfferPage images={images} />}
+          element={<OfferPage offers={offers} />}
         />
         <Route
           path={AppRoute.NOT_FOUND}

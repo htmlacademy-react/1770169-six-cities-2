@@ -124,4 +124,6 @@ const features = [
   }
 ];
 
-export {AppRoute, AuthorizationStatus, cities, sortTypes, ratings, features};
+const rating = [5, 100] as const;
+
+export {AppRoute, AuthorizationStatus, cities, sortTypes, ratings, features, rating};

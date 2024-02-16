@@ -1,16 +1,21 @@
 import {ChangeEvent, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {features} from '../../const';
 import Layout from '../../components/layout/layout';
-import PlaceCard from '../../components/place-card/place-card';
 import Rating from '../../components/rating/rating';
 import ReviewList from '../../components/review-list/review-list';
+import PlaceList from '../../components/place-list/place-list';
+import {Offers} from '../../types/offer-type';
+import {getOfferById} from '../../components/utils/app';
 
 type OfferPageProps = {
-  images: string[];
+  offers: Offers;
 };
 
-const OfferPage = ({images}: OfferPageProps) => {
+const OfferPage = ({offers}: OfferPageProps) => {
+  const {id} = useParams();
+  const {images} = getOfferById(offers, id);
   const [, setRatingValue] = useState<null | string>(null);
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => setRatingValue(evt.target.value);
 
@@ -141,20 +146,12 @@ const OfferPage = ({images}: OfferPageProps) => {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            <PlaceCard
-              placeCardClassName = 'near-places__card place-card'
-              imageWrapperClassName = 'near-places__image-wrapper place-card__image-wrapper'
-            />
-            <PlaceCard
-              placeCardClassName = 'near-places__card place-card'
-              imageWrapperClassName = 'near-places__image-wrapper place-card__image-wrapper'
-            />
-            <PlaceCard
-              placeCardClassName = 'near-places__card place-card'
-              imageWrapperClassName = 'near-places__image-wrapper place-card__image-wrapper'
-            />
-          </div>
+          <PlaceList
+            offers={offers}
+            listClassName='near-places__list places__list'
+            placeCardClassName='near-places__card place-card'
+            imageWrapperClassName='near-places__image-wrapper place-card__image-wrapper'
+          />
         </section>
       </div>
     </Layout>
