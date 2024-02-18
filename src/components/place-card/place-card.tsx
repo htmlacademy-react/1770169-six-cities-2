@@ -1,11 +1,12 @@
-import {Link} from 'react-router-dom';
+import {MouseEvent, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import {Offer} from '../../types/offer-type';
-import {getRatingPercent} from '../utils/app';
-import {toCapitalize} from '../utils/helpers';
-import {useState} from 'react';
+import {getRatingPercent} from '../utils/app-utils';
+import {AppRoute, AuthorizationStatus, housing} from '../../const';
 
 type PlaceCardProps = {
   offer: Offer;
+  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
   placeCardClassName?: string;
   imageWrapperClassName?: string;
   cardInfoClassName?: string;
@@ -14,6 +15,7 @@ type PlaceCardProps = {
 const PlaceCard = (
   {
     offer,
+    authorizationStatus,
     placeCardClassName = 'cities__card place-card',
     imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper',
     cardInfoClassName = 'place-card__info'
@@ -29,24 +31,40 @@ const PlaceCard = (
     rating
   } = offer;
   const [isBookmark, setIsBookmark] = useState(isFavorite);
-  const handleBookmarkClick = () => setIsBookmark((prevState) => !prevState);
+  const [, setActiveCard] = useState('');
+  const navigate = useNavigate();
+
+  const handleBookmarkClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      return setIsBookmark((prevState) => !prevState);
+    }
+    return navigate(AppRoute.LOGIN);
+  };
+  const handlePlaceCardMouseOver = (evt: MouseEvent) => {
+    const {cardId} = (evt.target as HTMLElement).dataset;
+
+    if (cardId) {
+      setActiveCard(cardId);
+    }
+  };
 
   return (
-    <article className={placeCardClassName}>
+    <article className={placeCardClassName} onMouseOver={handlePlaceCardMouseOver}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
       <div className={imageWrapperClassName}>
-        <Link to={`offer/${id}`} >
+        <a href="#">
           <img
             className="place-card__image"
+            data-card-id={id}
             src={previewImage}
             width={260}
             height={200}
             alt="Place image"
           />
-        </Link>
+        </a>
       </div>
       <div className={cardInfoClassName}>
         <div className="place-card__price-wrapper">
@@ -76,9 +94,9 @@ const PlaceCard = (
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{toCapitalize(type)}</p>
+        <p className="place-card__type">{housing[type]}</p>
       </div>
     </article>
   );

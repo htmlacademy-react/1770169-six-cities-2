@@ -1,13 +1,15 @@
 import {Helmet} from 'react-helmet-async';
+import {AuthorizationStatus} from '../../const';
+import {Offers} from '../../types/offer-type';
 import Layout from '../../components/layout/layout';
 import PlaceList from '../../components/place-list/place-list';
-import {Offers} from '../../types/offer-type';
 
 type FavoritesPageProps = {
   offers: Offers;
+  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
 }
 
-const FavoritesPage = ({offers}: FavoritesPageProps) => {
+const FavoritesPage = ({offers, authorizationStatus}: FavoritesPageProps) => {
   const favorites = offers.filter((offer) => offer.isFavorite);
   const favoriteCities = new Set(favorites.map((favorite) => favorite.city.name));
   const containerClassName = favorites.length ? 'page' : 'page page--favorites-empty';
@@ -33,10 +35,11 @@ const FavoritesPage = ({offers}: FavoritesPageProps) => {
                 </div>
                 <PlaceList
                   offers={favorites.filter((favorite) => favorite.city.name === city)}
-                  placeCardClassName = 'favorites__card place-card'
-                  imageWrapperClassName = 'favorites__image-wrapper place-card__image-wrapper'
-                  cardInfoClassName = 'favorites__card-info place-card__info'
-                  listClassName = 'favorites__places'
+                  authorizationStatus={authorizationStatus}
+                  placeCardClassName='favorites__card place-card'
+                  imageWrapperClassName='favorites__image-wrapper place-card__image-wrapper'
+                  cardInfoClassName='favorites__card-info place-card__info'
+                  listClassName='favorites__places'
                 />
               </li>
             ))}

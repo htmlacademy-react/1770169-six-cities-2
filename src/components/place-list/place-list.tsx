@@ -1,9 +1,10 @@
-import {useState} from 'react';
 import {Offers} from '../../types/offer-type';
 import PlaceCard from '../place-card/place-card';
+import { AuthorizationStatus } from '../../const';
 
 type PlaceListProps = {
   offers: Offers;
+  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
   placeCardClassName?: string;
   imageWrapperClassName?: string;
   cardInfoClassName?: string;
@@ -13,28 +14,26 @@ type PlaceListProps = {
 const PlaceList = (
   {
     offers,
+    authorizationStatus,
     placeCardClassName,
     imageWrapperClassName,
     cardInfoClassName,
     listClassName = 'cities__places-list places__list tabs__content'
   }: PlaceListProps
-) => {
-  const [activeCard, setActiveCard] = useState('');
-
-  return (
-    <div className={listClassName}>
-      {offers.map((offer) => (
-        <PlaceCard
-          offer={offer}
-          placeCardClassName={placeCardClassName}
-          imageWrapperClassName={imageWrapperClassName}
-          cardInfoClassName={cardInfoClassName}
-          key={offer.id}
-        />
-      ))}
-    </div>
-  );
-};
+) => (
+  <div className={listClassName}>
+    {offers.map((offer) => (
+      <PlaceCard
+        offer={offer}
+        authorizationStatus={authorizationStatus}
+        placeCardClassName={placeCardClassName}
+        imageWrapperClassName={imageWrapperClassName}
+        cardInfoClassName={cardInfoClassName}
+        key={offer.id}
+      />
+    ))}
+  </div>
+);
 
 
 export default PlaceList;

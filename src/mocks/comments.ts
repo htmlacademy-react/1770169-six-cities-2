@@ -1,6 +1,6 @@
-import {Commets} from '../types/commet-type';
+import {Comments as Comments} from '../types/comment-type';
 
-export const commets: Commets = [
+export const comments: Comments = [
   {
     id: '4321dfd8-0d5d-47de-b51f-508fd6b98826',
     comment: 'We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)',

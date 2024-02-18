@@ -7,11 +7,14 @@ type Rating = {
 
 type RatingItemProps = {
   rating: Rating;
-  onChange: (evt: ChangeEvent<HTMLInputElement>) => void;
+  selectedValue: string;
+  isFormsDisabled: boolean;
+  onFieldChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const RatingItem = ({rating, onChange}: RatingItemProps) => {
+const RatingItem = ({rating, selectedValue, isFormsDisabled, onFieldChange}: RatingItemProps) => {
   const {id, title} = rating;
+
   return (
     <>
       <input
@@ -20,7 +23,9 @@ const RatingItem = ({rating, onChange}: RatingItemProps) => {
         value={id}
         id={`${id}-stars`}
         type="radio"
-        onChange={(evt: ChangeEvent<HTMLInputElement>) => onChange(evt)}
+        checked={parseInt(selectedValue, 10) === id}
+        onChange={onFieldChange}
+        disabled={isFormsDisabled}
       />
       <label
         htmlFor={`${id}-stars`}

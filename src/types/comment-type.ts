@@ -1,6 +1,6 @@
 import {User} from './user-type';
 
-export type Commet = {
+export type Comment = {
   id: string;
   date: string;
   user: User;
@@ -8,4 +8,4 @@ export type Commet = {
   rating: number;
 }
 
-export type Commets = Commet[]
+export type Comments = Comment[]

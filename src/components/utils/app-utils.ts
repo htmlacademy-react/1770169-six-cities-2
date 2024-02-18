@@ -6,7 +6,7 @@ const getFilteredOffers = (offers: Offers, name: string): Offers => offers.filte
 const getRatingPercent = (value: number): string => {
   const [ratingValue, ratingPercent] = rating;
 
-  return `${value * ratingPercent / ratingValue}%`;
+  return `${Math.round(value) * ratingPercent / ratingValue}%`;
 };
 
 const getOfferById = (offers: Offers, id: string): ExtendedOffer | undefined => offers.find((offer) => offer.id === id);
