@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-
-const PLACE_COUNT = 312;
-const IMAGES = ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/studio-01.jpg', 'img/apartment-01.jpg'];
+import {offers} from './mocks/offers';
+import {comments} from './mocks/comments';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,6 +10,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App placeCount={PLACE_COUNT} images={IMAGES} />
+    <App offers={offers} comments={comments} />
   </React.StrictMode>
 );

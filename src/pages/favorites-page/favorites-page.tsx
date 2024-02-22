@@ -1,32 +1,19 @@
 import {Helmet} from 'react-helmet-async';
+import {AuthorizationStatus} from '../../const';
+import {Offers} from '../../types/offer-type';
 import Layout from '../../components/layout/layout';
-import PlaceCard from '../../components/place-card/place-card';
+import PlaceList from '../../components/place-list/place-list';
 
-const favorites = [
-  {
-    id: '1',
-    city: {
-      name: 'Amsterdam'
-    }
-  },
-  {
-    id: '2',
-    city: {
-      name: 'Amsterdam'
-    }
-  },
-  {
-    id: '3',
-    city: {
-      name: 'Cologne'
-    },
-  }
-];
+type FavoritesPageProps = {
+  offers: Offers;
+  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
+}
 
-const FavoritesPage = () => {
+const FavoritesPage = ({offers, authorizationStatus}: FavoritesPageProps) => {
+  const favorites = offers.filter((offer) => offer.isFavorite);
+  const favoriteCities = new Set(favorites.map((favorite) => favorite.city.name));
   const containerClassName = favorites.length ? 'page' : 'page page--favorites-empty';
   const mainClassName = favorites.length ? 'page__main page__main--favorites' : 'page__main page__main--favorites page__main--favorites-empty';
-  const favoriteCities = new Set(favorites.map((favorite) => favorite.city.name));
 
   return (
     <Layout containerClassName={containerClassName} mainClassName={mainClassName}>
@@ -46,16 +33,14 @@ const FavoritesPage = () => {
                     </a>
                   </div>
                 </div>
-                <div className="favorites__places">
-                  {favorites.filter((favorite) => favorite.city.name === city).map((place) => (
-                    <PlaceCard
-                      placeCardClassName = 'favorites__card place-card'
-                      imageWrapperClassName = 'favorites__image-wrapper place-card__image-wrapper'
-                      cardInfoClassName = 'favorites__card-info place-card__info'
-                      key={place.id}
-                    />
-                  ))}
-                </div>
+                <PlaceList
+                  offers={favorites.filter((favorite) => favorite.city.name === city)}
+                  authorizationStatus={authorizationStatus}
+                  placeCardClassName='favorites__card place-card'
+                  imageWrapperClassName='favorites__image-wrapper place-card__image-wrapper'
+                  cardInfoClassName='favorites__card-info place-card__info'
+                  listClassName='favorites__places'
+                />
               </li>
             ))}
           </ul>

@@ -1,8 +1,13 @@
+const MAX_IMAGES_VIEW = 6;
+
+const MAX_REVIEWS_VIEW = 10;
+
 const AppRoute = {
   HOME: '/',
   LOGIN: '/login',
   FAVORITES: '/favorites',
-  OFFER: '/offer/:id',
+  OFFER: '/offer',
+  OFFER_ID: '/offer/:id',
   NOT_FOUND: '*'
 } as const;
 
@@ -60,68 +65,56 @@ const sortTypes = [
 
 const ratings = [
   {
-    id: 1,
-    title: 'terribly'
-  },
-  {
-    id: 2,
-    title: 'badly'
-  },
-  {
-    id: 3,
-    title: 'not bad'
+    id: 5,
+    title: 'perfect'
   },
   {
     id: 4,
     title: 'good'
   },
   {
-    id: 5,
-    title: 'perfect'
-  },
-];
-
-const features = [
-  {
-    id: 1,
-    name: 'Wi-Fi'
+    id: 3,
+    title: 'not bad'
   },
   {
     id: 2,
-    name: 'Washing machine'
+    title: 'badly'
   },
   {
-    id: 3,
-    name: 'Towels'
+    id: 1,
+    title: 'terribly'
   },
-  {
-    id: 4,
-    name: 'Heating'
-  },
-  {
-    id: 5,
-    name: 'Coffee machine'
-  },
-  {
-    id: 6,
-    name: 'Baby seat'
-  },
-  {
-    id: 7,
-    name: 'Kitchen'
-  },
-  {
-    id: 8,
-    name: 'Dishwasher'
-  },
-  {
-    id: 9,
-    name: 'Cabel TV'
-  },
-  {
-    id: 10,
-    name: 'Fridge'
-  }
 ];
 
-export {AppRoute, AuthorizationStatus, cities, sortTypes, ratings, features};
+const rating = [5, 100] as const;
+
+const housing: Record<string, string> = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel'
+};
+
+const DateFormat = {
+  ATTRIBUTE_FORMAT: 'YYYY-MM-DD',
+  REVIEW_DATE_FORMAT: 'MMMM YYYY'
+};
+
+const ReviewLength = {
+  MIN: 50,
+  MAX: 300
+};
+
+export {
+  MAX_IMAGES_VIEW,
+  MAX_REVIEWS_VIEW,
+  AppRoute,
+  AuthorizationStatus,
+  cities,
+  sortTypes,
+  ratings,
+  rating,
+  housing,
+  DateFormat,
+  ReviewLength
+};

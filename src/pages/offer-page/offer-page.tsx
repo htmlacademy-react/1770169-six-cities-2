@@ -1,28 +1,60 @@
-import {ChangeEvent, useState} from 'react';
+import {useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {features} from '../../const';
+import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
+import {Comments} from '../../types/comment-type';
+import {getOfferById, getRatingPercent} from '../../components/utils/app-utils';
+import {ExtendedOffer, Offers} from '../../types/offer-type';
 import Layout from '../../components/layout/layout';
-import PlaceCard from '../../components/place-card/place-card';
-import Rating from '../../components/rating/rating';
 import ReviewList from '../../components/review-list/review-list';
+import PlaceList from '../../components/place-list/place-list';
+import ReviewForm from '../../components/review-form/review-form';
 
 type OfferPageProps = {
-  images: string[];
+  offers: Offers;
+  comments: Comments;
+  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
 };
 
-const OfferPage = ({images}: OfferPageProps) => {
-  const [, setRatingValue] = useState<null | string>(null);
-  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => setRatingValue(evt.target.value);
+type UseParams = {
+  id: string;
+}
+
+const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
+  const {id} = useParams() as UseParams;
+  const {
+    title,
+    description,
+    type,
+    price,
+    goods,
+    host,
+    images,
+    isPremium,
+    isFavorite,
+    rating,
+    bedrooms,
+    maxAdults
+  } = getOfferById(offers, id) as ExtendedOffer;
+  const [isBookmark, setIsBookmark] = useState(isFavorite);
+  const navigate = useNavigate();
+
+  const handleBookmarkClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      return setIsBookmark((prevState) => !prevState);
+    }
+    return navigate(AppRoute.LOGIN);
+  };
 
   return (
     <Layout containerClassName='page' mainClassName='page__main page__main--offer'>
       <Helmet>
-        <title>6 cities | Beautiful &amp; luxurious studio at great location</title>
+        <title>6 cities | {title}</title>
       </Helmet>
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
-            {images.map((image) => (
+            {images.slice(0, MAX_IMAGES_VIEW).map((image) => (
               <div className="offer__image-wrapper" key={image}>
                 <img
                   className="offer__image"
@@ -35,104 +67,72 @@ const OfferPage = ({images}: OfferPageProps) => {
         </div>
         <div className="offer__container container">
           <div className="offer__wrapper">
-            <div className="offer__mark">
-              <span>Premium</span>
-            </div>
+            {
+              isPremium &&
+              <div className="offer__mark">
+                <span>Premium</span>
+              </div>
+            }
             <div className="offer__name-wrapper">
-              <h1 className="offer__name">
-                Beautiful &amp; luxurious studio at great location
-              </h1>
-              <button className="offer__bookmark-button button" type="button">
+              <h1 className="offer__name">{title}</h1>
+              <button
+                className={`offer__bookmark-button ${isBookmark ? 'offer__bookmark-button--active' : ''} button`}
+                type="button"
+                onClick={handleBookmarkClick}
+              >
                 <svg className="offer__bookmark-icon" width={31} height={33}>
                   <use xlinkHref="#icon-bookmark" />
                 </svg>
-                <span className="visually-hidden">To bookmarks</span>
+                <span className="visually-hidden">{isBookmark ? 'In bookmarks' : 'To bookmarks'}</span>
               </button>
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: '80%' }} />
+                <span style={{width: getRatingPercent(rating)}} />
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="offer__rating-value rating__value">4.8</span>
+              <span className="offer__rating-value rating__value">{rating}</span>
             </div>
             <ul className="offer__features">
-              <li className="offer__feature offer__feature--entire">Apartment</li>
-              <li className="offer__feature offer__feature--bedrooms">
-                3 Bedrooms
-              </li>
-              <li className="offer__feature offer__feature--adults">
-                Max 4 adults
-              </li>
+              <li className="offer__feature offer__feature--entire">{housing[type]}</li>
+              <li className="offer__feature offer__feature--bedrooms">{`${bedrooms} Bedrooms`}</li>
+              <li className="offer__feature offer__feature--adults">{`Max ${maxAdults} adults`}</li>
             </ul>
             <div className="offer__price">
-              <b className="offer__price-value">€120</b>
+              <b className="offer__price-value">{`€${price}`}</b>
               <span className="offer__price-text">&nbsp;night</span>
             </div>
             <div className="offer__inside">
               <h2 className="offer__inside-title">What&apos;s inside</h2>
               <ul className="offer__inside-list">
-                {features.map(({id, name}) => <li key={id} className="offer__inside-item">{name}</li>)}
+                {goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
               </ul>
             </div>
             <div className="offer__host">
               <h2 className="offer__host-title">Meet the host</h2>
               <div className="offer__host-user user">
-                <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                <div className={`offer__avatar-wrapper ${host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
                   <img
                     className="offer__avatar user__avatar"
-                    src="img/avatar-angelina.jpg"
+                    src={host.avatarUrl}
                     width={74}
                     height={74}
                     alt="Host avatar"
                   />
                 </div>
-                <span className="offer__user-name">Angelina</span>
-                <span className="offer__user-status">Pro</span>
+                <span className="offer__user-name">{host.name}</span>
+                <span className="offer__user-status">{host.isPro ? 'Pro' : ''}</span>
               </div>
               <div className="offer__description">
-                <p className="offer__text">
-                  A quiet cozy and picturesque that hides behind a a river by the
-                  unique lightness of Amsterdam. The building is green and from 18th
-                  century.
-                </p>
-                <p className="offer__text">
-                  An independent House, strategically located between Rembrand
-                  Square and National Opera, but where the bustle of the city comes
-                  to rest in this alley flowery and colorful.
-                </p>
+                <p className="offer__text">{description}</p>
               </div>
             </div>
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">
-                Reviews · <span className="reviews__amount">1</span>
+                Reviews · <span className="reviews__amount">{comments.length}</span>
               </h2>
-              <ReviewList />
-              <form className="reviews__form form" action="#" method="post">
-                <label className="reviews__label form__label" htmlFor="review">
-                  Your review
-                </label>
-                <Rating onChange={handleRatingChange} />
-                <textarea
-                  className="reviews__textarea form__textarea"
-                  id="review"
-                  name="review"
-                  placeholder="Tell how was your stay, what you like and what can be improved"
-                />
-                <div className="reviews__button-wrapper">
-                  <p className="reviews__help">
-                    To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least
-                    <b className="reviews__text-amount">50 characters</b>.
-                  </p>
-                  <button
-                    className="reviews__submit form__submit button"
-                    type="submit"
-                    disabled
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
+              <ReviewList reviews={comments} />
+              {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm />}
             </section>
           </div>
         </div>
@@ -141,20 +141,13 @@ const OfferPage = ({images}: OfferPageProps) => {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            <PlaceCard
-              placeCardClassName = 'near-places__card place-card'
-              imageWrapperClassName = 'near-places__image-wrapper place-card__image-wrapper'
-            />
-            <PlaceCard
-              placeCardClassName = 'near-places__card place-card'
-              imageWrapperClassName = 'near-places__image-wrapper place-card__image-wrapper'
-            />
-            <PlaceCard
-              placeCardClassName = 'near-places__card place-card'
-              imageWrapperClassName = 'near-places__image-wrapper place-card__image-wrapper'
-            />
-          </div>
+          <PlaceList
+            offers={offers}
+            authorizationStatus={authorizationStatus}
+            listClassName='near-places__list places__list'
+            placeCardClassName='near-places__card place-card'
+            imageWrapperClassName='near-places__image-wrapper place-card__image-wrapper'
+          />
         </section>
       </div>
     </Layout>

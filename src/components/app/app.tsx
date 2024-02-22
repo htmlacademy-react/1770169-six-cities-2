@@ -1,6 +1,8 @@
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
+import {Comments} from '../../types/comment-type';
+import {Offers} from '../../types/offer-type';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import HomePage from '../../pages/home-page/home-page';
 import LoginPage from '../../pages/login-page/login-page';
@@ -9,17 +11,17 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
-  placeCount: number;
-  images: string[];
+  offers: Offers;
+  comments: Comments;
 };
 
-const App = ({placeCount, images}: AppProps) => (
+const App = ({offers, comments}: AppProps) => (
   <HelmetProvider>
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.HOME}
-          element={<HomePage placeCount={placeCount} />}
+          element={<HomePage offers={offers} authorizationStatus={AuthorizationStatus.Auth} />}
         />
         <Route
           path={AppRoute.LOGIN}
@@ -28,14 +30,20 @@ const App = ({placeCount, images}: AppProps) => (
         <Route
           path={AppRoute.FAVORITES}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage />
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <FavoritesPage offers={offers} authorizationStatus={AuthorizationStatus.Auth} />
             </PrivateRoute>
           }
         />
         <Route
-          path={AppRoute.OFFER}
-          element={<OfferPage images={images} />}
+          path={AppRoute.OFFER_ID}
+          element={
+            <OfferPage
+              offers={offers}
+              comments={comments}
+              authorizationStatus={AuthorizationStatus.Auth}
+            />
+          }
         />
         <Route
           path={AppRoute.NOT_FOUND}
