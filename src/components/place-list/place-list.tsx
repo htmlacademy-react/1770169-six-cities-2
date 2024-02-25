@@ -1,10 +1,13 @@
+import {MouseEvent} from 'react';
+
+import {AuthorizationStatus} from '../../const';
 import {Offers} from '../../types/offer-type';
 import PlaceCard from '../place-card/place-card';
-import { AuthorizationStatus } from '../../const';
 
 type PlaceListProps = {
   offers: Offers;
   authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
+  onMouseOver?: (evt: MouseEvent) => void;
   placeCardClassName?: string;
   imageWrapperClassName?: string;
   cardInfoClassName?: string;
@@ -15,6 +18,7 @@ const PlaceList = (
   {
     offers,
     authorizationStatus,
+    onMouseOver,
     placeCardClassName,
     imageWrapperClassName,
     cardInfoClassName,
@@ -26,6 +30,7 @@ const PlaceList = (
       <PlaceCard
         offer={offer}
         authorizationStatus={authorizationStatus}
+        onMouseOver={onMouseOver}
         placeCardClassName={placeCardClassName}
         imageWrapperClassName={imageWrapperClassName}
         cardInfoClassName={cardInfoClassName}

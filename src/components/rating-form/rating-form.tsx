@@ -1,4 +1,5 @@
 import {ChangeEvent} from 'react';
+
 import {ratings} from '../../const';
 import RatingItem from '../rating-item/rating-item';
 

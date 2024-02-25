@@ -1,13 +1,14 @@
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
-import {Comments} from '../../types/comment-type';
-import {Offers} from '../../types/offer-type';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+
+import {AppRoute, AuthorizationStatus} from '../../const';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import HomePage from '../../pages/home-page/home-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import OfferPage from '../../pages/offer-page/offer-page';
+import {Comments} from '../../types/comment-type';
+import {Offers} from '../../types/offer-type';
 import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {

@@ -1,12 +1,17 @@
 import {MouseEvent, useState} from 'react';
+
+import classNames from 'classnames';
 import {Link, useNavigate} from 'react-router-dom';
+
+import {AppRoute, AuthorizationStatus, housing} from '../../const';
 import {Offer} from '../../types/offer-type';
 import {getRatingPercent} from '../utils/app-utils';
-import {AppRoute, AuthorizationStatus, housing} from '../../const';
+
 
 type PlaceCardProps = {
   offer: Offer;
   authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
+  onMouseOver?: (evt: MouseEvent) => void;
   placeCardClassName?: string;
   imageWrapperClassName?: string;
   cardInfoClassName?: string;
@@ -16,6 +21,7 @@ const PlaceCard = (
   {
     offer,
     authorizationStatus,
+    onMouseOver,
     placeCardClassName = 'cities__card place-card',
     imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper',
     cardInfoClassName = 'place-card__info'
@@ -31,7 +37,6 @@ const PlaceCard = (
     rating
   } = offer;
   const [isBookmark, setIsBookmark] = useState(isFavorite);
-  const [, setActiveCard] = useState('');
   const navigate = useNavigate();
 
   const handleBookmarkClick = () => {
@@ -40,16 +45,9 @@ const PlaceCard = (
     }
     return navigate(AppRoute.LOGIN);
   };
-  const handlePlaceCardMouseOver = (evt: MouseEvent) => {
-    const {cardId} = (evt.target as HTMLElement).dataset;
-
-    if (cardId) {
-      setActiveCard(cardId);
-    }
-  };
 
   return (
-    <article className={placeCardClassName} onMouseOver={handlePlaceCardMouseOver}>
+    <article className={placeCardClassName} onMouseOver={onMouseOver}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -73,7 +71,11 @@ const PlaceCard = (
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ${isBookmark ? 'place-card__bookmark-button--active' : ''} button`}
+            className={classNames(
+              'place-card__bookmark-button',
+              {'place-card__bookmark-button--active': isBookmark},
+              'button'
+            )}
             type="button"
             onClick={handleBookmarkClick}
           >

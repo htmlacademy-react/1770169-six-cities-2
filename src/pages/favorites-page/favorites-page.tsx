@@ -1,8 +1,10 @@
+import classNames from 'classnames';
 import {Helmet} from 'react-helmet-async';
-import {AuthorizationStatus} from '../../const';
-import {Offers} from '../../types/offer-type';
+
 import Layout from '../../components/layout/layout';
 import PlaceList from '../../components/place-list/place-list';
+import {AuthorizationStatus} from '../../const';
+import {Offers} from '../../types/offer-type';
 
 type FavoritesPageProps = {
   offers: Offers;
@@ -12,8 +14,14 @@ type FavoritesPageProps = {
 const FavoritesPage = ({offers, authorizationStatus}: FavoritesPageProps) => {
   const favorites = offers.filter((offer) => offer.isFavorite);
   const favoriteCities = new Set(favorites.map((favorite) => favorite.city.name));
-  const containerClassName = favorites.length ? 'page' : 'page page--favorites-empty';
-  const mainClassName = favorites.length ? 'page__main page__main--favorites' : 'page__main page__main--favorites page__main--favorites-empty';
+  const containerClassName = classNames({
+    'page': favorites.length,
+    'page page--favorites-empty': !favorites.length
+  });
+  const mainClassName = classNames({
+    'page__main page__main--favorites': favorites.length,
+    'page__main page__main--favorites page__main--favorites-empty': !favorites.length
+  });
 
   return (
     <Layout containerClassName={containerClassName} mainClassName={mainClassName}>

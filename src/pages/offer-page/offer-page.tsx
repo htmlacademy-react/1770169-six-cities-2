@@ -1,14 +1,17 @@
 import {useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+
+import classNames from 'classnames';
 import {Helmet} from 'react-helmet-async';
-import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
-import {Comments} from '../../types/comment-type';
-import {getOfferById, getRatingPercent} from '../../components/utils/app-utils';
-import {ExtendedOffer, Offers} from '../../types/offer-type';
+import {useNavigate, useParams} from 'react-router-dom';
+
 import Layout from '../../components/layout/layout';
-import ReviewList from '../../components/review-list/review-list';
 import PlaceList from '../../components/place-list/place-list';
 import ReviewForm from '../../components/review-form/review-form';
+import ReviewList from '../../components/review-list/review-list';
+import {getOfferById, getRatingPercent} from '../../components/utils/app-utils';
+import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
+import {Comments} from '../../types/comment-type';
+import {ExtendedOffer, Offers} from '../../types/offer-type';
 
 type OfferPageProps = {
   offers: Offers;
@@ -76,7 +79,11 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
             <div className="offer__name-wrapper">
               <h1 className="offer__name">{title}</h1>
               <button
-                className={`offer__bookmark-button ${isBookmark ? 'offer__bookmark-button--active' : ''} button`}
+                className={classNames(
+                  'offer__bookmark-button',
+                  {'offer__bookmark-button--active': isBookmark},
+                  'button'
+                )}
                 type="button"
                 onClick={handleBookmarkClick}
               >
@@ -111,7 +118,12 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
             <div className="offer__host">
               <h2 className="offer__host-title">Meet the host</h2>
               <div className="offer__host-user user">
-                <div className={`offer__avatar-wrapper ${host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                <div className={classNames(
+                  'offer__avatar-wrapper',
+                  {'offer__avatar-wrapper--pro': host.isPro},
+                  'user__avatar-wrapper'
+                )}
+                >
                   <img
                     className="offer__avatar user__avatar"
                     src={host.avatarUrl}

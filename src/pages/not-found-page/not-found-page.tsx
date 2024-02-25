@@ -1,6 +1,7 @@
-import {AppRoute} from '../../const';
 import {Helmet} from 'react-helmet-async';
 import {Link, useLocation} from 'react-router-dom';
+
+import {AppRoute} from '../../const';
 import './not-found-page.css';
 
 const NotFoundPage = () => {
