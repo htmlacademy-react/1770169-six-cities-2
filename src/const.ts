@@ -2,6 +2,8 @@ const MAX_IMAGES_VIEW = 6;
 
 const MAX_REVIEWS_VIEW = 10;
 
+const MAP_ZOOM = 10;
+
 const AppRoute = {
   HOME: '/',
   LOGIN: '/login',
@@ -105,9 +107,15 @@ const ReviewLength = {
   MAX: 300
 };
 
+const IconPath = {
+  DEFAULT_ICON_PATH: 'img/pin.svg',
+  CURRENT_ICON_PATH: 'img/pin-active.svg'
+};
+
 export {
   MAX_IMAGES_VIEW,
   MAX_REVIEWS_VIEW,
+  MAP_ZOOM,
   AppRoute,
   AuthorizationStatus,
   cities,
@@ -116,5 +124,6 @@ export {
   rating,
   housing,
   DateFormat,
-  ReviewLength
+  ReviewLength,
+  IconPath
 };

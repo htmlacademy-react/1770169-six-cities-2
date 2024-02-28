@@ -1,7 +1,8 @@
 import * as dayjs from 'dayjs';
+
+import {DateFormat} from '../../const';
 import {Comment} from '../../types/comment-type';
 import {getRatingPercent} from '../utils/app-utils';
-import {DateFormat} from '../../const';
 
 type ReviewCardProps = {
   review: Comment;

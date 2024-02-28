@@ -1,6 +1,7 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
-import {validateReviewLength} from '../utils/validate-utils';
+
 import RatingForm from '../rating-form/rating-form';
+import {validateReviewLength} from '../utils/validate-utils';
 
 const ReviewForm = () => {
   const [comment, setComment] = useState({
