@@ -5,6 +5,7 @@ import {Helmet} from 'react-helmet-async';
 import {useNavigate, useParams} from 'react-router-dom';
 
 import Layout from '../../components/layout/layout';
+import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
@@ -135,13 +136,15 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
             </section>
           </div>
         </div>
-        <section className="offer__map map" />
+        <section className="offer__map map" >
+          <Map offers={[...offers.slice(5), offer]} currentCard={offer.id} />
+        </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <PlaceList
-            offers={offers}
+            offers={offers.slice(5)}
             authorizationStatus={authorizationStatus}
             listClassName='near-places__list places__list'
             placeCardClassName='near-places__card place-card'
