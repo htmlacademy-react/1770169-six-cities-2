@@ -14,17 +14,18 @@ type FavoritesPageProps = {
 const FavoritesPage = ({offers, authorizationStatus}: FavoritesPageProps) => {
   const favorites = offers.filter((offer) => offer.isFavorite);
   const favoriteCities = new Set(favorites.map((favorite) => favorite.city.name));
-  const containerClassName = classNames({
-    'page': favorites.length,
-    'page page--favorites-empty': !favorites.length
-  });
-  const mainClassName = classNames({
-    'page__main page__main--favorites': favorites.length,
-    'page__main page__main--favorites page__main--favorites-empty': !favorites.length
-  });
 
   return (
-    <Layout containerClassName={containerClassName} mainClassName={mainClassName}>
+    <Layout
+      containerClassName={classNames({
+        'page': favorites.length,
+        'page page--favorites-empty': !favorites.length
+      })}
+      mainClassName={classNames({
+        'page__main page__main--favorites': favorites.length,
+        'page__main page__main--favorites page__main--favorites-empty': !favorites.length
+      })}
+    >
       <Helmet>
         <title>6 cities | Saved listing</title>
       </Helmet>
