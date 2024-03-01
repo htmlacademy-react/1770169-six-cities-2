@@ -5,6 +5,7 @@ import {Helmet} from 'react-helmet-async';
 import {useNavigate, useParams} from 'react-router-dom';
 
 import Layout from '../../components/layout/layout';
+import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
@@ -25,21 +26,8 @@ type UseParams = {
 
 const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
   const {id} = useParams() as UseParams;
-  const {
-    title,
-    description,
-    type,
-    price,
-    goods,
-    host,
-    images,
-    isPremium,
-    isFavorite,
-    rating,
-    bedrooms,
-    maxAdults
-  } = getOfferById(offers, id) as ExtendedOffer;
-  const [isBookmark, setIsBookmark] = useState(isFavorite);
+  const offer = getOfferById(offers, id) as ExtendedOffer;
+  const [isBookmark, setIsBookmark] = useState(offer.isFavorite);
   const navigate = useNavigate();
 
   const handleBookmarkClick = () => {
@@ -52,12 +40,12 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
   return (
     <Layout containerClassName='page' mainClassName='page__main page__main--offer'>
       <Helmet>
-        <title>6 cities | {title}</title>
+        <title>6 cities | {offer.title}</title>
       </Helmet>
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
-            {images.slice(0, MAX_IMAGES_VIEW).map((image) => (
+            {offer.images.slice(0, MAX_IMAGES_VIEW).map((image) => (
               <div className="offer__image-wrapper" key={image}>
                 <img
                   className="offer__image"
@@ -71,13 +59,13 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
         <div className="offer__container container">
           <div className="offer__wrapper">
             {
-              isPremium &&
+              offer.isPremium &&
               <div className="offer__mark">
                 <span>Premium</span>
               </div>
             }
             <div className="offer__name-wrapper">
-              <h1 className="offer__name">{title}</h1>
+              <h1 className="offer__name">{offer.title}</h1>
               <button
                 className={classNames(
                   'offer__bookmark-button',
@@ -95,24 +83,24 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{width: getRatingPercent(rating)}} />
+                <span style={{width: getRatingPercent(offer.rating)}} />
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="offer__rating-value rating__value">{rating}</span>
+              <span className="offer__rating-value rating__value">{offer.rating}</span>
             </div>
             <ul className="offer__features">
-              <li className="offer__feature offer__feature--entire">{housing[type]}</li>
-              <li className="offer__feature offer__feature--bedrooms">{`${bedrooms} Bedrooms`}</li>
-              <li className="offer__feature offer__feature--adults">{`Max ${maxAdults} adults`}</li>
+              <li className="offer__feature offer__feature--entire">{housing[offer.type]}</li>
+              <li className="offer__feature offer__feature--bedrooms">{`${offer.bedrooms} Bedrooms`}</li>
+              <li className="offer__feature offer__feature--adults">{`Max ${offer.maxAdults} adults`}</li>
             </ul>
             <div className="offer__price">
-              <b className="offer__price-value">{`€${price}`}</b>
+              <b className="offer__price-value">{`€${offer.price}`}</b>
               <span className="offer__price-text">&nbsp;night</span>
             </div>
             <div className="offer__inside">
               <h2 className="offer__inside-title">What&apos;s inside</h2>
               <ul className="offer__inside-list">
-                {goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
+                {offer.goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
               </ul>
             </div>
             <div className="offer__host">
@@ -120,23 +108,23 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
               <div className="offer__host-user user">
                 <div className={classNames(
                   'offer__avatar-wrapper',
-                  {'offer__avatar-wrapper--pro': host.isPro},
+                  {'offer__avatar-wrapper--pro': offer.host.isPro},
                   'user__avatar-wrapper'
                 )}
                 >
                   <img
                     className="offer__avatar user__avatar"
-                    src={host.avatarUrl}
+                    src={offer.host.avatarUrl}
                     width={74}
                     height={74}
                     alt="Host avatar"
                   />
                 </div>
-                <span className="offer__user-name">{host.name}</span>
-                <span className="offer__user-status">{host.isPro ? 'Pro' : ''}</span>
+                <span className="offer__user-name">{offer.host.name}</span>
+                <span className="offer__user-status">{offer.host.isPro ? 'Pro' : ''}</span>
               </div>
               <div className="offer__description">
-                <p className="offer__text">{description}</p>
+                <p className="offer__text">{offer.description}</p>
               </div>
             </div>
             <section className="offer__reviews reviews">
@@ -148,13 +136,15 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
             </section>
           </div>
         </div>
-        <section className="offer__map map" />
+        <section className="offer__map map" >
+          <Map offers={[...offers.slice(5), offer]} currentCard={offer.id} />
+        </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <PlaceList
-            offers={offers}
+            offers={offers.slice(5)}
             authorizationStatus={authorizationStatus}
             listClassName='near-places__list places__list'
             placeCardClassName='near-places__card place-card'
