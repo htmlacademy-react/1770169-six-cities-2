@@ -7,7 +7,6 @@ import {useNavigate, useParams} from 'react-router-dom';
 import Layout from '../../components/layout/layout';
 import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
-import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
 import {getOfferById, getRatingPercent} from '../../components/utils/app-utils';
 import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
@@ -127,13 +126,7 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
                 <p className="offer__text">{offer.description}</p>
               </div>
             </div>
-            <section className="offer__reviews reviews">
-              <h2 className="reviews__title">
-                Reviews · <span className="reviews__amount">{comments.length}</span>
-              </h2>
-              <ReviewList reviews={comments} />
-              {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm />}
-            </section>
+            <ReviewList reviews={comments} authorizationStatus={authorizationStatus} />
           </div>
         </div>
         <section className="offer__map map" >
