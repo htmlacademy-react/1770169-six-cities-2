@@ -17,7 +17,7 @@ const AppRoute = {
   LOGIN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer',
-  OFFER_ID: '/offer/:offerId',
+  OFFER_ID: '/offer/:id',
   NOT_FOUND: '*'
 } as const;
 

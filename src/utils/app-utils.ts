@@ -1,5 +1,5 @@
-import {rating} from '../../const';
-import {ExtendedOffer, Offers} from '../../types/offer-type';
+import {rating} from '../const';
+import {Offers} from '../types/offer-type';
 
 const getFilteredOffers = (offers: Offers, name: string): Offers => offers.filter((offer) => offer.city.name === name);
 
@@ -9,6 +9,6 @@ const getRatingPercent = (value: number): string => {
   return `${Math.round(value) * ratingPercent / ratingValue}%`;
 };
 
-const getOfferById = (offers: Offers, id: string): ExtendedOffer | undefined => offers.find((offer) => offer.id === id);
+const getRandomElement = <T>(elements: T[]): T => elements[Math.floor(Math.random() * elements.length)];
 
-export {getFilteredOffers, getRatingPercent, getOfferById};
+export {getFilteredOffers, getRatingPercent, getRandomElement};
