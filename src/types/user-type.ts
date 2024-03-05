@@ -7,3 +7,7 @@ export type FullUser = {
 }
 
 export type User = Omit<FullUser, 'email' | 'token'>
+
+export type AuthUser = Pick<FullUser, 'email'> & {
+  password: string;
+}

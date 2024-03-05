@@ -8,4 +8,6 @@ export type Comment = {
   rating: number;
 }
 
+export type CreateComment = Omit<Comment, 'date' | 'user'>
+
 export type Comments = Comment[]
