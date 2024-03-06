@@ -1,4 +1,4 @@
-import {ChangeEvent, FormEvent, MouseEvent, useState} from 'react';
+import {ChangeEvent, FormEvent, MouseEvent, useMemo, useState} from 'react';
 
 import {Helmet} from 'react-helmet-async';
 import {Link, useNavigate} from 'react-router-dom';
@@ -21,7 +21,7 @@ const LoginPage = () => {
   );
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const location = getRandomElement<Locations[number]>(cities);
+  const location = useMemo(() => getRandomElement<Locations[number]>(cities), []);
 
   const handelFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;

@@ -12,6 +12,8 @@ const REQUEST_TIMEOUT = 5000;
 
 const PASSWORD_REGEX = /(?=^.{2,}$)((?=.*\d))(?=.*[A-Za-z]).*$/;
 
+const TOKEN_KEY = 'AuthToken';
+
 const AppRoute = {
   HOME: '/',
   LOGIN: '/login',
@@ -135,7 +137,7 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.NOT_FOUND]: true
 };
 
-const ErrorMessage = {
+const ErrorMessage: Record<string, string> = {
   PASSWORD_ERROR_MESSAGE: 'Пароль должен состоять минимум из одной буквы и цифры'
 };
 
@@ -146,6 +148,7 @@ export {
   API_URL,
   REQUEST_TIMEOUT,
   PASSWORD_REGEX,
+  TOKEN_KEY,
   AppRoute,
   AuthorizationStatus,
   cities,

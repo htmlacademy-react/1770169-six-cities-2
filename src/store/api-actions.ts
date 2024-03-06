@@ -73,7 +73,7 @@ export const createCommentAction = createAsyncThunk<void, CreateComment, {
   extra: AxiosInstance;
 }>('offer/createComment', async (data, {extra: api}) => {
   const {id, ...comment} = data;
-  await api.post(`${ApiRoute.COMMENTS}/${id}`, comment);
+  await api.post(`${ApiRoute.COMMENTS}1/${id}`, comment);
 });
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {

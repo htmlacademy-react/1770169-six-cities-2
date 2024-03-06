@@ -1,6 +1,7 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {toast} from 'react-toastify';
 
+
 import {getToken} from './token';
 import {API_URL, REQUEST_TIMEOUT, StatusCodeMapping} from '../const';
 import {DetailMessage} from '../types/app-type';

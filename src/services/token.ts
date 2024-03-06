@@ -1,4 +1,4 @@
-const TOKEN_KEY = 'AuthToken';
+import {TOKEN_KEY} from '../const';
 
 export const setToken = (token: string): void => localStorage.setItem(TOKEN_KEY, token);
 

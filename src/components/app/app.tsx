@@ -18,7 +18,8 @@ import PrivateRoute from '../private-route/private-route';
 
 
 const App = () => {
-  const {authorizationStatus, isLoading} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isLoading = useAppSelector((state) => state.isLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

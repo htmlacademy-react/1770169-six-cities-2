@@ -7,7 +7,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {logoutAction} from '../../store/api-actions';
 
 const Header = () => {
-  const {authorizationStatus, user, favoriteOffers} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.user);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
   const dispatch = useAppDispatch();
 
   const handleSignOutClick = (evt: MouseEvent<HTMLAnchorElement>) => {

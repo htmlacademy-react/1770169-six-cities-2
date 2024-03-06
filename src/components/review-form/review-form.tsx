@@ -4,7 +4,7 @@ import {ReviewLength} from '../../const';
 import {useAppDispatch} from '../../hooks/use-store';
 import {createCommentAction} from '../../store/api-actions';
 import RatingForm from '../rating-form/rating-form';
-import {validateReviewLength} from '../utils/validate-utils';
+import {validateReviewLength} from '../../utils/validate-utils';
 
 type ReviewFormProps = {
   offerId: string;
@@ -21,6 +21,11 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
 
   const {review, rating} = comment;
 
+  const setElementsDisabled = (isDisabled = true) => {
+    setIsFormsDisabled(isDisabled);
+    setIsButtonDisabled(isDisabled);
+  };
+
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setComment((prevState) => ({...prevState, [name]: value}));
@@ -33,24 +38,22 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
   };
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
-    try {
-      setIsFormsDisabled(true);
-      setIsButtonDisabled(true);
-      dispatch(createCommentAction(
-        {
-          id: offerId,
-          comment: comment.review,
-          rating: parseInt(comment.rating, 10)
-        }
-      ));
-    } catch (err) {
-      setIsFormsDisabled(false);
-      setIsButtonDisabled(false);
-    }
-    setComment((prevState) => ({...prevState, review: '', rating: ''}));
-    setIsFormsDisabled(false);
-    setIsButtonDisabled(true);
+    setElementsDisabled();
+    dispatch(createCommentAction(
+      {
+        id: offerId,
+        comment: comment.review,
+        rating: parseInt(comment.rating, 10)
+      }
+    )).then((res) => {
+      if (res.meta.requestStatus === 'rejected') {
+        setElementsDisabled(false);
+      } else {
+        setComment((prevState) => ({...prevState, review: '', rating: ''}));
+        setIsFormsDisabled(false);
+        setIsButtonDisabled(true);
+      }
+    });
   };
 
   return (

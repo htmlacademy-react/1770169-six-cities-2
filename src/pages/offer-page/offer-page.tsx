@@ -20,7 +20,10 @@ type UseParams = {
 const OfferPage = () => {
   const [isBookmark, setIsBookmark] = useState(false);
   const {id} = useParams() as UseParams;
-  const {authorizationStatus, offer, comments, nearbyOffers} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offer = useAppSelector((state) => state.offer);
+  const comments = useAppSelector((state) => state.comments);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
