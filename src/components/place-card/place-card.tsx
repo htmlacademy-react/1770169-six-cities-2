@@ -5,7 +5,7 @@ import {Link, useNavigate} from 'react-router-dom';
 
 import {AppRoute, AuthorizationStatus, housing} from '../../const';
 import {Offer} from '../../types/offer-type';
-import {getRatingPercent} from '../utils/app-utils';
+import {getRatingPercent} from '../../utils/app-utils';
 
 
 type PlaceCardProps = {
@@ -26,17 +26,7 @@ const PlaceCard = (
     imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper',
     cardInfoClassName = 'place-card__info'
   }: PlaceCardProps) => {
-  const {
-    id,
-    title,
-    type,
-    price,
-    previewImage,
-    isPremium,
-    isFavorite,
-    rating
-  } = offer;
-  const [isBookmark, setIsBookmark] = useState(isFavorite);
+  const [isBookmark, setIsBookmark] = useState(offer.isFavorite);
   const navigate = useNavigate();
 
   const handleBookmarkClick = () => {
@@ -48,7 +38,7 @@ const PlaceCard = (
 
   return (
     <article className={placeCardClassName} onMouseOver={onMouseOver}>
-      {isPremium &&
+      {offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
@@ -56,8 +46,8 @@ const PlaceCard = (
         <a href="#">
           <img
             className="place-card__image"
-            data-card-id={id}
-            src={previewImage}
+            data-card-id={offer.id}
+            src={offer.previewImage}
             width={260}
             height={200}
             alt="Place image"
@@ -67,7 +57,7 @@ const PlaceCard = (
       <div className={cardInfoClassName}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">{`€${price}`}</b>
+            <b className="place-card__price-value">{`€${offer.price}`}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
@@ -91,14 +81,14 @@ const PlaceCard = (
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: getRatingPercent(rating)}} />
+            <span style={{width: getRatingPercent(offer.rating)}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.OFFER}/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{housing[type]}</p>
+        <p className="place-card__type">{housing[offer.type]}</p>
       </div>
     </article>
   );

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import classNames from 'classnames';
 import {Helmet} from 'react-helmet-async';
@@ -7,28 +7,41 @@ import {useNavigate, useParams} from 'react-router-dom';
 import Layout from '../../components/layout/layout';
 import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
-import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
-import {getOfferById, getRatingPercent} from '../../components/utils/app-utils';
+import {getRatingPercent} from '../../utils/app-utils';
 import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
-import {Comments} from '../../types/comment-type';
-import {ExtendedOffer, Offers} from '../../types/offer-type';
-
-type OfferPageProps = {
-  offers: Offers;
-  comments: Comments;
-  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
-};
+import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
+import {getCommentsAction, getNearbyOffersAction, getOfferAction} from '../../store/api-actions';
 
 type UseParams = {
   id: string;
 }
 
-const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
+const OfferPage = () => {
+  const [isBookmark, setIsBookmark] = useState(false);
   const {id} = useParams() as UseParams;
-  const offer = getOfferById(offers, id) as ExtendedOffer;
-  const [isBookmark, setIsBookmark] = useState(offer.isFavorite);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offer = useAppSelector((state) => state.offer);
+  const comments = useAppSelector((state) => state.comments);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getOfferAction(id));
+    dispatch(getCommentsAction(id));
+    dispatch(getNearbyOffersAction(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (offer !== null) {
+      setIsBookmark(offer.isFavorite);
+    }
+  }, [offer]);
+
+  if (offer === null) {
+    return;
+  }
 
   const handleBookmarkClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -127,24 +140,22 @@ const OfferPage = ({offers, comments, authorizationStatus}: OfferPageProps) => {
                 <p className="offer__text">{offer.description}</p>
               </div>
             </div>
-            <section className="offer__reviews reviews">
-              <h2 className="reviews__title">
-                Reviews · <span className="reviews__amount">{comments.length}</span>
-              </h2>
-              <ReviewList reviews={comments} />
-              {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm />}
-            </section>
+            <ReviewList
+              reviews={comments}
+              authorizationStatus={authorizationStatus}
+              offerId={offer.id}
+            />
           </div>
         </div>
         <section className="offer__map map" >
-          <Map offers={[...offers.slice(5), offer]} currentCard={offer.id} />
+          <Map offers={[...nearbyOffers.slice(0, 3), offer]} currentCard={offer.id} />
         </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <PlaceList
-            offers={offers.slice(5)}
+            offers={nearbyOffers.slice(0, 3)}
             authorizationStatus={authorizationStatus}
             listClassName='near-places__list places__list'
             placeCardClassName='near-places__card place-card'

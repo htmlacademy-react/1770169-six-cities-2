@@ -1,27 +1,24 @@
 import {MouseEvent, useState} from 'react';
 
 import classNames from 'classnames';
-import {Link} from 'react-router-dom';
 
 import Layout from '../../components/layout/layout';
+import LocationList from '../../components/location-list/location-list';
 import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
-import {getFilteredOffers} from '../../components/utils/app-utils';
-import {AuthorizationStatus, cities, sortTypes} from '../../const';
-import {Offers} from '../../types/offer-type';
+import SortList from '../../components/sort-list/sort-list';
+import {getFilteredOffers} from '../../utils/app-utils';
+import {cities, sortTypes} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
+import {changeLocation, changeSortType} from '../../store/action';
 
-type HomePageProps = {
-  offers: Offers;
-  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
-};
-
-const HomePage = ({offers, authorizationStatus}: HomePageProps) => {
+const HomePage = () => {
   const [sortOpened, setSortOpened] = useState(false);
-  const [selectedCity, setSelectedCity] = useState<string>(cities[0].name);
-  const [selectedSortType, setSelectedSortType,] = useState<string>(sortTypes[0].name);
   const [currentCard, setCurrentCard] = useState('');
+  const {authorizationStatus, offers, sortType, location} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
 
-  const filteredOffers = getFilteredOffers(offers, selectedCity);
+  const filteredOffers = getFilteredOffers(offers, location);
 
   const handlePlaceCardMouseOver = (evt: MouseEvent) => {
     const {cardId} = (evt.target as HTMLElement).dataset;
@@ -39,22 +36,11 @@ const HomePage = ({offers, authorizationStatus}: HomePageProps) => {
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <ul className="locations__list tabs__list">
-            {cities.map(({id, name}) => (
-              <li className="locations__item" key={id}>
-                <Link
-                  className={classNames({
-                    'locations__item-link tabs__item tabs__item--active': selectedCity === name,
-                    'locations__item-link tabs__item': selectedCity !== name
-                  })}
-                  to="#"
-                  onClick={() => setSelectedCity(name)}
-                >
-                  <span>{name}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <LocationList
+            locations={cities}
+            selectedLocation={location}
+            onLocationClick={(locationName) => dispatch(changeLocation(locationName))}
+          />
         </section>
       </div>
       <div className="cities">
@@ -71,7 +57,7 @@ const HomePage = ({offers, authorizationStatus}: HomePageProps) => {
             {filteredOffers.length ?
               <>
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{filteredOffers.length} places to stay in {selectedCity}</b>
+                <b className="places__found">{filteredOffers.length} places to stay in {location}</b>
                 <form
                   className="places__sorting"
                   action="#"
@@ -80,30 +66,17 @@ const HomePage = ({offers, authorizationStatus}: HomePageProps) => {
                 >
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex={0}>
-                    Popular
+                    {sortType}
                     <svg className="places__sorting-arrow" width={7} height={4}>
                       <use xlinkHref="#icon-arrow-select" />
                     </svg>
                   </span>
-                  <ul className={classNames(
-                    'places__options places__options--custom',
-                    {'places__options--opened': sortOpened}
-                  )}
-                  >
-                    {sortTypes.map(({id, name}) => (
-                      <li
-                        className={classNames({
-                          'places__option places__option--active': selectedSortType === name,
-                          'places__option': selectedSortType !== name
-                        })}
-                        tabIndex={0}
-                        onClick={() => setSelectedSortType(name)}
-                        key={id}
-                      >
-                        {name}
-                      </li>
-                    ))}
-                  </ul>
+                  <SortList
+                    sortTypeList={sortTypes}
+                    sortOpened={sortOpened}
+                    selectedSortType={sortType}
+                    onSortTypeClick={(type) => dispatch(changeSortType(type))}
+                  />
                 </form>
                 <PlaceList
                   offers={filteredOffers}

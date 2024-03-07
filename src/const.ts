@@ -1,8 +1,18 @@
+import {StatusCodes} from 'http-status-codes';
+
 const MAX_IMAGES_VIEW = 6;
 
 const MAX_REVIEWS_VIEW = 10;
 
 const MAP_ZOOM = 10;
+
+const API_URL = 'https://13.design.htmlacademy.pro/six-cities';
+
+const REQUEST_TIMEOUT = 5000;
+
+const PASSWORD_REGEX = /(?=^.{2,}$)((?=.*\d))(?=.*[A-Za-z]).*$/;
+
+const TOKEN_KEY = 'AuthToken';
 
 const AppRoute = {
   HOME: '/',
@@ -112,10 +122,33 @@ const IconPath = {
   CURRENT_ICON_PATH: 'img/pin-active.svg'
 };
 
+const ApiRoute = {
+  OFFERS: '/offers',
+  FAVORITE: '/favorite',
+  NEARBY: '/nearby',
+  COMMENTS: '/comments',
+  LOGIN: '/login',
+  LOGOUT: '/logout'
+};
+
+const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true
+};
+
+const ErrorMessage: Record<string, string> = {
+  PASSWORD_ERROR_MESSAGE: 'Пароль должен состоять минимум из одной буквы и цифры'
+};
+
 export {
   MAX_IMAGES_VIEW,
   MAX_REVIEWS_VIEW,
   MAP_ZOOM,
+  API_URL,
+  REQUEST_TIMEOUT,
+  PASSWORD_REGEX,
+  TOKEN_KEY,
   AppRoute,
   AuthorizationStatus,
   cities,
@@ -125,5 +158,8 @@ export {
   housing,
   DateFormat,
   ReviewLength,
-  IconPath
+  IconPath,
+  ApiRoute,
+  StatusCodeMapping,
+  ErrorMessage
 };

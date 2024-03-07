@@ -1,20 +1,34 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 
+import {ReviewLength} from '../../const';
+import {useAppDispatch} from '../../hooks/use-store';
+import {createCommentAction} from '../../store/api-actions';
 import RatingForm from '../rating-form/rating-form';
-import {validateReviewLength} from '../utils/validate-utils';
+import {validateReviewLength} from '../../utils/validate-utils';
 
-const ReviewForm = () => {
+type ReviewFormProps = {
+  offerId: string;
+};
+
+const ReviewForm = ({offerId}: ReviewFormProps) => {
   const [comment, setComment] = useState({
     review: '',
     rating: ''
   });
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isFormsDisabled, setIsFormsDisabled] = useState(false);
+  const dispatch = useAppDispatch();
+
   const {review, rating} = comment;
+
+  const setElementsDisabled = (isDisabled = true) => {
+    setIsFormsDisabled(isDisabled);
+    setIsButtonDisabled(isDisabled);
+  };
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
-    setComment({...comment, [name]: value});
+    setComment((prevState) => ({...prevState, [name]: value}));
 
     if (validateReviewLength(review) && rating) {
       return setIsButtonDisabled(false);
@@ -24,17 +38,22 @@ const ReviewForm = () => {
   };
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
-    try {
-      setIsFormsDisabled(true);
-      setIsButtonDisabled(true);
-    } catch (error) {
-      setIsFormsDisabled(false);
-      setIsButtonDisabled(false);
-    }
-    setComment({...comment, review: '', rating: ''});
-    setIsFormsDisabled(false);
-    setIsButtonDisabled(true);
+    setElementsDisabled();
+    dispatch(createCommentAction(
+      {
+        id: offerId,
+        comment: comment.review,
+        rating: parseInt(comment.rating, 10)
+      }
+    )).then((res) => {
+      if (res.meta.requestStatus === 'rejected') {
+        setElementsDisabled(false);
+      } else {
+        setComment((prevState) => ({...prevState, review: '', rating: ''}));
+        setIsFormsDisabled(false);
+        setIsButtonDisabled(true);
+      }
+    });
   };
 
   return (
@@ -59,7 +78,7 @@ const ReviewForm = () => {
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least
-          <b className="reviews__text-amount">50 characters</b>.
+          <b className="reviews__text-amount">{`${ReviewLength.MIN} characters`}</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

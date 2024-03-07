@@ -33,4 +33,4 @@ export type ExtendedOffer = Offer & {
   maxAdults: number;
 }
 
-export type Offers = ExtendedOffer[];
+export type Offers = Offer[];

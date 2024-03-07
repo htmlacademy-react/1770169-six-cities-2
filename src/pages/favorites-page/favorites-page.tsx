@@ -3,27 +3,21 @@ import {Helmet} from 'react-helmet-async';
 
 import Layout from '../../components/layout/layout';
 import PlaceList from '../../components/place-list/place-list';
-import {AuthorizationStatus} from '../../const';
-import {Offers} from '../../types/offer-type';
+import {useAppSelector} from '../../hooks/use-store';
 
-type FavoritesPageProps = {
-  offers: Offers;
-  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
-}
-
-const FavoritesPage = ({offers, authorizationStatus}: FavoritesPageProps) => {
-  const favorites = offers.filter((offer) => offer.isFavorite);
-  const favoriteCities = new Set(favorites.map((favorite) => favorite.city.name));
+const FavoritesPage = () => {
+  const {authorizationStatus, favoriteOffers} = useAppSelector((state) => state);
+  const favoriteCities = new Set(favoriteOffers.map((favorite) => favorite.city.name));
 
   return (
     <Layout
       containerClassName={classNames({
-        'page': favorites.length,
-        'page page--favorites-empty': !favorites.length
+        'page': favoriteOffers.length,
+        'page page--favorites-empty': !favoriteOffers.length
       })}
       mainClassName={classNames({
-        'page__main page__main--favorites': favorites.length,
-        'page__main page__main--favorites page__main--favorites-empty': !favorites.length
+        'page__main page__main--favorites': favoriteOffers.length,
+        'page__main page__main--favorites page__main--favorites-empty': !favoriteOffers.length
       })}
     >
       <Helmet>
@@ -43,7 +37,7 @@ const FavoritesPage = ({offers, authorizationStatus}: FavoritesPageProps) => {
                   </div>
                 </div>
                 <PlaceList
-                  offers={favorites.filter((favorite) => favorite.city.name === city)}
+                  offers={favoriteOffers.filter((favorite) => favorite.city.name === city)}
                   authorizationStatus={authorizationStatus}
                   placeCardClassName='favorites__card place-card'
                   imageWrapperClassName='favorites__image-wrapper place-card__image-wrapper'

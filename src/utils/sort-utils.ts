@@ -1,7 +1,7 @@
 import * as dayjs from 'dayjs';
 
-import {Comment} from '../../types/comment-type';
-import {Offer} from '../../types/offer-type';
+import {Comment} from '../types/comment-type';
+import {Offer} from '../types/offer-type';
 
 
 const sortCommentsByDate = (a: Comment, b: Comment): number => dayjs(b.date).diff(dayjs(a.date));
