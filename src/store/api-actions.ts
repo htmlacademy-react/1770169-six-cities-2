@@ -6,8 +6,8 @@ import {ApiRoute, AppRoute, AuthorizationStatus} from '../const';
 import {removeToken, setToken} from '../services/token';
 import {loadComments, loadFavoriteOffers, loadNearbyOffers, loadOffer, loadOffers, redirectToRoute, requireAuth, setLoadingStatus} from '../store/action';
 import {Comments, CreateComment} from '../types/comment-type';
-import {ExtendedOffer, Offers} from '../types/offer-type';
-import {AuthUser, FullUser} from '../types/user-type';
+import {ExtendedOffer, Offer} from '../types/offer-type';
+import {AuthCredentials, FullUser} from '../types/user-type';
 
 export const getOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -15,7 +15,7 @@ export const getOffersAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>('offer/getOffers', async (_, {dispatch, extra: api}) => {
   dispatch(setLoadingStatus(true));
-  const {data} = await api.get<Offers>(ApiRoute.OFFERS);
+  const {data} = await api.get<Offer[]>(ApiRoute.OFFERS);
   dispatch(loadOffers(data));
   dispatch(setLoadingStatus(false));
 });
@@ -37,7 +37,7 @@ export const getNearbyOffersAction = createAsyncThunk<void, string, {
   extra: AxiosInstance;
 }>('offer/getNearbyOffers', async (id, {dispatch, extra: api}) => {
   dispatch(setLoadingStatus(true));
-  const {data} = await api.get<Offers>(`${ApiRoute.OFFERS}/${id}${ApiRoute.NEARBY}`);
+  const {data} = await api.get<Offer[]>(`${ApiRoute.OFFERS}/${id}${ApiRoute.NEARBY}`);
   dispatch(loadNearbyOffers(data));
   dispatch(setLoadingStatus(false));
 });
@@ -48,7 +48,7 @@ export const getFavoriteOffersAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>('offer/getFavoriteOffers', async (_, {dispatch, extra: api}) => {
   dispatch(setLoadingStatus(true));
-  const {data} = await api.get<Offers>(ApiRoute.FAVORITE);
+  const {data} = await api.get<Offer[]>(ApiRoute.FAVORITE);
   dispatch(loadFavoriteOffers(data));
   dispatch(setLoadingStatus(false));
 });
@@ -102,7 +102,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   }
 });
 
-export const authAction = createAsyncThunk<void, AuthUser, {
+export const authAction = createAsyncThunk<void, AuthCredentials, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>('user/auth', async (authData, {dispatch, extra: api}) => {

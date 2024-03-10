@@ -32,5 +32,3 @@ export type ExtendedOffer = Offer & {
   bedrooms: number;
   maxAdults: number;
 }
-
-export type Offers = Offer[];

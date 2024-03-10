@@ -1,7 +1,7 @@
 import {rating} from '../const';
-import {Offers} from '../types/offer-type';
+import {Offer} from '../types/offer-type';
 
-const getFilteredOffers = (offers: Offers, name: string): Offers => offers.filter((offer) => offer.city.name === name);
+const getFilteredOffers = (offers: Offer[], name: string): Offer[] => offers.filter((offer) => offer.city.name === name);
 
 const getRatingPercent = (value: number): string => {
   const [ratingValue, ratingPercent] = rating;
