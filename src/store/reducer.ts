@@ -12,10 +12,11 @@ import {
   requireAuth,
   setLoadingStatus
 } from './action';
-import {AuthorizationStatus, cities, sortTypes} from '../const';
+import {AuthorizationStatus, MAX_REVIEWS_VIEW, cities, sortTypes} from '../const';
 import {Authorization, LocationName, SortTypeName} from '../types/app-type';
 import {Comments} from '../types/comment-type';
 import {ExtendedOffer, Offers} from '../types/offer-type';
+import {sortCommentsByDate} from '../utils/sort-utils';
 
 type InitialState = {
   location: LocationName;
@@ -40,7 +41,7 @@ const initialState: InitialState = {
   comments: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
-  user: null
+  user: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -64,7 +65,9 @@ export const reducer = createReducer(initialState, (builder) => {
       state.nearbyOffers = action.payload;
     })
     .addCase(loadComments, (state, action) => {
-      state.comments = action.payload;
+      state.comments = action.payload
+        .sort(sortCommentsByDate)
+        .slice(0, MAX_REVIEWS_VIEW);
     })
     .addCase(requireAuth, (state, action) => {
       state.authorizationStatus = action.payload.status;

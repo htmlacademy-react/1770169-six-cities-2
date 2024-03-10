@@ -11,6 +11,7 @@ import {getFilteredOffers} from '../../utils/app-utils';
 import {cities, sortTypes} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {changeLocation, changeSortType} from '../../store/action';
+import {sort} from '../../utils/sort-utils';
 
 const HomePage = () => {
   const [sortOpened, setSortOpened] = useState(false);
@@ -18,7 +19,7 @@ const HomePage = () => {
   const {authorizationStatus, offers, sortType, location} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  const filteredOffers = getFilteredOffers(offers, location);
+  const filteredOffers = getFilteredOffers(sort[sortType](offers), location);
 
   const handlePlaceCardMouseOver = (evt: MouseEvent) => {
     const {cardId} = (evt.target as HTMLElement).dataset;
