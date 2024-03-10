@@ -4,9 +4,11 @@ import {Helmet} from 'react-helmet-async';
 import Layout from '../../components/layout/layout';
 import PlaceList from '../../components/place-list/place-list';
 import {useAppSelector} from '../../hooks/use-store';
+import {selectAuthorizationStatus, selectFavoriteOffers} from '../../store/selectors';
 
 const FavoritesPage = () => {
-  const {authorizationStatus, favoriteOffers} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const favoriteOffers = useAppSelector(selectFavoriteOffers);
   const favoriteCities = new Set(favoriteOffers.map((favorite) => favorite.city.name));
 
   return (

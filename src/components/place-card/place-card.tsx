@@ -43,7 +43,7 @@ const PlaceCard = (
         <span>Premium</span>
       </div>}
       <div className={imageWrapperClassName}>
-        <a href="#">
+        <Link to={`${AppRoute.OFFER}/${offer.id}`}>
           <img
             className="place-card__image"
             data-card-id={offer.id}
@@ -52,7 +52,7 @@ const PlaceCard = (
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className={cardInfoClassName}>
         <div className="place-card__price-wrapper">

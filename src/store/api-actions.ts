@@ -25,8 +25,10 @@ export const getOfferAction = createAsyncThunk<void, string, {
   state: Store;
   extra: AxiosInstance;
 }>('offer/getOffer', async (id, {dispatch, extra: api}) => {
+  dispatch(setLoadingStatus(true));
   const {data} = await api.get<ExtendedOffer>(`${ApiRoute.OFFERS}/${id}`);
   dispatch(loadOffer(data));
+  dispatch(setLoadingStatus(false));
 });
 
 export const getNearbyOffersAction = createAsyncThunk<void, string, {
@@ -34,8 +36,10 @@ export const getNearbyOffersAction = createAsyncThunk<void, string, {
   state: Store;
   extra: AxiosInstance;
 }>('offer/getNearbyOffers', async (id, {dispatch, extra: api}) => {
+  dispatch(setLoadingStatus(true));
   const {data} = await api.get<Offers>(`${ApiRoute.OFFERS}/${id}${ApiRoute.NEARBY}`);
   dispatch(loadNearbyOffers(data));
+  dispatch(setLoadingStatus(false));
 });
 
 export const getFavoriteOffersAction = createAsyncThunk<void, undefined, {
@@ -43,8 +47,10 @@ export const getFavoriteOffersAction = createAsyncThunk<void, undefined, {
   state: Store;
   extra: AxiosInstance;
 }>('offer/getFavoriteOffers', async (_, {dispatch, extra: api}) => {
+  dispatch(setLoadingStatus(true));
   const {data} = await api.get<Offers>(ApiRoute.FAVORITE);
   dispatch(loadFavoriteOffers(data));
+  dispatch(setLoadingStatus(false));
 });
 
 export const updateFavoriteOfferAction = createAsyncThunk<void, {
@@ -64,7 +70,9 @@ export const getCommentsAction = createAsyncThunk<void, string, {
   extra: AxiosInstance;
 }>('offer/getComments', async (id, {dispatch, extra: api}) => {
   const {data} = await api.get<Comments>(`${ApiRoute.COMMENTS}/${id}`);
+  dispatch(setLoadingStatus(true));
   dispatch(loadComments(data));
+  dispatch(setLoadingStatus(false));
 });
 
 export const createCommentAction = createAsyncThunk<void, CreateComment, {

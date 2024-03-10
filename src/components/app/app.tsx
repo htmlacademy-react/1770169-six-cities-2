@@ -15,11 +15,12 @@ import {getFavoriteOffersAction} from '../../store/api-actions';
 import HistoryRouter from '../history-route/history-route';
 import Loader from '../loader/loader';
 import PrivateRoute from '../private-route/private-route';
+import {selectAuthorizationStatus, selectIsLoading} from '../../store/selectors';
 
 
 const App = () => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

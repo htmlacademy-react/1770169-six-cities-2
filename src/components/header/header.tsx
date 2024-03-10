@@ -5,11 +5,12 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {logoutAction} from '../../store/api-actions';
+import {selectAuthorizationStatus, selectFavoriteOffers, selectUser} from '../../store/selectors';
 
 const Header = () => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const user = useAppSelector(selectUser);
+  const favoriteOffers = useAppSelector(selectFavoriteOffers);
   const dispatch = useAppDispatch();
 
   const handleSignOutClick = (evt: MouseEvent<HTMLAnchorElement>) => {
