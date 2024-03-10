@@ -2,7 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 
 import {ExtendedOffer, Offer} from './../types/offer-type';
 import {AuthStatus, LocationName, Route, SortTypeName} from '../types/app-type';
-import {Comments} from '../types/comment-type';
+import {Comment} from '../types/comment-type';
 
 export const changeLocation = createAction<LocationName>('offer/changeLocation');
 
@@ -16,7 +16,7 @@ export const loadFavoriteOffers = createAction<Offer[]>('offer/loadFavoriteOffer
 
 export const loadNearbyOffers = createAction<Offer[]>('offer/loadNearbyOffers');
 
-export const loadComments = createAction<Comments>('offer/loadComments');
+export const loadComments = createAction<Comment[]>('offer/loadComments');
 
 export const requireAuth = createAction<AuthStatus>('user/requireAuth');
 

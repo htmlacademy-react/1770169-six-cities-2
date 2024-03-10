@@ -1,11 +1,11 @@
 import {AuthorizationStatus} from '../../const';
 import {Authorization} from '../../types/app-type';
-import {Comments} from '../../types/comment-type';
+import {Comment} from '../../types/comment-type';
 import ReviewCard from '../review-card/review-card';
 import ReviewForm from '../review-form/review-form';
 
 type ReviewListProps = {
-  reviews: Comments;
+  reviews: Comment[];
   authorizationStatus: Authorization;
   offerId: string;
 }
