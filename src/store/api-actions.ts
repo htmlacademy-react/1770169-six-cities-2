@@ -5,7 +5,7 @@ import {AppDispatch, Store} from './../types/store-type';
 import {ApiRoute, AppRoute, AuthorizationStatus} from '../const';
 import {removeToken, setToken} from '../services/token';
 import {loadComments, loadFavoriteOffers, loadNearbyOffers, loadOffer, loadOffers, redirectToRoute, requireAuth, setLoadingStatus} from '../store/action';
-import {Comments, CreateComment} from '../types/comment-type';
+import {Comment, CreateComment} from '../types/comment-type';
 import {ExtendedOffer, Offer} from '../types/offer-type';
 import {AuthCredentials, FullUser} from '../types/user-type';
 
@@ -69,7 +69,7 @@ export const getCommentsAction = createAsyncThunk<void, string, {
   state: Store;
   extra: AxiosInstance;
 }>('offer/getComments', async (id, {dispatch, extra: api}) => {
-  const {data} = await api.get<Comments>(`${ApiRoute.COMMENTS}/${id}`);
+  const {data} = await api.get<Comment[]>(`${ApiRoute.COMMENTS}/${id}`);
   dispatch(setLoadingStatus(true));
   dispatch(loadComments(data));
   dispatch(setLoadingStatus(false));

@@ -9,5 +9,3 @@ export type Comment = {
 }
 
 export type CreateComment = Omit<Comment, 'date' | 'user'>
-
-export type Comments = Comment[]
