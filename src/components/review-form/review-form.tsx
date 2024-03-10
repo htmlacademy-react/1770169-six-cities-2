@@ -30,7 +30,7 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
     const {name, value} = evt.target;
     setComment((prevState) => ({...prevState, [name]: value}));
 
-    if (validateReviewLength(review) && rating) {
+    if (validateReviewLength(value) && rating) {
       return setIsButtonDisabled(false);
     }
 

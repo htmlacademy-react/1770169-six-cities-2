@@ -12,6 +12,7 @@ import {getRatingPercent} from '../../utils/app-utils';
 import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {getCommentsAction, getNearbyOffersAction, getOfferAction} from '../../store/api-actions';
+import {selectAuthorizationStatus, selectComments, selectNearbyOffers, selectSelectedOffer} from '../../store/selectors';
 
 type UseParams = {
   id: string;
@@ -20,10 +21,10 @@ type UseParams = {
 const OfferPage = () => {
   const [isBookmark, setIsBookmark] = useState(false);
   const {id} = useParams() as UseParams;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const offer = useAppSelector((state) => state.offer);
-  const comments = useAppSelector((state) => state.comments);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const selectedOffer = useAppSelector(selectSelectedOffer);
+  const comments = useAppSelector(selectComments);
+  const nearbyOffers = useAppSelector(selectNearbyOffers);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -34,12 +35,12 @@ const OfferPage = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (offer !== null) {
-      setIsBookmark(offer.isFavorite);
+    if (selectedOffer !== null) {
+      setIsBookmark(selectedOffer.isFavorite);
     }
-  }, [offer]);
+  }, [selectedOffer]);
 
-  if (offer === null) {
+  if (selectedOffer === null) {
     return;
   }
 
@@ -53,12 +54,12 @@ const OfferPage = () => {
   return (
     <Layout containerClassName='page' mainClassName='page__main page__main--offer'>
       <Helmet>
-        <title>6 cities | {offer.title}</title>
+        <title>6 cities | {selectedOffer.title}</title>
       </Helmet>
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
-            {offer.images.slice(0, MAX_IMAGES_VIEW).map((image) => (
+            {selectedOffer.images.slice(0, MAX_IMAGES_VIEW).map((image) => (
               <div className="offer__image-wrapper" key={image}>
                 <img
                   className="offer__image"
@@ -72,13 +73,13 @@ const OfferPage = () => {
         <div className="offer__container container">
           <div className="offer__wrapper">
             {
-              offer.isPremium &&
+              selectedOffer.isPremium &&
               <div className="offer__mark">
                 <span>Premium</span>
               </div>
             }
             <div className="offer__name-wrapper">
-              <h1 className="offer__name">{offer.title}</h1>
+              <h1 className="offer__name">{selectedOffer.title}</h1>
               <button
                 className={classNames(
                   'offer__bookmark-button',
@@ -96,24 +97,24 @@ const OfferPage = () => {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{width: getRatingPercent(offer.rating)}} />
+                <span style={{width: getRatingPercent(selectedOffer.rating)}} />
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="offer__rating-value rating__value">{offer.rating}</span>
+              <span className="offer__rating-value rating__value">{selectedOffer.rating}</span>
             </div>
             <ul className="offer__features">
-              <li className="offer__feature offer__feature--entire">{housing[offer.type]}</li>
-              <li className="offer__feature offer__feature--bedrooms">{`${offer.bedrooms} Bedrooms`}</li>
-              <li className="offer__feature offer__feature--adults">{`Max ${offer.maxAdults} adults`}</li>
+              <li className="offer__feature offer__feature--entire">{housing[selectedOffer.type]}</li>
+              <li className="offer__feature offer__feature--bedrooms">{`${selectedOffer.bedrooms} Bedrooms`}</li>
+              <li className="offer__feature offer__feature--adults">{`Max ${selectedOffer.maxAdults} adults`}</li>
             </ul>
             <div className="offer__price">
-              <b className="offer__price-value">{`€${offer.price}`}</b>
+              <b className="offer__price-value">{`€${selectedOffer.price}`}</b>
               <span className="offer__price-text">&nbsp;night</span>
             </div>
             <div className="offer__inside">
               <h2 className="offer__inside-title">What&apos;s inside</h2>
               <ul className="offer__inside-list">
-                {offer.goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
+                {selectedOffer.goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
               </ul>
             </div>
             <div className="offer__host">
@@ -121,34 +122,34 @@ const OfferPage = () => {
               <div className="offer__host-user user">
                 <div className={classNames(
                   'offer__avatar-wrapper',
-                  {'offer__avatar-wrapper--pro': offer.host.isPro},
+                  {'offer__avatar-wrapper--pro': selectedOffer.host.isPro},
                   'user__avatar-wrapper'
                 )}
                 >
                   <img
                     className="offer__avatar user__avatar"
-                    src={offer.host.avatarUrl}
+                    src={selectedOffer.host.avatarUrl}
                     width={74}
                     height={74}
                     alt="Host avatar"
                   />
                 </div>
-                <span className="offer__user-name">{offer.host.name}</span>
-                <span className="offer__user-status">{offer.host.isPro ? 'Pro' : ''}</span>
+                <span className="offer__user-name">{selectedOffer.host.name}</span>
+                <span className="offer__user-status">{selectedOffer.host.isPro ? 'Pro' : ''}</span>
               </div>
               <div className="offer__description">
-                <p className="offer__text">{offer.description}</p>
+                <p className="offer__text">{selectedOffer.description}</p>
               </div>
             </div>
             <ReviewList
               reviews={comments}
               authorizationStatus={authorizationStatus}
-              offerId={offer.id}
+              offerId={selectedOffer.id}
             />
           </div>
         </div>
         <section className="offer__map map" >
-          <Map offers={[...nearbyOffers.slice(0, 3), offer]} currentCard={offer.id} />
+          <Map offers={[...nearbyOffers.slice(0, 3), selectedOffer]} currentCard={selectedOffer.id} />
         </section>
       </section>
       <div className="container">

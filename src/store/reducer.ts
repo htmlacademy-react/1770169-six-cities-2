@@ -22,7 +22,7 @@ type InitialState = {
   location: LocationName;
   sortType: SortTypeName;
   offers: Offers;
-  offer: ExtendedOffer | null;
+  selectedOffer: ExtendedOffer | null;
   favoriteOffers: Offers;
   nearbyOffers: Offers;
   comments: Comments;
@@ -35,7 +35,7 @@ const initialState: InitialState = {
   location: cities[0].name,
   sortType: sortTypes[0].name,
   offers: [],
-  offer: null,
+  selectedOffer: null,
   favoriteOffers: [],
   nearbyOffers: [],
   comments: [],
@@ -56,7 +56,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.offers = action.payload;
     })
     .addCase(loadOffer, (state, action) => {
-      state.offer = action.payload;
+      state.selectedOffer = action.payload;
     })
     .addCase(loadFavoriteOffers, (state, action) => {
       state.favoriteOffers = action.payload;

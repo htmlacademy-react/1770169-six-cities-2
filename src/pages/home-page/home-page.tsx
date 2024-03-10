@@ -7,19 +7,19 @@ import LocationList from '../../components/location-list/location-list';
 import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
 import SortList from '../../components/sort-list/sort-list';
-import {getFilteredOffers} from '../../utils/app-utils';
 import {cities, sortTypes} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {changeLocation, changeSortType} from '../../store/action';
-import {sort} from '../../utils/sort-utils';
+import {selectAuthorizationStatus, selectLocation, selectOffers, selectSortTypes} from '../../store/selectors';
 
 const HomePage = () => {
   const [sortOpened, setSortOpened] = useState(false);
   const [currentCard, setCurrentCard] = useState('');
-  const {authorizationStatus, offers, sortType, location} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const offers = useAppSelector(selectOffers);
+  const sortType = useAppSelector(selectSortTypes);
+  const location = useAppSelector(selectLocation);
   const dispatch = useAppDispatch();
-
-  const filteredOffers = getFilteredOffers(sort[sortType](offers), location);
 
   const handlePlaceCardMouseOver = (evt: MouseEvent) => {
     const {cardId} = (evt.target as HTMLElement).dataset;
@@ -31,7 +31,7 @@ const HomePage = () => {
 
   return (
     <Layout mainClassName={classNames({
-      'page__main page__main--index page__main--index-empty': !filteredOffers.length
+      'page__main page__main--index page__main--index-empty': !offers.length
     })}
     >
       <h1 className="visually-hidden">Cities</h1>
@@ -47,18 +47,18 @@ const HomePage = () => {
       <div className="cities">
         <div className={classNames(
           'cities__places-container',
-          {'cities__places-container--empty': !filteredOffers.length},
+          {'cities__places-container--empty': !offers.length},
           'container')}
         >
           <section className={classNames({
-            'cities__places places': filteredOffers.length,
-            'cities__no-places': !filteredOffers.length
+            'cities__places places': offers.length,
+            'cities__no-places': !offers.length
           })}
           >
-            {filteredOffers.length ?
+            {offers.length ?
               <>
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{filteredOffers.length} places to stay in {location}</b>
+                <b className="places__found">{offers.length} places to stay in {location}</b>
                 <form
                   className="places__sorting"
                   action="#"
@@ -80,7 +80,7 @@ const HomePage = () => {
                   />
                 </form>
                 <PlaceList
-                  offers={filteredOffers}
+                  offers={offers}
                   authorizationStatus={authorizationStatus}
                   onMouseOver={handlePlaceCardMouseOver}
                 />
@@ -91,9 +91,9 @@ const HomePage = () => {
               </div>}
           </section>
           <div className="cities__right-section">
-            {filteredOffers.length &&
+            {offers.length &&
             <section className="cities__map map">
-              <Map offers={filteredOffers} currentCard={currentCard} />
+              <Map offers={offers} currentCard={currentCard} />
             </section>}
           </div>
         </div>
