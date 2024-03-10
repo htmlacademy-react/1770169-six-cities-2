@@ -15,16 +15,16 @@ import {
 import {AuthorizationStatus, MAX_REVIEWS_VIEW, cities, sortTypes} from '../const';
 import {Authorization, LocationName, SortTypeName} from '../types/app-type';
 import {Comments} from '../types/comment-type';
-import {ExtendedOffer, Offers} from '../types/offer-type';
+import {ExtendedOffer, Offer} from '../types/offer-type';
 import {sortCommentsByDate} from '../utils/sort-utils';
 
 type InitialState = {
   location: LocationName;
   sortType: SortTypeName;
-  offers: Offers;
+  offers: Offer[];
   selectedOffer: ExtendedOffer | null;
-  favoriteOffers: Offers;
-  nearbyOffers: Offers;
+  favoriteOffers: Offer[];
+  nearbyOffers: Offer[];
   comments: Comments;
   authorizationStatus: Authorization;
   isLoading: boolean;
