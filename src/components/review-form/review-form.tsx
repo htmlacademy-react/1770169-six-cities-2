@@ -41,7 +41,7 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
     setElementsDisabled();
     dispatch(createCommentAction(
       {
-        offerId: offerId,
+        offerId,
         comment: comment.review,
         rating: parseInt(comment.rating, 10)
       }
