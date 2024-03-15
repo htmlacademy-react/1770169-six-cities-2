@@ -1,4 +1,4 @@
-import {createSelector} from '@reduxjs/toolkit';
+/*import {createSelector} from '@reduxjs/toolkit';
 
 import {getFilteredOffers} from '../utils/app-utils';
 import {sort} from '../utils/sort-utils';
@@ -20,4 +20,4 @@ export const selectOffers = createSelector(
   selectSortTypes,
   selectRawOffers,
   (location, sortType, offers) => sort[sortType](getFilteredOffers(offers, location))
-);
+);*/

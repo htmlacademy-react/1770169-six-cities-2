@@ -6,11 +6,12 @@ import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus, housing} from '../../const';
 import {Offer} from '../../types/offer-type';
 import {getRatingPercent} from '../../utils/app-utils';
+import {Authorization} from '../../types/app-type';
 
 
 type PlaceCardProps = {
   offer: Offer;
-  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
+  authorizationStatus: Authorization;
   onMouseOver?: (evt: MouseEvent) => void;
   placeCardClassName?: string;
   imageWrapperClassName?: string;

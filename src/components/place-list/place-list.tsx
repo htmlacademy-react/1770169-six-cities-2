@@ -1,12 +1,12 @@
 import {MouseEvent} from 'react';
 
-import {AuthorizationStatus} from '../../const';
 import {Offer} from '../../types/offer-type';
 import PlaceCard from '../place-card/place-card';
+import {Authorization} from '../../types/app-type';
 
 type PlaceListProps = {
   offers: Offer[];
-  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
+  authorizationStatus: Authorization;
   onMouseOver?: (evt: MouseEvent) => void;
   placeCardClassName?: string;
   imageWrapperClassName?: string;

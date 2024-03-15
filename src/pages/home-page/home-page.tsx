@@ -9,8 +9,9 @@ import PlaceList from '../../components/place-list/place-list';
 import SortList from '../../components/sort-list/sort-list';
 import {cities, sortTypes} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
-import {changeLocation, changeSortType} from '../../store/action';
-import {selectAuthorizationStatus, selectLocation, selectOffers, selectSortTypes} from '../../store/selectors';
+import {selectAuthorizationStatus} from '../../store/user/user.selector';
+import {selectLocation, selectOffers, selectSortTypes} from '../../store/offers/offers.selector';
+import {changeLocation, changeSortType} from '../../store/offers/offers.slice';
 
 const HomePage = () => {
   const [sortOpened, setSortOpened] = useState(false);

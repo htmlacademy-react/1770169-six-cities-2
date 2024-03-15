@@ -28,14 +28,14 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
-    setComment((prevState) => ({...prevState, [name]: value}));
+    setComment({...comment, [name]: value});
 
     if (validateReviewLength(value) && rating) {
       return setIsButtonDisabled(false);
     }
-
     setIsButtonDisabled(true);
   };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setElementsDisabled();
@@ -49,7 +49,7 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
       if (res.meta.requestStatus === 'rejected') {
         setElementsDisabled(false);
       } else {
-        setComment((prevState) => ({...prevState, review: '', rating: ''}));
+        setComment({...comment, review: '', rating: ''});
         setIsFormsDisabled(false);
         setIsButtonDisabled(true);
       }

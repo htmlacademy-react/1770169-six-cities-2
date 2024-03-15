@@ -12,7 +12,10 @@ import {getRatingPercent} from '../../utils/app-utils';
 import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {getCommentsAction, getNearbyOffersAction, getOfferAction} from '../../store/api-actions';
-import {selectAuthorizationStatus, selectComments, selectNearbyOffers, selectSelectedOffer} from '../../store/selectors';
+import {selectAuthorizationStatus} from '../../store/user/user.selector';
+import {selectSelectedOffer} from '../../store/offer/offer.selector';
+import {selectComments} from '../../store/comments/comments.selector';
+import {selectNearbyOffers} from '../../store/nearbyOffers/nearbyOffers.selector';
 
 type UseParams = {
   id: string;
