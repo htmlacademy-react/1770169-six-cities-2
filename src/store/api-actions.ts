@@ -45,15 +45,16 @@ export const getFavoriteOffersAction = createAsyncThunk<Offer[], undefined, {
   return data;
 });
 
-export const updateFavoriteOfferAction = createAsyncThunk<void, {
+export const updateFavoriteOfferAction = createAsyncThunk<Offer, {
   id: string;
-  status: string;
+  status: number;
 }, {
   dispatch: AppDispatch;
   state: Store;
   extra: AxiosInstance;
 }>('offer/updateFavoriteOffer', async ({id, status}, {extra: api}) => {
-  await api.post(`${ApiRoute.FAVORITE}/${id}/${status}`);
+  const {data} = await api.post<Offer>(`${ApiRoute.FAVORITE}/${id}/${status}`);
+  return data;
 });
 
 export const getCommentsAction = createAsyncThunk<Comment[], string, {
@@ -74,11 +75,12 @@ export const createCommentAction = createAsyncThunk<void, CreateComment, {
   await api.post(`${ApiRoute.COMMENTS}/${offerId}`, comment);
 });
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<FullUser, undefined, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>('user/checkAuth', async (_, {extra: api}) => {
-  await api.get<FullUser>(ApiRoute.LOGIN);
+  const {data} = await api.get<FullUser>(ApiRoute.LOGIN);
+  return data;
 });
 
 export const authAction = createAsyncThunk<FullUser, AuthCredentials, {

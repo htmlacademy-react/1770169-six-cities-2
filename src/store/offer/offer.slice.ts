@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {getOffersAction} from '../api-actions';
+import {getOfferAction} from '../api-actions';
 import {ExtendedOffer} from '../../types/offer-type';
 import {NameSpace} from '../../const';
 
@@ -15,19 +15,19 @@ const initialState: InitialState = {
 };
 
 export const offerSlice = createSlice({
-  name: NameSpace.OFFER,
+  name: NameSpace.Offer,
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(getOffersAction.pending, (state) => {
+      .addCase(getOfferAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getOffersAction.fulfilled, (state, action) => {
-        state.offer = action.payload;
+      .addCase(getOfferAction.fulfilled, (state, action) => {
+        state.selectedOffer = action.payload;
         state.isLoading = false;
       })
-      .addCase(getOffersAction.rejected, (state) => {
+      .addCase(getOfferAction.rejected, (state) => {
         state.isLoading = false;
       });
   },

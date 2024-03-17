@@ -15,7 +15,7 @@ const initialState: InitialState = {
 };
 
 export const nearbyOffersSlice = createSlice({
-  name: NameSpace.NEARBY_OFFERS,
+  name: NameSpace.NearbyOffers,
   initialState,
   reducers: {},
   extraReducers(builder) {

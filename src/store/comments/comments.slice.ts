@@ -15,7 +15,7 @@ const initialState: InitialState = {
 };
 
 export const commentsSlice = createSlice({
-  name: NameSpace.COMMENTS,
+  name: NameSpace.Comments,
   initialState,
   reducers: {},
   extraReducers(builder) {

@@ -15,13 +15,26 @@ import {getFavoriteOffersAction} from '../../store/api-actions';
 import HistoryRouter from '../history-route/history-route';
 import Loader from '../loader/loader';
 import PrivateRoute from '../private-route/private-route';
+import {selectCommentsIsLoading} from '../../store/comments/comments.selector';
 import {selectAuthorizationStatus} from '../../store/user/user.selector';
 import {selectOffersIsLoading} from '../../store/offers/offers.selector';
+import {selectFavoriteOffersIsLoading} from '../../store/favoriteOffers/favoriteOffers.selector';
+import {selectNearbyOffersIsLoading} from '../../store/nearbyOffers/nearbyOffers.selector';
+import {selectSelectedOfferIsLoading} from '../../store/offer/offer.selector';
 
 
 const App = () => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  const isLoading = useAppSelector(selectOffersIsLoading);
+  const isOffersLoading = useAppSelector(selectOffersIsLoading);
+  const isFavoriteOffersLoading = useAppSelector(selectFavoriteOffersIsLoading);
+  const isNearbyOffersLoading = useAppSelector(selectNearbyOffersIsLoading);
+  const isCommentsLoading = useAppSelector(selectCommentsIsLoading);
+  const isSelectedOfferLoading = useAppSelector(selectSelectedOfferIsLoading);
+  const isLoading = isOffersLoading ||
+    isFavoriteOffersLoading ||
+    isNearbyOffersLoading ||
+    isCommentsLoading ||
+    isSelectedOfferLoading;
   const dispatch = useAppDispatch();
 
   useEffect(() => {

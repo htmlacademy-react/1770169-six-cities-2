@@ -1,6 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 
-import {getOffersAction} from '../api-actions';
+import {getOffersAction, updateFavoriteOfferAction} from '../api-actions';
 import {NameSpace, cities, sortTypes} from '../../const';
 import {LocationName, SortTypeName} from '../../types/app-type';
 import {Offer} from '../../types/offer-type';
@@ -20,7 +20,7 @@ const initialState: InitialState = {
 };
 
 export const offersSlice = createSlice({
-  name: NameSpace.OFFERS,
+  name: NameSpace.Offers,
   initialState,
   reducers: {
     changeLocation: (state, action: PayloadAction<LocationName>) => {
@@ -40,6 +40,19 @@ export const offersSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getOffersAction.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateFavoriteOfferAction.fulfilled, (state, action) => {
+        const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
+
+        if (index) {
+          state.offers = [
+            ...state.offers.slice(0, index),
+            action.payload,
+            ...state.offers.slice(index + 1)
+          ];
+        }
+
         state.isLoading = false;
       });
   },

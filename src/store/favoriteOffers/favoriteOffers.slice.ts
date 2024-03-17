@@ -15,7 +15,7 @@ const initialState: InitialState = {
 };
 
 export const favoriteOffersSlice = createSlice({
-  name: NameSpace.FAVORITE_OFFERS,
+  name: NameSpace.FavoriteOffers,
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -33,7 +33,17 @@ export const favoriteOffersSlice = createSlice({
       .addCase(updateFavoriteOfferAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateFavoriteOfferAction.fulfilled, (state) => {
+      .addCase(updateFavoriteOfferAction.fulfilled, (state, action) => {
+        const index = state.favoriteOffers.findIndex((offer) => offer.id === action.payload.id);
+
+        if (index) {
+          state.favoriteOffers = [
+            ...state.favoriteOffers.slice(0, index),
+            action.payload,
+            ...state.favoriteOffers.slice(index + 1)
+          ];
+        }
+
         state.isLoading = false;
       })
       .addCase(updateFavoriteOfferAction.rejected, (state) => {

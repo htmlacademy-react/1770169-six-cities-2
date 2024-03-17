@@ -1,7 +1,7 @@
 import {NameSpace} from '../../const';
 import {Store} from '../../types/store-type';
 
-type State = Pick<Store, 'offer'>;
+type State = Pick<Store, NameSpace.Offer>;
 
-export const selectSelectedOffer = (state: State) => state[NameSpace.OFFER].selectedOffer;
-export const selectSelectedOfferIsLoading = (state: State) => state[NameSpace.OFFER].isLoading;
+export const selectSelectedOffer = (state: State) => state[NameSpace.Offer].selectedOffer;
+export const selectSelectedOfferIsLoading = (state: State) => state[NameSpace.Offer].isLoading;

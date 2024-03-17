@@ -11,26 +11,30 @@ type ReviewFormProps = {
 };
 
 const ReviewForm = ({offerId}: ReviewFormProps) => {
-  const [comment, setComment] = useState({
-    review: '',
-    rating: ''
-  });
+  const [review, setReview] = useState('');
+  const [rating, setRating] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isFormsDisabled, setIsFormsDisabled] = useState(false);
   const dispatch = useAppDispatch();
-
-  const {review, rating} = comment;
 
   const setElementsDisabled = (isDisabled = true) => {
     setIsFormsDisabled(isDisabled);
     setIsButtonDisabled(isDisabled);
   };
 
-  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
-    const {name, value} = evt.target;
-    setComment({...comment, [name]: value});
+  const handleReviewChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    setReview(evt.target.value);
 
-    if (validateReviewLength(value) && rating) {
+    if (validateReviewLength(evt.target.value) && rating) {
+      return setIsButtonDisabled(false);
+    }
+    setIsButtonDisabled(true);
+  };
+
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setRating(evt.target.value);
+
+    if (validateReviewLength(review)) {
       return setIsButtonDisabled(false);
     }
     setIsButtonDisabled(true);
@@ -42,14 +46,15 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
     dispatch(createCommentAction(
       {
         offerId,
-        comment: comment.review,
-        rating: parseInt(comment.rating, 10)
+        comment: review,
+        rating: parseInt(rating, 10)
       }
     )).then((res) => {
       if (res.meta.requestStatus === 'rejected') {
         setElementsDisabled(false);
       } else {
-        setComment({...comment, review: '', rating: ''});
+        setReview('');
+        setRating('');
         setIsFormsDisabled(false);
         setIsButtonDisabled(true);
       }
@@ -64,7 +69,7 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
       <RatingForm
         selectedValue={rating}
         isFormsDisabled={isFormsDisabled}
-        onFieldChange={handleFieldChange}
+        onFieldChange={handleRatingChange}
       />
       <textarea
         className="reviews__textarea form__textarea"
@@ -72,7 +77,7 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
         name="review"
         value={review}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleFieldChange}
+        onChange={handleReviewChange}
         disabled={isFormsDisabled}
       />
       <div className="reviews__button-wrapper">

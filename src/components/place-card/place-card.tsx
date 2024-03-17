@@ -1,17 +1,15 @@
-import {MouseEvent, useState} from 'react';
+import {MouseEvent} from 'react';
 
 import classNames from 'classnames';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-import {AppRoute, AuthorizationStatus, housing} from '../../const';
+import {AppRoute, housing} from '../../const';
 import {Offer} from '../../types/offer-type';
 import {getRatingPercent} from '../../utils/app-utils';
-import {Authorization} from '../../types/app-type';
-
+import {useBookmark} from '../../hooks/use-bookmark';
 
 type PlaceCardProps = {
   offer: Offer;
-  authorizationStatus: Authorization;
   onMouseOver?: (evt: MouseEvent) => void;
   placeCardClassName?: string;
   imageWrapperClassName?: string;
@@ -21,21 +19,12 @@ type PlaceCardProps = {
 const PlaceCard = (
   {
     offer,
-    authorizationStatus,
     onMouseOver,
     placeCardClassName = 'cities__card place-card',
     imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper',
     cardInfoClassName = 'place-card__info'
   }: PlaceCardProps) => {
-  const [isBookmark, setIsBookmark] = useState(offer.isFavorite);
-  const navigate = useNavigate();
-
-  const handleBookmarkClick = () => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      return setIsBookmark((prevState) => !prevState);
-    }
-    return navigate(AppRoute.LOGIN);
-  };
+  const {isBookmark, handleBookmarkClick} = useBookmark(offer.id, offer.isFavorite);
 
   return (
     <article className={placeCardClassName} onMouseOver={onMouseOver}>

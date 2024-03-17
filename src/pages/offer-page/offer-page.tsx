@@ -1,35 +1,35 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
 import classNames from 'classnames';
 import {Helmet} from 'react-helmet-async';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 import Layout from '../../components/layout/layout';
 import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
 import ReviewList from '../../components/review-list/review-list';
 import {getRatingPercent} from '../../utils/app-utils';
-import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
+import {housing, MAX_IMAGES_VIEW} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {getCommentsAction, getNearbyOffersAction, getOfferAction} from '../../store/api-actions';
 import {selectAuthorizationStatus} from '../../store/user/user.selector';
 import {selectSelectedOffer} from '../../store/offer/offer.selector';
 import {selectComments} from '../../store/comments/comments.selector';
 import {selectNearbyOffers} from '../../store/nearbyOffers/nearbyOffers.selector';
+import {useBookmark} from '../../hooks/use-bookmark';
 
 type UseParams = {
   id: string;
 }
 
 const OfferPage = () => {
-  const [isBookmark, setIsBookmark] = useState(false);
   const {id} = useParams() as UseParams;
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const selectedOffer = useAppSelector(selectSelectedOffer);
   const comments = useAppSelector(selectComments);
   const nearbyOffers = useAppSelector(selectNearbyOffers);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const {isBookmark, handleBookmarkClick} = useBookmark(selectedOffer?.id, selectedOffer?.isFavorite);
 
   useEffect(() => {
     dispatch(getOfferAction(id));
@@ -37,22 +37,9 @@ const OfferPage = () => {
     dispatch(getNearbyOffersAction(id));
   }, [dispatch, id]);
 
-  useEffect(() => {
-    if (selectedOffer !== null) {
-      setIsBookmark(selectedOffer.isFavorite);
-    }
-  }, [selectedOffer]);
-
   if (selectedOffer === null) {
     return;
   }
-
-  const handleBookmarkClick = () => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      return setIsBookmark((prevState) => !prevState);
-    }
-    return navigate(AppRoute.LOGIN);
-  };
 
   return (
     <Layout containerClassName='page' mainClassName='page__main page__main--offer'>
@@ -160,7 +147,6 @@ const OfferPage = () => {
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <PlaceList
             offers={nearbyOffers.slice(0, 3)}
-            authorizationStatus={authorizationStatus}
             listClassName='near-places__list places__list'
             placeCardClassName='near-places__card place-card'
             imageWrapperClassName='near-places__image-wrapper place-card__image-wrapper'

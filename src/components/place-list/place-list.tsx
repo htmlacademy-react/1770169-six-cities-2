@@ -2,11 +2,9 @@ import {MouseEvent} from 'react';
 
 import {Offer} from '../../types/offer-type';
 import PlaceCard from '../place-card/place-card';
-import {Authorization} from '../../types/app-type';
 
 type PlaceListProps = {
   offers: Offer[];
-  authorizationStatus: Authorization;
   onMouseOver?: (evt: MouseEvent) => void;
   placeCardClassName?: string;
   imageWrapperClassName?: string;
@@ -17,7 +15,6 @@ type PlaceListProps = {
 const PlaceList = (
   {
     offers,
-    authorizationStatus,
     onMouseOver,
     placeCardClassName,
     imageWrapperClassName,
@@ -29,7 +26,6 @@ const PlaceList = (
     {offers.map((offer) => (
       <PlaceCard
         offer={offer}
-        authorizationStatus={authorizationStatus}
         onMouseOver={onMouseOver}
         placeCardClassName={placeCardClassName}
         imageWrapperClassName={imageWrapperClassName}

@@ -16,7 +16,7 @@ const initialState: InitialState = {
 };
 
 export const userSlice = createSlice({
-  name: NameSpace.USER,
+  name: NameSpace.User,
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -28,8 +28,9 @@ export const userSlice = createSlice({
       .addCase(authAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
-      .addCase(checkAuthAction.fulfilled, (state) => {
+      .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.user = action.payload;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;

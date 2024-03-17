@@ -9,11 +9,11 @@ import {NameSpace} from '../const';
 
 export const rootReducer = combineReducers(
   {
-    [NameSpace.OFFERS]: offersSlice.reducer,
-    [NameSpace.OFFER]: offerSlice.reducer,
-    [NameSpace.FAVORITE_OFFERS]: favoriteOffersSlice.reducer,
-    [NameSpace.NEARBY_OFFERS]: nearbyOffersSlice.reducer,
-    [NameSpace.COMMENTS]: commentsSlice.reducer,
-    [NameSpace.USER]: userSlice.reducer
+    [NameSpace.Offers]: offersSlice.reducer,
+    [NameSpace.Offer]: offerSlice.reducer,
+    [NameSpace.FavoriteOffers]: favoriteOffersSlice.reducer,
+    [NameSpace.NearbyOffers]: nearbyOffersSlice.reducer,
+    [NameSpace.Comments]: commentsSlice.reducer,
+    [NameSpace.User]: userSlice.reducer
   }
 );

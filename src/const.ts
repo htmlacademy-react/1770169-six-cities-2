@@ -141,14 +141,14 @@ const ErrorMessage: Record<string, string> = {
   PASSWORD_ERROR_MESSAGE: 'Пароль должен состоять минимум из одной буквы и цифры'
 };
 
-const NameSpace = {
-  OFFER: 'offer',
-  OFFERS: 'offers',
-  FAVORITE_OFFERS: 'favoriteOffers',
-  NEARBY_OFFERS: 'nearbyOffers',
-  COMMENTS: 'comments',
-  USER: 'user'
-} as const;
+enum NameSpace {
+  Offer = 'OFFER',
+  Offers = 'OFFERS',
+  FavoriteOffers = 'FAVORITE_OFFERS',
+  NearbyOffers = 'NEARBY_OFFERS',
+  Comments = 'COMMENTS',
+  User = 'USER'
+}
 
 export {
   MAX_IMAGES_VIEW,
