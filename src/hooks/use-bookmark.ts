@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import {useAppDispatch, useAppSelector} from './use-store';
@@ -12,13 +12,17 @@ export const useBookmark = (id = '', isFavorite = false) => {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
 
+  useEffect(() => {
+    dispatch(updateFavoriteOfferAction({
+      id: id,
+      status: isBookmark ? 0 : 1
+    }));
+  }, [isBookmark]);
+
   const handleBookmarkClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(updateFavoriteOfferAction({
-        id: id,
-        status: isBookmark ? 1 : 0
-      }));
-      return setIsBookmark((prevState) => !prevState);
+      setIsBookmark((prevState) => !prevState);
+      return;
     }
     navigate(AppRoute.LOGIN);
   };
