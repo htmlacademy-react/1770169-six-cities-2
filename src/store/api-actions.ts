@@ -61,18 +61,18 @@ export const getCommentsAction = createAsyncThunk<Comment[], string, {
   dispatch: AppDispatch;
   state: Store;
   extra: AxiosInstance;
-}>('offer/getComments', async (id, {extra: api}) => {
+}>('comment/getComments', async (id, {extra: api}) => {
   const {data} = await api.get<Comment[]>(`${ApiRoute.COMMENTS}/${id}`);
   return data;
 });
 
-export const createCommentAction = createAsyncThunk<void, CreateComment, {
+export const createCommentAction = createAsyncThunk<Comment, CreateComment, {
   dispatch: AppDispatch;
   state: Store;
   extra: AxiosInstance;
-}>('offer/createComment', async (data, {extra: api}) => {
-  const {offerId, ...comment} = data;
-  await api.post(`${ApiRoute.COMMENTS}/${offerId}`, comment);
+}>('comment/createComment', async ({offerId, ...comment}, {extra: api}) => {
+  const {data} = await api.post<Comment>(`${ApiRoute.COMMENTS}/${offerId}`, comment);
+  return data;
 });
 
 export const checkAuthAction = createAsyncThunk<FullUser, undefined, {

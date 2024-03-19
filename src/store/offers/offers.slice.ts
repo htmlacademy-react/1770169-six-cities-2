@@ -1,6 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 
-import {getOffersAction} from '../api-actions';
+import {getOffersAction, updateFavoriteOfferAction} from '../api-actions';
 import {NameSpace, cities, sortTypes} from '../../const';
 import {LocationName, SortTypeName} from '../../types/app-type';
 import {Offer} from '../../types/offer-type';
@@ -28,17 +28,6 @@ export const offersSlice = createSlice({
     },
     changeSortType: (state, action: PayloadAction<SortTypeName>) => {
       state.sortType = action.payload;
-    },
-    updateOffers: (state, action: PayloadAction<Offer>) => {
-      const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
-
-      if (index) {
-        state.offers = [
-          ...state.offers.slice(0, index),
-          action.payload,
-          ...state.offers.slice(index + 1)
-        ];
-      }
     }
   },
   extraReducers(builder) {
@@ -52,6 +41,17 @@ export const offersSlice = createSlice({
       })
       .addCase(getOffersAction.rejected, (state) => {
         state.isLoading = false;
+      })
+      .addCase(updateFavoriteOfferAction.fulfilled, (state, action) => {
+        const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
+
+        if (index !== -1) {
+          state.offers = [
+            ...state.offers.slice(0, index),
+            action.payload,
+            ...state.offers.slice(index + 1)
+          ];
+        }
       });
   },
 });

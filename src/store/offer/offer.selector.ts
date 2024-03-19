@@ -3,5 +3,5 @@ import {Store} from '../../types/store-type';
 
 type State = Pick<Store, NameSpace.Offer>;
 
-export const selectSelectedOffer = (state: State) => state[NameSpace.Offer].selectedOffer;
-export const selectSelectedOfferIsLoading = (state: State) => state[NameSpace.Offer].isLoading;
+export const selectOffer = (state: State) => state[NameSpace.Offer].offer;
+export const selectOfferIsLoading = (state: State) => state[NameSpace.Offer].isLoading;

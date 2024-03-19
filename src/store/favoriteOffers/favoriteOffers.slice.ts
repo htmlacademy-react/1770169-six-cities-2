@@ -34,14 +34,10 @@ export const favoriteOffersSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateFavoriteOfferAction.fulfilled, (state, action) => {
-        const index = state.favoriteOffers.findIndex((offer) => offer.id === action.payload.id);
-
-        if (index) {
-          state.favoriteOffers = [
-            ...state.favoriteOffers.slice(0, index),
-            action.payload,
-            ...state.favoriteOffers.slice(index + 1)
-          ];
+        if (action.payload.isFavorite) {
+          state.favoriteOffers.push(action.payload);
+        } else {
+          state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
         }
 
         state.isLoading = false;

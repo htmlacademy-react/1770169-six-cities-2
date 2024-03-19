@@ -20,7 +20,7 @@ import {selectAuthorizationStatus} from '../../store/user/user.selector';
 import {selectOffersIsLoading} from '../../store/offers/offers.selector';
 import {selectFavoriteOffersIsLoading} from '../../store/favoriteOffers/favoriteOffers.selector';
 import {selectNearbyOffersIsLoading} from '../../store/nearbyOffers/nearbyOffers.selector';
-import {selectSelectedOfferIsLoading} from '../../store/offer/offer.selector';
+import {selectOfferIsLoading} from '../../store/offer/offer.selector';
 
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
   const isFavoriteOffersLoading = useAppSelector(selectFavoriteOffersIsLoading);
   const isNearbyOffersLoading = useAppSelector(selectNearbyOffersIsLoading);
   const isCommentsLoading = useAppSelector(selectCommentsIsLoading);
-  const isSelectedOfferLoading = useAppSelector(selectSelectedOfferIsLoading);
+  const isSelectedOfferLoading = useAppSelector(selectOfferIsLoading);
   const isLoading = isOffersLoading ||
     isFavoriteOffersLoading ||
     isNearbyOffersLoading ||

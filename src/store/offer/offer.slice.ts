@@ -1,16 +1,16 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {getOfferAction} from '../api-actions';
+import {getOfferAction, updateFavoriteOfferAction} from '../api-actions';
 import {ExtendedOffer} from '../../types/offer-type';
 import {NameSpace} from '../../const';
 
 type InitialState = {
-  selectedOffer: ExtendedOffer | null;
+  offer: ExtendedOffer | null;
   isLoading: boolean;
 };
 
 const initialState: InitialState = {
-  selectedOffer: null,
+  offer: null,
   isLoading: false,
 };
 
@@ -24,11 +24,16 @@ export const offerSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getOfferAction.fulfilled, (state, action) => {
-        state.selectedOffer = action.payload;
+        state.offer = action.payload;
         state.isLoading = false;
       })
       .addCase(getOfferAction.rejected, (state) => {
         state.isLoading = false;
+      })
+      .addCase(updateFavoriteOfferAction.fulfilled, (state, action) => {
+        if (state.offer && state.offer.id === action.payload.id) {
+          state.offer.isFavorite = action.payload.isFavorite;
+        }
       });
   },
 });

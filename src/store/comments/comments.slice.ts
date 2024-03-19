@@ -33,11 +33,12 @@ export const commentsSlice = createSlice({
       .addCase(createCommentAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createCommentAction.fulfilled, (state) => {
+      .addCase(createCommentAction.fulfilled, (state, action) => {
+        state.comments.push(action.payload);
         state.isLoading = false;
       })
       .addCase(createCommentAction.rejected, (state) => {
-        state.isLoading = true;
+        state.isLoading = false;
       });
   },
 });

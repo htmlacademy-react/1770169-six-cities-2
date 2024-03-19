@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {getNearbyOffersAction} from '../api-actions';
+import {getNearbyOffersAction, updateFavoriteOfferAction} from '../api-actions';
 import {Offer} from '../../types/offer-type';
 import {NameSpace} from '../../const';
 
@@ -29,6 +29,17 @@ export const nearbyOffersSlice = createSlice({
       })
       .addCase(getNearbyOffersAction.rejected, (state) => {
         state.isLoading = false;
+      })
+      .addCase(updateFavoriteOfferAction.fulfilled, (state, action) => {
+        const index = state.nearbyOffers.findIndex((offer) => offer.id === action.payload.id);
+
+        if (index !== -1) {
+          state.nearbyOffers = [
+            ...state.nearbyOffers.slice(0, index),
+            action.payload,
+            ...state.nearbyOffers.slice(index + 1)
+          ];
+        }
       });
   },
 });
