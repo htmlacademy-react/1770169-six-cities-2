@@ -13,3 +13,8 @@ export type CreateComment = {
   offerId: string;
   rating: number;
 }
+
+export type FormData = {
+  review: string;
+  rating: string | null;
+}

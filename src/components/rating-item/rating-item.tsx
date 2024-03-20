@@ -7,7 +7,7 @@ type Rating = {
 
 type RatingItemProps = {
   rating: Rating;
-  selectedValue: string;
+  selectedValue: string | null;
   isFormsDisabled: boolean;
   onFieldChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 };
@@ -23,7 +23,7 @@ const RatingItem = ({rating, selectedValue, isFormsDisabled, onFieldChange}: Rat
         value={id}
         id={`${id}-stars`}
         type="radio"
-        checked={parseInt(selectedValue, 10) === id}
+        checked={Number(selectedValue) === id}
         onChange={onFieldChange}
         disabled={isFormsDisabled}
       />
