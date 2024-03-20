@@ -9,13 +9,12 @@ import PlaceList from '../../components/place-list/place-list';
 import SortList from '../../components/sort-list/sort-list';
 import {cities, sortTypes} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
-import {changeLocation, changeSortType} from '../../store/action';
-import {selectAuthorizationStatus, selectLocation, selectOffers, selectSortTypes} from '../../store/selectors';
+import {selectLocation, selectOffers, selectSortTypes} from '../../store/offers/offers.selector';
+import {changeLocation, changeSortType} from '../../store/offers/offers.slice';
 
 const HomePage = () => {
   const [sortOpened, setSortOpened] = useState(false);
   const [currentCard, setCurrentCard] = useState('');
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const offers = useAppSelector(selectOffers);
   const sortType = useAppSelector(selectSortTypes);
   const location = useAppSelector(selectLocation);
@@ -81,7 +80,6 @@ const HomePage = () => {
                 </form>
                 <PlaceList
                   offers={offers}
-                  authorizationStatus={authorizationStatus}
                   onMouseOver={handlePlaceCardMouseOver}
                 />
               </> :

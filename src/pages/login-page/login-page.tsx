@@ -8,9 +8,9 @@ import {getRandomElement} from '../../utils/app-utils';
 import {validatePassword} from '../../utils/validate-utils';
 import {AppRoute, cities, ErrorMessage} from '../../const';
 import {useAppDispatch} from '../../hooks/use-store';
-import {changeLocation} from '../../store/action';
 import {authAction} from '../../store/api-actions';
 import {Locations} from '../../types/app-type';
+import {changeLocation} from '../../store/offers/offers.slice';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState(

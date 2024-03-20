@@ -4,7 +4,8 @@ import {Helmet} from 'react-helmet-async';
 import Layout from '../../components/layout/layout';
 import PlaceList from '../../components/place-list/place-list';
 import {useAppSelector} from '../../hooks/use-store';
-import {selectAuthorizationStatus, selectFavoriteOffers} from '../../store/selectors';
+import {selectAuthorizationStatus} from '../../store/user/user.selector';
+import {selectFavoriteOffers} from '../../store/favoriteOffers/favoriteOffers.selector';
 
 const FavoritesPage = () => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);

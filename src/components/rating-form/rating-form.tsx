@@ -4,7 +4,7 @@ import {ratings} from '../../const';
 import RatingItem from '../rating-item/rating-item';
 
 type RatingFormProps = {
-  selectedValue: string;
+  selectedValue: string | null;
   isFormsDisabled: boolean;
   onFieldChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 };

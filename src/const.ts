@@ -141,6 +141,15 @@ const ErrorMessage: Record<string, string> = {
   PASSWORD_ERROR_MESSAGE: 'Пароль должен состоять минимум из одной буквы и цифры'
 };
 
+enum NameSpace {
+  Offer = 'OFFER',
+  Offers = 'OFFERS',
+  FavoriteOffers = 'FAVORITE_OFFERS',
+  NearbyOffers = 'NEARBY_OFFERS',
+  Comments = 'COMMENTS',
+  User = 'USER'
+}
+
 export {
   MAX_IMAGES_VIEW,
   MAX_REVIEWS_VIEW,
@@ -161,5 +170,6 @@ export {
   IconPath,
   ApiRoute,
   StatusCodeMapping,
-  ErrorMessage
+  ErrorMessage,
+  NameSpace
 };

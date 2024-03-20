@@ -5,56 +5,48 @@ import {useAppDispatch} from '../../hooks/use-store';
 import {createCommentAction} from '../../store/api-actions';
 import RatingForm from '../rating-form/rating-form';
 import {validateReviewLength} from '../../utils/validate-utils';
+import {FormData} from '../../types/comment-type';
 
 type ReviewFormProps = {
   offerId: string;
 };
 
 const ReviewForm = ({offerId}: ReviewFormProps) => {
-  const [comment, setComment] = useState({
+  const [formData, setFormData] = useState<FormData>({
     review: '',
-    rating: ''
+    rating: null
   });
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [isFormsDisabled, setIsFormsDisabled] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const dispatch = useAppDispatch();
 
-  const {review, rating} = comment;
-
-  const setElementsDisabled = (isDisabled = true) => {
-    setIsFormsDisabled(isDisabled);
-    setIsButtonDisabled(isDisabled);
-  };
-
-  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+  const handleFormDataChange = (evt: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
-    setComment((prevState) => ({...prevState, [name]: value}));
-
-    if (validateReviewLength(value) && rating) {
-      return setIsButtonDisabled(false);
-    }
-
-    setIsButtonDisabled(true);
+    setFormData({...formData, [name]: value});
   };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setElementsDisabled();
+    setIsSending(true);
     dispatch(createCommentAction(
       {
-        offerId: offerId,
-        comment: comment.review,
-        rating: parseInt(comment.rating, 10)
+        offerId,
+        comment: formData.review,
+        rating: Number(formData.rating)
       }
-    )).then((res) => {
-      if (res.meta.requestStatus === 'rejected') {
-        setElementsDisabled(false);
-      } else {
-        setComment((prevState) => ({...prevState, review: '', rating: ''}));
-        setIsFormsDisabled(false);
-        setIsButtonDisabled(true);
-      }
-    });
+    ))
+      .then((res) => {
+        if (res.meta.requestStatus === 'fulfilled') {
+          setFormData({
+            ...formData,
+            review: '',
+            rating: null
+          });
+        }
+      })
+      .finally(() => setIsSending(false));
   };
+
+  const isFormValid = validateReviewLength(formData.review) && formData.rating !== null;
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
@@ -62,18 +54,18 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
         Your review
       </label>
       <RatingForm
-        selectedValue={rating}
-        isFormsDisabled={isFormsDisabled}
-        onFieldChange={handleFieldChange}
+        selectedValue={formData.rating}
+        isFormsDisabled={isSending}
+        onFieldChange={handleFormDataChange}
       />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
-        value={review}
+        value={formData.review}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleFieldChange}
-        disabled={isFormsDisabled}
+        onChange={handleFormDataChange}
+        disabled={isSending}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -83,7 +75,7 @@ const ReviewForm = ({offerId}: ReviewFormProps) => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isButtonDisabled}
+          disabled={!isFormValid || isSending}
         >
           Submit
         </button>

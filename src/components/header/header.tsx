@@ -5,7 +5,8 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {logoutAction} from '../../store/api-actions';
-import {selectAuthorizationStatus, selectFavoriteOffers, selectUser} from '../../store/selectors';
+import {selectAuthorizationStatus, selectUser} from '../../store/user/user.selector';
+import {selectFavoriteOffers} from '../../store/favoriteOffers/favoriteOffers.selector';
 
 const Header = () => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);

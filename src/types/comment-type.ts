@@ -8,6 +8,13 @@ export type Comment = {
   rating: number;
 }
 
-export type CreateComment = Omit<Comment, 'id' | 'date' | 'user'> & {
+export type CreateComment = {
+  comment: string;
   offerId: string;
+  rating: number;
+}
+
+export type FormData = {
+  review: string;
+  rating: string | null;
 }
