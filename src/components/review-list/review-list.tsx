@@ -18,7 +18,8 @@ const ReviewList = ({reviews, authorizationStatus, offerId}: ReviewListProps) =>
     </h2>
     <ul className="reviews__list">
       {
-        [...reviews.slice(0, MAX_REVIEWS_VIEW)]
+        reviews
+          .slice(0, MAX_REVIEWS_VIEW)
           .sort(sortCommentsByDate)
           .map((review) => <ReviewCard review={review} key={review.id} />)
       }

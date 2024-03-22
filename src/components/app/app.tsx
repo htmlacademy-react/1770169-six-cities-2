@@ -37,11 +37,13 @@ const App = () => {
     isSelectedOfferLoading;
   const dispatch = useAppDispatch();
 
+  const isAuthenticated = authorizationStatus === AuthorizationStatus.Auth;
+
   useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
+    if (isAuthenticated) {
       dispatch(getFavoriteOffersAction());
     }
-  }, [dispatch, authorizationStatus]);
+  }, [dispatch, isAuthenticated]);
 
   if (authorizationStatus === AuthorizationStatus.Unknown && isLoading) {
     return <Loader />;
@@ -57,12 +59,22 @@ const App = () => {
           />
           <Route
             path={AppRoute.LOGIN}
-            element={<LoginPage />}
+            element={
+              <PrivateRoute
+                authorizationStatus={!isAuthenticated}
+                appRoute={AppRoute.HOME}
+              >
+                <LoginPage />
+              </PrivateRoute>
+            }
           />
           <Route
             path={AppRoute.FAVORITES}
             element={
-              <PrivateRoute authorizationStatus={authorizationStatus}>
+              <PrivateRoute
+                authorizationStatus={isAuthenticated}
+                appRoute={AppRoute.LOGIN}
+              >
                 <FavoritesPage />
               </PrivateRoute>
             }
@@ -84,4 +96,3 @@ const App = () => {
 };
 
 export default App;
-
