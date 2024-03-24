@@ -5,7 +5,7 @@ import {Comment} from '../types/comment-type';
 import {Offer} from '../types/offer-type';
 
 
-const sortCommentsByDate = (a: Comment, b: Comment): number => dayjs(b.date).diff(dayjs(a.date));
+const sortCommentsByDate = (a: Comment, b: Comment): number => dayjs(a.date).isBefore(dayjs(b.date)) ? 1 : -1;
 
 const sortOffersByAscendingPrice = (a: Offer, b: Offer): number => a.price - b.price;
 
@@ -20,7 +20,4 @@ const sort = {
   [sortTypes[3].name]: (offers: Offer[]) => [...offers].sort(sortOffersByRating),
 };
 
-export {
-  sortCommentsByDate,
-  sort
-};
+export {sortCommentsByDate, sort};

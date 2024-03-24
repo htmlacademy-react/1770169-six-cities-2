@@ -1,6 +1,7 @@
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, MAX_REVIEWS_VIEW} from '../../const';
 import {Authorization} from '../../types/app-type';
 import {Comment} from '../../types/comment-type';
+import {sortCommentsByDate} from '../../utils/sort-utils';
 import ReviewCard from '../review-card/review-card';
 import ReviewForm from '../review-form/review-form';
 
@@ -17,7 +18,10 @@ const ReviewList = ({reviews, authorizationStatus, offerId}: ReviewListProps) =>
     </h2>
     <ul className="reviews__list">
       {
-        reviews.map((review) => <ReviewCard review={review} key={review.id} />)
+        reviews
+          .slice(0, MAX_REVIEWS_VIEW)
+          .sort(sortCommentsByDate)
+          .map((review) => <ReviewCard review={review} key={review.id} />)
       }
     </ul>
     {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm offerId={offerId} />}
