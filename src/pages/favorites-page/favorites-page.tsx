@@ -4,11 +4,11 @@ import {Helmet} from 'react-helmet-async';
 import Layout from '../../components/layout/layout';
 import PlaceList from '../../components/place-list/place-list';
 import {useAppSelector} from '../../hooks/use-store';
-import {selectFavoriteOffers} from '../../store/favoriteOffers/favoriteOffers.selector';
+import {selectFavoriteOffers, selectFavoriteOffersGroupedByCity} from '../../store/favoriteOffers/favoriteOffers.selector';
 
 const FavoritesPage = () => {
   const favoriteOffers = useAppSelector(selectFavoriteOffers);
-  const favoriteCities = new Set(favoriteOffers.map((favorite) => favorite.city.name));
+  const groupedFavoriteOffer = useAppSelector(selectFavoriteOffersGroupedByCity);
 
   return (
     <Layout
@@ -29,17 +29,17 @@ const FavoritesPage = () => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {[...favoriteCities].map((city) => (
-                <li className="favorites__locations-items" key={city}>
+              {groupedFavoriteOffer.map((offer) => (
+                <li className="favorites__locations-items" key={offer.city}>
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
                       <a className="locations__item-link" href="#">
-                        <span>{city}</span>
+                        <span>{offer.city}</span>
                       </a>
                     </div>
                   </div>
                   <PlaceList
-                    offers={favoriteOffers.filter((favorite) => favorite.city.name === city)}
+                    offers={offer.favoriteOffers}
                     placeCardClassName='favorites__card place-card'
                     imageWrapperClassName='favorites__image-wrapper place-card__image-wrapper'
                     cardInfoClassName='favorites__card-info place-card__info'
