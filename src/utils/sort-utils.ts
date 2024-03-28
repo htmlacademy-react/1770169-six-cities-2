@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 import {sortTypes} from '../const';
 import {Comment} from '../types/comment-type';
