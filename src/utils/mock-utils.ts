@@ -85,3 +85,11 @@ export const getMockExtendedOffer = (isFavorite = datatype.boolean()) => {
     maxAdults: datatype.number(5)
   };
 };
+
+export const getMockUser = () => ({
+  name: internet.userName(),
+  avatarUrl: internet.avatar(),
+  isPro: datatype.boolean(),
+  email: internet.email(),
+  token: datatype.string()
+});
