@@ -61,17 +61,17 @@ describe('Comments slice', () => {
   });
 
   it('should add to "comments" new comment, "isLoading" to "false" with "createCommentAction.fulfilled"', () => {
-    const comments = getMockComment();
+    const comment = getMockComment();
     const data = {
       comment: '',
       offerId: '',
       rating: 4
     };
     const expectedState = {
-      comments: [comments],
+      comments: [comment],
       isLoading: false,
     };
-    const result = commentsSlice.reducer(undefined, createCommentAction.fulfilled(comments, '', data));
+    const result = commentsSlice.reducer(undefined, createCommentAction.fulfilled(comment, '', data));
     expect(result).toEqual(expectedState);
   });
 
