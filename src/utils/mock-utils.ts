@@ -46,7 +46,7 @@ export const getMockOffer = (isFavorite = datatype.boolean()) => {
   };
 };
 
-export const getMockExtendedOffer = () => {
+export const getMockExtendedOffer = (isFavorite = datatype.boolean()) => {
   const city: Locations[number] = getRandomElement(cities);
   const offerType = getRandomElement(Object.values(housing));
   const latitude = Number(address.latitude());
@@ -70,12 +70,12 @@ export const getMockExtendedOffer = () => {
       longitude,
       zoom: 8
     },
-    isFavorite: datatype.boolean(),
+    isFavorite,
     isPremium: datatype.boolean(),
     rating: datatype.number(5),
     description: lorem.paragraph(),
     bedrooms: datatype.number(5),
-    goods: datatype.array(),
+    goods: [datatype.string()],
     host: {
       name: internet.userName(),
       avatarUrl: internet.avatar(),

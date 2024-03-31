@@ -4,11 +4,11 @@ import {Icon, layerGroup, Marker} from 'leaflet';
 
 import {IconPath} from '../../const';
 import {useMap} from '../../hooks/use-map';
-import {Offer} from '../../types/offer-type';
+import {ExtendedOffer, Offer} from '../../types/offer-type';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  offers: Offer[];
+  offers: (Offer | ExtendedOffer)[];
   currentCard: string;
 };
 
