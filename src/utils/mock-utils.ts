@@ -1,7 +1,8 @@
 import {datatype, internet, lorem, image, address, commerce} from 'faker';
 import {getRandomElement} from './app-utils';
-import {cities, housing} from '../const';
+import {AuthorizationStatus, cities, housing, sortTypes} from '../const';
 import {Locations} from '../types/app-type';
+import { Store } from '../types/store-type';
 
 export const getMockComment = () => ({
   id: datatype.uuid(),
@@ -92,4 +93,19 @@ export const getMockUser = () => ({
   isPro: datatype.boolean(),
   email: internet.email(),
   token: datatype.string()
+});
+
+export const getMockStore = (initialState: Partial<Store> = {}) => ({
+  OFFER: {offer: null, isLoading: false},
+  OFFERS: {
+    offers: [],
+    location: cities[0].name,
+    sortType: sortTypes[0].name,
+    isLoading: false
+  },
+  FAVORITE_OFFERS: {favoriteOffers: [], isLoading: false},
+  NEARBY_OFFERS: {nearbyOffers: [], isLoading: false},
+  COMMENTS: {comments: [], isLoading: false},
+  USER: {user: null, authorizationStatus: AuthorizationStatus.NoAuth},
+  ...initialState
 });

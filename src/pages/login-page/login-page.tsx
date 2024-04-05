@@ -87,6 +87,7 @@ const LoginPage = () => {
                   placeholder="Email"
                   required
                   value={formData.email}
+                  data-testId="email-field"
                   onChange={handelFieldChange}
                 />
               </div>
@@ -99,6 +100,7 @@ const LoginPage = () => {
                   placeholder="Password"
                   required
                   value={formData.password}
+                  data-testId="password-field"
                   onChange={handelFieldChange}
                 />
               </div>

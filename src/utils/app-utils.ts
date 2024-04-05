@@ -9,6 +9,6 @@ const getRatingPercent = (value: number): string => {
   return `${Math.round(value) * ratingPercent / ratingValue}%`;
 };
 
-const getRandomElement = <T>(elements: T[]): T => elements[Math.floor(Math.random() * elements.length)];
+const getRandomElement = <T>(elements: readonly T[]): T => elements[Math.floor(Math.random() * elements.length)];
 
 export {getFilteredOffers, getRatingPercent, getRandomElement};
