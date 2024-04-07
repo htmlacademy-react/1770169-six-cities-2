@@ -12,6 +12,21 @@ describe('Component: Layout', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByTestId('layout')).toBeInTheDocument();
+
+    expect(screen.getByAltText('6 cities logo')).toBeInTheDocument();
+  });
+
+  it('should render nested component in the Layout component', () => {
+    const withHistoryComponent = withHistory(
+      <Layout>
+        <span>Nested component</span>
+      </Layout>
+    );
+    const {withStoreComponent} = withStore(withHistoryComponent, getMockStore());
+
+    render(withStoreComponent);
+
+
+    expect(screen.getByText('Nested component')).toBeInTheDocument();
   });
 });

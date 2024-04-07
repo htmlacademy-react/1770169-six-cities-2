@@ -13,7 +13,7 @@ const Layout = (
     mainClassName = 'page__main page__main--index',
     children
   }: LayoutProps) => (
-  <div className={containerClassName} data-testId="layout">
+  <div className={containerClassName}>
     <Header />
     <main className={mainClassName}>
       {children}

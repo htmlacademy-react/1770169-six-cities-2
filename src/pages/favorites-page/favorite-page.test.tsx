@@ -18,11 +18,11 @@ describe('Page: FavoritePage', () => {
     const favoriteOffers = Array.from({length: 3}, getMockOffer);
     const withHistoryComponent = withHistory(<FavoritesPage />);
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore({
-      FAVORITE_OFFERS: {favoriteOffers: favoriteOffers, isLoading: false},
+      FAVORITE_OFFERS: {favoriteOffers, isLoading: false},
     }));
 
     render(withStoreComponent);
 
-    expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
+    expect(screen.getByText('Saved listing')).toBeInTheDocument();
   });
 });

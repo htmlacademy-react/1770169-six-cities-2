@@ -22,7 +22,7 @@ const PlaceList = (
     listClassName = 'cities__places-list places__list tabs__content'
   }: PlaceListProps
 ) => (
-  <div className={listClassName}>
+  <div className={listClassName} data-testId="places-list">
     {offers.map((offer) => (
       <PlaceCard
         offer={offer}

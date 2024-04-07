@@ -1,8 +1,11 @@
 import {datatype, internet, lorem, image, address, commerce} from 'faker';
+
+import {Action} from '@reduxjs/toolkit';
+
 import {getRandomElement} from './app-utils';
 import {AuthorizationStatus, cities, housing, sortTypes} from '../const';
 import {Locations} from '../types/app-type';
-import { Store } from '../types/store-type';
+import {Store} from '../types/store-type';
 
 export const getMockComment = () => ({
   id: datatype.uuid(),
@@ -109,3 +112,5 @@ export const getMockStore = (initialState: Partial<Store> = {}) => ({
   USER: {user: null, authorizationStatus: AuthorizationStatus.NoAuth},
   ...initialState
 });
+
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({type}) => type);

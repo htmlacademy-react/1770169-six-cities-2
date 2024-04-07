@@ -15,7 +15,7 @@ import {createAPI} from '../services/api';
 import {Store} from '../types/store-type';
 
 
-type ComponentWithStore = {
+type ComponentWithMockStore = {
   withStoreComponent: JSX.Element;
   mockStore: MockStore;
   mockAxiosAdapter: MockAdapter;
@@ -35,8 +35,8 @@ export const withHistory = (component: JSX.Element, history?: MemoryHistory) => 
 
 export const withStore = (
   component: JSX.Element,
-  initinalState: Partial<Store> = {}
-): ComponentWithStore => {
+  initialState: Partial<Store> = {}
+): ComponentWithMockStore => {
   const axios = createAPI();
   const mockAxiosAdapter = new MockAdapter(axios);
   const middleware = [thunk.withExtraArgument(axios)];
@@ -47,9 +47,9 @@ export const withStore = (
       Store,
       ReturnType<typeof createAPI>,
       Action
-      >
-    >(middleware);
-  const mockStore = mockStoreCreator(initinalState);
+    >
+  >(middleware);
+  const mockStore = mockStoreCreator(initialState);
 
   return ({
     withStoreComponent: <Provider store={mockStore}>{component}</Provider>,

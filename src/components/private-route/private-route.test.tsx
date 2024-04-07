@@ -4,12 +4,13 @@ import {render, screen} from '@testing-library/react';
 
 import {MemoryHistory, createMemoryHistory} from 'history';
 
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {withHistory} from '../../utils/mock-component-utils';
 import PrivateRoute from './private-route';
 
 describe('Component: PrivateRoute', () => {
   let mockHistory: MemoryHistory;
+  const isAuthenticated = true;
 
   beforeAll(() => {
     mockHistory = createMemoryHistory();
@@ -24,9 +25,9 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'private route';
     const withHistoryComponent = withHistory(
       <Routes>
-        <Route path={AppRoute.HOME} element={<span>{expectedText}</span>} />
+        <Route path={AppRoute.LOGIN} element={<span>{expectedText}</span>} />
         <Route path={AppRoute.FAVORITES} element={
-          <PrivateRoute authorizationStatus={false} appRoute={'/favorites'}>
+          <PrivateRoute authorizationStatus={!isAuthenticated} appRoute={AppRoute.LOGIN}>
             <span>{notExpectedText}</span>
           </PrivateRoute>
         }
@@ -46,9 +47,9 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'public route';
     const withHistoryComponent = withHistory(
       <Routes>
-        <Route path={AppRoute.HOME} element={<span>{notExpectedText}</span>} />
+        <Route path={AppRoute.LOGIN} element={<span>{notExpectedText}</span>} />
         <Route path={AppRoute.FAVORITES} element={
-          <PrivateRoute authorizationStatus={!AuthorizationStatus.Auth} appRoute={'/favorites'}>
+          <PrivateRoute authorizationStatus={isAuthenticated} appRoute={AppRoute.LOGIN}>
             <span>{expectedText}</span>
           </PrivateRoute>
         }
