@@ -63,7 +63,7 @@ const HomePage = () => {
                   action="#"
                   method="get"
                   onClick={() => setSortOpened((prevState) => !prevState)}
-                  data-testId="places-sorting"
+                  data-testid="places-sorting"
                 >
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex={0}>

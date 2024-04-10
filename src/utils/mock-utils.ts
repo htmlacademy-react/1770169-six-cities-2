@@ -4,7 +4,6 @@ import {Action} from '@reduxjs/toolkit';
 
 import {getRandomElement} from './app-utils';
 import {AuthorizationStatus, cities, housing, sortTypes} from '../const';
-import {Locations} from '../types/app-type';
 import {Store} from '../types/store-type';
 
 export const getMockComment = () => ({
@@ -20,7 +19,6 @@ export const getMockComment = () => ({
 });
 
 export const getMockOffer = (isFavorite = datatype.boolean()) => {
-  const city: Locations[number] = getRandomElement(cities);
   const offerType = getRandomElement(Object.values(housing));
   const latitude = Number(address.latitude());
   const longitude = Number(address.longitude());
@@ -31,7 +29,7 @@ export const getMockOffer = (isFavorite = datatype.boolean()) => {
     type: offerType ,
     price: Number(commerce.price()),
     city: {
-      name: city.name,
+      name: cities[0].name,
       location: {
         latitude,
         longitude,
@@ -51,7 +49,6 @@ export const getMockOffer = (isFavorite = datatype.boolean()) => {
 };
 
 export const getMockExtendedOffer = (isFavorite = datatype.boolean()) => {
-  const city: Locations[number] = getRandomElement(cities);
   const offerType = getRandomElement(Object.values(housing));
   const latitude = Number(address.latitude());
   const longitude = Number(address.longitude());
@@ -62,7 +59,7 @@ export const getMockExtendedOffer = (isFavorite = datatype.boolean()) => {
     type: offerType,
     price: Number(commerce.price()),
     city: {
-      name: city.name,
+      name: cities[0].name,
       location: {
         latitude,
         longitude,

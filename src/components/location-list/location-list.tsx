@@ -8,7 +8,7 @@ type LocationListProps = {
 };
 
 const LocationList = ({locations, selectedLocation, onLocationClick}: LocationListProps) => (
-  <ul className="locations__list tabs__list" data-testId="locations-list">
+  <ul className="locations__list tabs__list" data-testid="locations-list">
     {locations.map(({id, name}) => (
       <Location
         key={id}

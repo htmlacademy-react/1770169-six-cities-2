@@ -16,7 +16,7 @@ const SortList = ({sortTypeList, sortOpened, selectedSortType, onSortTypeClick}:
       'places__options places__options--custom',
       {'places__options--opened': sortOpened}
     )}
-    data-testId="sort-list"
+    data-testid="sort-list"
   >
     {sortTypeList.map(({id, name}) => (
       <SortType
