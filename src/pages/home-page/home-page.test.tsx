@@ -36,8 +36,7 @@ describe('Page: HomePage', () => {
     expect(screen.getByText('Places')).toBeInTheDocument();
   });
 
-  it('should onClick called, when user open places sorting', async() => {
-    const handleFormClick = vi.fn();
+  it('should open "placesOptions", when the user click the sorting of places', async() => {
     const withHistoryComponent = withHistory(<HomePage />);
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore({
       OFFERS: {
@@ -52,7 +51,6 @@ describe('Page: HomePage', () => {
 
     await userEvent.click(screen.getByTestId('places-sorting'));
 
-    expect(handleFormClick).toBeCalled();
-    //expect(handleFormClick).nthCalledWith(1);
+    expect(screen.getByTestId('sort-list')).toHaveClass('places__options--opened');
   });
 });

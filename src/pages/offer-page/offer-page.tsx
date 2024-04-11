@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 
 import classNames from 'classnames';
 import {Helmet} from 'react-helmet-async';
@@ -21,6 +21,7 @@ import {selectAuthorizationStatus} from '../../store/user/user.selector';
 import {selectOffer} from '../../store/offer/offer.selector';
 import {selectComments} from '../../store/comments/comments.selector';
 import {selectNearbyOffers} from '../../store/nearbyOffers/nearbyOffers.selector';
+import {selectRawOffers} from '../../store/offers/offers.selector';
 
 type UseParams = {
   id: string;
@@ -30,16 +31,26 @@ const OfferPage = () => {
   const {id} = useParams() as UseParams;
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const offer = useAppSelector(selectOffer);
+  const offers = useAppSelector(selectRawOffers);
   const comments = useAppSelector(selectComments);
   const nearbyOffers = useAppSelector(selectNearbyOffers);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getOfferAction(id));
-    dispatch(getCommentsAction(id));
-    dispatch(getNearbyOffersAction(id));
-  }, [dispatch, id]);
+    if (offers.some((item) => item.id === id)) {
+      dispatch(getOfferAction(id));
+      dispatch(getCommentsAction(id));
+      dispatch(getNearbyOffersAction(id));
+      return;
+    }
+
+    navigate(AppRoute.NOT_FOUND);
+  }, [dispatch, id, offers]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (offer === null) {
     return;

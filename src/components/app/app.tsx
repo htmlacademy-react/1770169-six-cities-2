@@ -20,7 +20,6 @@ import {selectFavoriteOffersIsLoading} from '../../store/favoriteOffers/favorite
 import {selectNearbyOffersIsLoading} from '../../store/nearbyOffers/nearbyOffers.selector';
 import {selectOfferIsLoading} from '../../store/offer/offer.selector';
 
-
 const App = () => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isOffersLoading = useAppSelector(selectOffersIsLoading);

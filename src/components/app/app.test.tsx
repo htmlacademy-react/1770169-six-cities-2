@@ -3,9 +3,9 @@ import {MemoryHistory, createMemoryHistory} from 'history';
 import {screen, render} from '@testing-library/react';
 
 import App from './app';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, cities, sortTypes} from '../../const';
 import {withHistory, withStore} from '../../utils/mock-component-utils';
-import {getMockExtendedOffer, getMockStore} from '../../utils/mock-utils';
+import {getMockExtendedOffer, getMockOffer, getMockStore} from '../../utils/mock-utils';
 
 describe('Application Routing', () => {
   let mockHistory: MemoryHistory;
@@ -47,10 +47,18 @@ describe('Application Routing', () => {
   });
 
   it('should render "OfferPage" when navigate to "/offer/:id"', () => {
-    const offer = getMockExtendedOffer();
+    const offers = Array.from({length: 3}, getMockOffer);
+    const offer = {...getMockExtendedOffer(), id: offers[0].id};
     const withHistoryComponent = withHistory(<App />, mockHistory);
+
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore({
-      OFFER: {offer, isLoading: false}
+      OFFER: {offer, isLoading: false},
+      OFFERS: {
+        location: cities[0].name,
+        sortType: sortTypes[0].name,
+        offers,
+        isLoading: false
+      }
     }));
     mockHistory.push(`${AppRoute.OFFER}/${offer.id}`);
 
