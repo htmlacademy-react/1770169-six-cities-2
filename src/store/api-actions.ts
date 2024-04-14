@@ -3,7 +3,7 @@ import {AxiosInstance} from 'axios';
 
 import {AppDispatch, Store} from './../types/store-type';
 import {ApiRoute, AppRoute} from '../const';
-import {removeToken, setToken} from '../services/token';
+import {getToken, removeToken, setToken} from '../services/token';
 import {redirectToRoute} from '../store/action';
 import {Comment, CreateComment} from '../types/comment-type';
 import {ExtendedOffer, Offer} from '../types/offer-type';
@@ -79,6 +79,9 @@ export const checkAuthAction = createAsyncThunk<FullUser, undefined, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>('user/checkAuth', async (_, {extra: api}) => {
+  if (getToken()) {
+    throw new Error();
+  }
   const {data} = await api.get<FullUser>(ApiRoute.LOGIN);
   return data;
 });

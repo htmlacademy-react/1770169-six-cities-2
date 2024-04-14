@@ -4,11 +4,11 @@ import {Navigate} from 'react-router-dom';
 
 import {AppRoute} from '../../const';
 
-type Keys = keyof typeof AppRoute;
+type AppRoute = typeof AppRoute;
 
 type PrivateRouteProps = PropsWithChildren<{
   authorizationStatus: boolean ;
-  appRoute: typeof AppRoute[Keys];
+  appRoute: AppRoute[keyof AppRoute];
 }>;
 
 const PrivateRoute = ({authorizationStatus, appRoute, children}: PrivateRouteProps) => (

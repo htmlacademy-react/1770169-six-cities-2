@@ -10,7 +10,7 @@ type RatingFormProps = {
 };
 
 const RatingForm = ({selectedValue, isFormsDisabled, onFieldChange}: RatingFormProps) => (
-  <div className="reviews__rating-form form__rating">
+  <div className="reviews__rating-form form__rating" data-testid="rating-form">
     {ratings.map((rating) => (
       <RatingItem
         key={rating.id}

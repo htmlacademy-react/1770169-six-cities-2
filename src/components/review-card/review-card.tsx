@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 import {DateFormat} from '../../const';
 import {Comment} from '../../types/comment-type';

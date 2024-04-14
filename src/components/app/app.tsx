@@ -3,7 +3,6 @@ import {useEffect} from 'react';
 import {HelmetProvider} from 'react-helmet-async';
 import {Route, Routes} from 'react-router-dom';
 
-import browserHistory from '../../browser-history';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -12,7 +11,6 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import {getFavoriteOffersAction} from '../../store/api-actions';
-import HistoryRouter from '../history-route/history-route';
 import Loader from '../loader/loader';
 import PrivateRoute from '../private-route/private-route';
 import {selectCommentsIsLoading} from '../../store/comments/comments.selector';
@@ -21,7 +19,6 @@ import {selectOffersIsLoading} from '../../store/offers/offers.selector';
 import {selectFavoriteOffersIsLoading} from '../../store/favoriteOffers/favoriteOffers.selector';
 import {selectNearbyOffersIsLoading} from '../../store/nearbyOffers/nearbyOffers.selector';
 import {selectOfferIsLoading} from '../../store/offer/offer.selector';
-
 
 const App = () => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
@@ -51,46 +48,44 @@ const App = () => {
 
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
-        <Routes>
-          <Route
-            path={AppRoute.HOME}
-            element={<HomePage />}
-          />
-          <Route
-            path={AppRoute.LOGIN}
-            element={
-              <PrivateRoute
-                authorizationStatus={!isAuthenticated}
-                appRoute={AppRoute.HOME}
-              >
-                <LoginPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.FAVORITES}
-            element={
-              <PrivateRoute
-                authorizationStatus={isAuthenticated}
-                appRoute={AppRoute.LOGIN}
-              >
-                <FavoritesPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.OFFER_ID}
-            element={
-              <OfferPage />
-            }
-          />
-          <Route
-            path={AppRoute.NOT_FOUND}
-            element={<NotFoundPage />}
-          />
-        </Routes>
-      </HistoryRouter>
+      <Routes>
+        <Route
+          path={AppRoute.HOME}
+          element={<HomePage />}
+        />
+        <Route
+          path={AppRoute.LOGIN}
+          element={
+            <PrivateRoute
+              authorizationStatus={!isAuthenticated}
+              appRoute={AppRoute.HOME}
+            >
+              <LoginPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.FAVORITES}
+          element={
+            <PrivateRoute
+              authorizationStatus={isAuthenticated}
+              appRoute={AppRoute.LOGIN}
+            >
+              <FavoritesPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.OFFER_ID}
+          element={
+            <OfferPage />
+          }
+        />
+        <Route
+          path={AppRoute.NOT_FOUND}
+          element={<NotFoundPage />}
+        />
+      </Routes>
     </HelmetProvider>
   );
 };
