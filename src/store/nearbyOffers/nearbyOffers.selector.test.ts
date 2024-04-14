@@ -1,6 +1,6 @@
+import {selectNearbyOffers, selectNearbyOffersIsLoading} from './nearbyOffers.selector';
 import {NameSpace} from '../../const';
 import {getMockOffer} from '../../utils/mock-utils';
-import {selectNearbyOffers, selectNearbyOffersIsLoading} from './nearbyOffers.selector';
 
 describe('NearbyOffers selectors', () => {
   const state = {

@@ -1,6 +1,6 @@
+import {nearbyOffersSlice} from './nearbyOffers.slice';
 import {getMockOffer} from '../../utils/mock-utils';
 import {getNearbyOffersAction, updateFavoriteOfferAction} from '../api-actions';
-import {nearbyOffersSlice} from './nearbyOffers.slice';
 
 describe('NearbyOffers slice', () => {
   it('should return initial state with empty action', () => {

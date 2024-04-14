@@ -1,6 +1,5 @@
-import {datatype, internet, lorem, image, address, commerce} from 'faker';
-
 import {Action} from '@reduxjs/toolkit';
+import {address, commerce, datatype, image, internet, lorem} from 'faker';
 
 import {getRandomElement} from './app-utils';
 import {AuthorizationStatus, cities, housing, sortTypes} from '../const';

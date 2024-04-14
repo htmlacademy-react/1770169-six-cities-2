@@ -1,6 +1,5 @@
-import {MemoryHistory, createMemoryHistory} from 'history';
-
-import {screen, render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
+import {createMemoryHistory, MemoryHistory} from 'history';
 
 import App from './app';
 import {AppRoute, AuthorizationStatus, cities, sortTypes} from '../../const';

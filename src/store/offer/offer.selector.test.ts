@@ -1,6 +1,6 @@
+import {selectOffer, selectOfferIsLoading} from './offer.selector';
 import {NameSpace} from '../../const';
 import {getMockExtendedOffer} from '../../utils/mock-utils';
-import {selectOffer, selectOfferIsLoading} from './offer.selector';
 
 describe('Offer selectors', () => {
   const state = {

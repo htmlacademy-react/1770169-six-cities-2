@@ -1,8 +1,14 @@
+import {
+  selectLocation,
+  selectOffers,
+  selectOffersIsLoading,
+  selectRawOffers,
+  selectSortTypes
+} from './offers.selector';
 import {cities, NameSpace, sortTypes} from '../../const';
 import {getFilteredOffers} from '../../utils/app-utils';
 import {getMockOffer} from '../../utils/mock-utils';
 import {sort} from '../../utils/sort-utils';
-import {selectLocation, selectOffers, selectOffersIsLoading, selectRawOffers, selectSortTypes} from './offers.selector';
 
 describe('Offers selectors', () => {
   const state = {

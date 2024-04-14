@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 
-import {ratings} from '../../const';
 import RatingItem from './rating-item';
+import {ratings} from '../../const';
 
 describe('Component: RatingItem', () => {
   const rating = ratings[0];

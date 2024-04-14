@@ -3,9 +3,9 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import {ReviewLength} from '../../const';
 import {useAppDispatch} from '../../hooks/use-store';
 import {createCommentAction} from '../../store/api-actions';
-import RatingForm from '../rating-form/rating-form';
-import {validateReviewLength} from '../../utils/validate-utils';
 import {FormData} from '../../types/comment-type';
+import {validateReviewLength} from '../../utils/validate-utils';
+import RatingForm from '../rating-form/rating-form';
 
 type ReviewFormProps = {
   offerId: string;

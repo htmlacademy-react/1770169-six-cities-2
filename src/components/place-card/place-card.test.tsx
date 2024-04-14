@@ -1,14 +1,12 @@
+import {fireEvent, render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {Route, Routes} from 'react-router-dom';
 
-import {fireEvent, render, screen} from '@testing-library/react';
-
-import userEvent from '@testing-library/user-event';
-
-import {ApiRoute, AppRoute, AuthorizationStatus} from '../../const';
 import PlaceCard from './place-card';
+import {ApiRoute, AppRoute, AuthorizationStatus} from '../../const';
+import {updateFavoriteOfferAction} from '../../store/api-actions';
 import {withHistory, withStore} from '../../utils/mock-component-utils';
 import {extractActionsTypes, getMockOffer, getMockStore} from '../../utils/mock-utils';
-import {updateFavoriteOfferAction} from '../../store/api-actions';
 
 describe('Component: PlaceCard', () => {
   const offer = getMockOffer(true);

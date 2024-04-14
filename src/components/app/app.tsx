@@ -11,14 +11,14 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import {getFavoriteOffersAction} from '../../store/api-actions';
-import Loader from '../loader/loader';
-import PrivateRoute from '../private-route/private-route';
 import {selectCommentsIsLoading} from '../../store/comments/comments.selector';
-import {selectAuthorizationStatus} from '../../store/user/user.selector';
-import {selectOffersIsLoading} from '../../store/offers/offers.selector';
 import {selectFavoriteOffersIsLoading} from '../../store/favoriteOffers/favoriteOffers.selector';
 import {selectNearbyOffersIsLoading} from '../../store/nearbyOffers/nearbyOffers.selector';
 import {selectOfferIsLoading} from '../../store/offer/offer.selector';
+import {selectOffersIsLoading} from '../../store/offers/offers.selector';
+import {selectAuthorizationStatus} from '../../store/user/user.selector';
+import Loader from '../loader/loader';
+import PrivateRoute from '../private-route/private-route';
 
 const App = () => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);

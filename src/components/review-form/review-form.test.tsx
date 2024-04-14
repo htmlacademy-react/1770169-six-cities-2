@@ -1,10 +1,10 @@
 import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-
+import ReviewForm from './review-form';
 import {withStore} from '../../utils/mock-component-utils';
 import {getMockStore} from '../../utils/mock-utils';
-import ReviewForm from './review-form';
-import userEvent from '@testing-library/user-event';
+
 
 describe('Component: ReviewForm', () => {
   it('should render ReviewForm component', () => {

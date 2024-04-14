@@ -1,9 +1,8 @@
 import {render, screen} from '@testing-library/react';
-
 import userEvent from '@testing-library/user-event';
 
-import {cities} from '../../const';
 import Location from './location';
+import {cities} from '../../const';
 import {withHistory} from '../../utils/mock-component-utils';
 
 describe('Component: Location', () => {

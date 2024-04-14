@@ -1,10 +1,8 @@
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import {Action, ThunkDispatch} from '@reduxjs/toolkit';
 import MockAdapter from 'axios-mock-adapter';
 import thunk from 'redux-thunk';
-import {configureMockStore} from '@jedmao/redux-mock-store';
 
-import {createAPI} from '../services/api';
-import {Store} from '../types/store-type';
-import {Action, ThunkDispatch} from '@reduxjs/toolkit';
 import {
   checkAuthAction,
   createCommentAction,
@@ -15,6 +13,8 @@ import {
   updateFavoriteOfferAction
 } from './api-actions';
 import {ApiRoute} from '../const';
+import {createAPI} from '../services/api';
+import {Store} from '../types/store-type';
 import {
   extractActionsTypes,
   getMockComment,

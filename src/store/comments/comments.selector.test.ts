@@ -1,7 +1,7 @@
+import {selectComments, selectCommentsIsLoading, selectRawComments} from './comments.selector';
 import {MAX_REVIEWS_VIEW, NameSpace} from '../../const';
 import {getMockComment} from '../../utils/mock-utils';
 import {sortCommentsByDate} from '../../utils/sort-utils';
-import {selectComments, selectCommentsIsLoading, selectRawComments} from './comments.selector';
 
 describe('Comments selectors', () => {
   const state = {

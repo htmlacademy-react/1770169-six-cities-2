@@ -1,8 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {getOfferAction, updateFavoriteOfferAction} from '../api-actions';
-import {ExtendedOffer} from '../../types/offer-type';
 import {NameSpace} from '../../const';
+import {ExtendedOffer} from '../../types/offer-type';
+import {getOfferAction, updateFavoriteOfferAction} from '../api-actions';
 
 type InitialState = {
   offer: ExtendedOffer | null;

@@ -1,9 +1,9 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {getOffersAction, updateFavoriteOfferAction} from '../api-actions';
-import {NameSpace, cities, sortTypes} from '../../const';
+import {cities, NameSpace, sortTypes} from '../../const';
 import {LocationName, SortTypeName} from '../../types/app-type';
 import {Offer} from '../../types/offer-type';
+import {getOffersAction, updateFavoriteOfferAction} from '../api-actions';
 
 type InitialState = {
   location: LocationName;

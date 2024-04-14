@@ -1,14 +1,14 @@
 
 import {render, screen} from '@testing-library/react';
-
 import userEvent from '@testing-library/user-event';
+import {Route, Routes} from 'react-router-dom';
 
 import Header from './header';
-import {withStore, withHistory} from '../../utils/mock-component-utils';
-import {extractActionsTypes, getMockStore} from '../../utils/mock-utils';
 import {ApiRoute, AppRoute, AuthorizationStatus} from '../../const';
 import {logoutAction} from '../../store/api-actions';
-import {Route, Routes} from 'react-router-dom';
+import {withHistory, withStore} from '../../utils/mock-component-utils';
+import {extractActionsTypes, getMockStore} from '../../utils/mock-utils';
+
 
 describe('Component: Header', () => {
   const login = 'Sign in';
