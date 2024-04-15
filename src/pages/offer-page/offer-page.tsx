@@ -1,4 +1,4 @@
-import {useEffect, useMemo} from 'react';
+import {useEffect} from 'react';
 
 import classNames from 'classnames';
 import {Helmet} from 'react-helmet-async';
@@ -8,7 +8,6 @@ import Layout from '../../components/layout/layout';
 import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
 import ReviewList from '../../components/review-list/review-list';
-import {getRatingPercent} from '../../utils/app-utils';
 import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {
@@ -17,11 +16,12 @@ import {
   getOfferAction,
   updateFavoriteOfferAction
 } from '../../store/api-actions';
-import {selectAuthorizationStatus} from '../../store/user/user.selector';
-import {selectOffer} from '../../store/offer/offer.selector';
 import {selectComments} from '../../store/comments/comments.selector';
 import {selectNearbyOffers} from '../../store/nearbyOffers/nearbyOffers.selector';
+import {selectOffer} from '../../store/offer/offer.selector';
 import {selectRawOffers} from '../../store/offers/offers.selector';
+import {selectAuthorizationStatus} from '../../store/user/user.selector';
+import {getRatingPercent} from '../../utils/app-utils';
 
 type UseParams = {
   id: string;

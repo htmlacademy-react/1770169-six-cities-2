@@ -1,7 +1,7 @@
+import {changeLocation, changeSortType, offersSlice} from './offers.slice';
 import {cities, sortTypes} from '../../const';
 import {getMockOffer} from '../../utils/mock-utils';
 import {getOffersAction, updateFavoriteOfferAction} from '../api-actions';
-import {changeLocation, changeSortType, offersSlice} from './offers.slice';
 
 describe('Offers slice', () => {
   it('should return initial state with empty action', () => {

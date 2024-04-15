@@ -4,13 +4,13 @@ import {Helmet} from 'react-helmet-async';
 import {Link, useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 
-import {getRandomElement} from '../../utils/app-utils';
-import {validatePassword} from '../../utils/validate-utils';
 import {AppRoute, cities, ErrorMessage} from '../../const';
 import {useAppDispatch} from '../../hooks/use-store';
 import {authAction} from '../../store/api-actions';
-import {Locations} from '../../types/app-type';
 import {changeLocation} from '../../store/offers/offers.slice';
+import {Locations} from '../../types/app-type';
+import {getRandomElement} from '../../utils/app-utils';
+import {validatePassword} from '../../utils/validate-utils';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState(

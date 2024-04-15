@@ -1,9 +1,8 @@
 import {render, screen} from '@testing-library/react';
-
 import userEvent from '@testing-library/user-event';
 
-import {sortTypes} from '../../const';
 import SortType from './sort-type';
+import {sortTypes} from '../../const';
 
 describe('Component: SortType', () => {
   const sortType = sortTypes[0].name;

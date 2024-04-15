@@ -1,11 +1,11 @@
-import {NameSpace} from '../../const';
-import {getMockOffer} from '../../utils/mock-utils';
 import {
   selectFavoriteCities,
   selectFavoriteOffers,
   selectFavoriteOffersGroupedByCity,
   selectFavoriteOffersIsLoading
 } from './favoriteOffers.selector';
+import {NameSpace} from '../../const';
+import {getMockOffer} from '../../utils/mock-utils';
 
 describe('FavoriteOffers selectors', () => {
   const state = {

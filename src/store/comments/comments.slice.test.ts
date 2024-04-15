@@ -1,6 +1,6 @@
+import {commentsSlice} from './comments.slice';
 import {getMockComment} from '../../utils/mock-utils';
 import {createCommentAction, getCommentsAction} from '../api-actions';
-import {commentsSlice} from './comments.slice';
 
 describe('Comments slice', () => {
   it('should return initial state with empty action', () => {

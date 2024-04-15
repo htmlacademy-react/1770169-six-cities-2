@@ -1,10 +1,10 @@
 import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import HomePage from './home-page';
+import {cities, sortTypes} from '../../const';
 import {withHistory, withStore} from '../../utils/mock-component-utils';
 import {getMockOffer, getMockStore} from '../../utils/mock-utils';
-import {cities, sortTypes} from '../../const';
-import userEvent from '@testing-library/user-event';
 
 describe('Page: HomePage', () => {
   const offers = Array.from({length: 3}, getMockOffer);

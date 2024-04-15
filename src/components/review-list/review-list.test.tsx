@@ -1,9 +1,9 @@
 import {render, screen} from '@testing-library/react';
 
-import {withStore} from '../../utils/mock-component-utils';
-import {getMockStore} from '../../utils/mock-utils';
 import ReviewList from './review-list';
 import {AuthorizationStatus} from '../../const';
+import {withStore} from '../../utils/mock-component-utils';
+import {getMockStore} from '../../utils/mock-utils';
 
 
 describe('Component: ReviewForm', () => {

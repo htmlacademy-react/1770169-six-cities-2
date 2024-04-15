@@ -82,6 +82,7 @@ const HomePage = () => {
                 <PlaceList
                   offers={offers}
                   onMouseOver={handlePlaceCardMouseOver}
+                  onMouseOut={() => setCurrentCard('')}
                 />
               </> :
               <div className="cities__status-wrapper tabs__content">

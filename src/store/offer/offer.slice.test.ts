@@ -1,6 +1,6 @@
+import {offerSlice} from './offer.slice';
 import {getMockExtendedOffer} from '../../utils/mock-utils';
 import {getOfferAction, updateFavoriteOfferAction} from '../api-actions';
-import {offerSlice} from './offer.slice';
 
 describe('Offer slice', () => {
   it('should return initial state with empty action', () => {

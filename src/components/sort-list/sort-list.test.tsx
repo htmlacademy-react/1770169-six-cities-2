@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 
-import {sortTypes} from '../../const';
 import SortList from './sort-list';
+import {sortTypes} from '../../const';
 
 
 describe('Component: SortList', () => {

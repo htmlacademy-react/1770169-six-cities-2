@@ -1,8 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {getFavoriteOffersAction, updateFavoriteOfferAction} from '../api-actions';
-import {Offer} from '../../types/offer-type';
 import {NameSpace} from '../../const';
+import {Offer} from '../../types/offer-type';
+import {getFavoriteOffersAction, updateFavoriteOfferAction} from '../api-actions';
 
 type InitialState = {
   favoriteOffers: Offer[];

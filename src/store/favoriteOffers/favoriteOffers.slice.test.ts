@@ -1,6 +1,6 @@
+import {favoriteOffersSlice} from './favoriteOffers.slice';
 import {getMockOffer} from '../../utils/mock-utils';
 import {getFavoriteOffersAction, updateFavoriteOfferAction} from '../api-actions';
-import {favoriteOffersSlice} from './favoriteOffers.slice';
 
 describe('FavoriteOffers slice', () => {
   it('should return initial state with empty action', () => {

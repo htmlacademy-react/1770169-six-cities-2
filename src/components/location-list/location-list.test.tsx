@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 
-import {cities} from '../../const';
 import LocationList from './location-list';
+import {cities} from '../../const';
 import {withHistory} from '../../utils/mock-component-utils';
 
 describe('Component: LocationList', () => {

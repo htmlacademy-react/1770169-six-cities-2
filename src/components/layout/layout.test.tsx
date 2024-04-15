@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 
 import Layout from './layout';
-import {withStore, withHistory} from '../../utils/mock-component-utils';
+import {withHistory, withStore} from '../../utils/mock-component-utils';
 import {getMockStore} from '../../utils/mock-utils';
 
 
