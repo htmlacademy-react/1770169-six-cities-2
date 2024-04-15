@@ -35,8 +35,8 @@ describe('Redirect middleware', () => {
     expect(browserHistory.location.pathname).toBe(AppRoute.LOGIN);
   });
 
-  it('should not redirect to "/favorites" with empty action', () => {
-    const emptyAction = {type: '', payload: AppRoute.FAVORITES};
+  it('should not redirect to "/login" with empty action', () => {
+    const emptyAction = {type: '', payload: AppRoute.LOGIN};
     store.dispatch(emptyAction);
     expect(browserHistory.location.pathname).not.toBe(AppRoute.FAVORITES);
   });

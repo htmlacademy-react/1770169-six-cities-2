@@ -6,6 +6,7 @@ import PlaceCard from '../place-card/place-card';
 type PlaceListProps = {
   offers: Offer[];
   onMouseOver?: (evt: MouseEvent) => void;
+  onMouseOut?: () => void;
   placeCardClassName?: string;
   imageWrapperClassName?: string;
   cardInfoClassName?: string;
@@ -16,6 +17,7 @@ const PlaceList = (
   {
     offers,
     onMouseOver,
+    onMouseOut,
     placeCardClassName,
     imageWrapperClassName,
     cardInfoClassName,
@@ -27,6 +29,7 @@ const PlaceList = (
       <PlaceCard
         offer={offer}
         onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
         placeCardClassName={placeCardClassName}
         imageWrapperClassName={imageWrapperClassName}
         cardInfoClassName={cardInfoClassName}

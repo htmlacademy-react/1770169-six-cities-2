@@ -13,6 +13,7 @@ import {getRatingPercent} from '../../utils/app-utils';
 type PlaceCardProps = {
   offer: Offer;
   onMouseOver?: (evt: MouseEvent) => void;
+  onMouseOut?: () => void;
   placeCardClassName?: string;
   imageWrapperClassName?: string;
   cardInfoClassName?: string;
@@ -22,6 +23,7 @@ const PlaceCard = (
   {
     offer,
     onMouseOver,
+    onMouseOut,
     placeCardClassName = 'cities__card place-card',
     imageWrapperClassName = 'cities__image-wrapper place-card__image-wrapper',
     cardInfoClassName = 'place-card__info'
@@ -42,7 +44,7 @@ const PlaceCard = (
   };
 
   return (
-    <article className={placeCardClassName} onMouseOver={onMouseOver}>
+    <article className={placeCardClassName} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
       {offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>

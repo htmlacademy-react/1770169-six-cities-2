@@ -1,23 +1,20 @@
 import {getFilteredOffers, getRandomElement, getRatingPercent} from './app-utils';
+import {cities} from '../const';
 import {getMockOffer} from './mock-utils';
 
 describe('Utils: App utils', () => {
   describe('Filter offers by name', () => {
     it('should return an array of cities filtered by city name', () => {
-      const expectedArray = Array.from({length: 3}, getMockOffer);
-      const offers = [
-        ...expectedArray,
-        {
-          ...expectedArray[0],
-          city: {
-            ...expectedArray[0].city,
-            name: 'Amsterdam'
-          }
-        }
-      ];
-      const result = getFilteredOffers(offers, 'Paris');
+      const cityNames = [cities[1].name, cities[3].name, cities[1].name, cities[0].name, cities[1].name];
+      const sortedCityNames = [cities[1].name, cities[1].name, cities[1].name];
+      const offer = getMockOffer();
+      const offers = cityNames.map((city) => ({...offer, city: {...offer.city, name: city}}));
+      const expectedOffers = sortedCityNames.map((city) => ({...offer, city: {...offer.city, name: city}}));
+      const result = getFilteredOffers(offers, cities[1].name);
 
-      expect(result).toMatchObject(expectedArray);
+      expect(result).toMatchObject(expectedOffers);
+
+      expect(result).toMatchObject(expectedOffers);
     });
   });
 

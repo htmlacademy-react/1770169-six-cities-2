@@ -47,7 +47,7 @@ const Map = ({offers, currentCard}: MapProps) => {
   }, [map, offers, currentCard]);
 
 
-  return <div style={{height: '100%'}} ref={mapRef}></div>;
+  return <div style={{height: '100%'}} ref={mapRef} data-testid="map"></div>;
 };
 
 export default Map;
