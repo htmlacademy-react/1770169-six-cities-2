@@ -46,7 +46,7 @@ const OfferPage = () => {
     }
 
     navigate(AppRoute.NOT_FOUND);
-  }, [dispatch, id, offers]);
+  }, [id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
