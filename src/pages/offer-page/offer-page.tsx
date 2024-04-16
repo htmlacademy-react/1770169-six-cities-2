@@ -19,7 +19,7 @@ import {
 import {selectComments} from '../../store/comments/comments.selector';
 import {selectNearbyOffers} from '../../store/nearbyOffers/nearbyOffers.selector';
 import {selectOffer} from '../../store/offer/offer.selector';
-import {selectRawOffers} from '../../store/offers/offers.selector';
+import {selectOffersIsLoading, selectRawOffers} from '../../store/offers/offers.selector';
 import {selectAuthorizationStatus} from '../../store/user/user.selector';
 import {getRatingPercent} from '../../utils/app-utils';
 
@@ -30,6 +30,7 @@ type UseParams = {
 const OfferPage = () => {
   const {id} = useParams() as UseParams;
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isOffersLoading = useAppSelector(selectOffersIsLoading);
   const offer = useAppSelector(selectOffer);
   const offers = useAppSelector(selectRawOffers);
   const comments = useAppSelector(selectComments);
@@ -38,6 +39,10 @@ const OfferPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (isOffersLoading) {
+      return;
+    }
+
     if (offers.some((item) => item.id === id)) {
       dispatch(getOfferAction(id));
       dispatch(getCommentsAction(id));
@@ -46,7 +51,7 @@ const OfferPage = () => {
     }
 
     navigate(AppRoute.NOT_FOUND);
-  }, [id]);
+  }, [id, isOffersLoading]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
