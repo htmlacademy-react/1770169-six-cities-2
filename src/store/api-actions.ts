@@ -80,11 +80,9 @@ export const checkAuthAction = createAsyncThunk<FullUser, undefined, {
   extra: AxiosInstance;
 }>('user/checkAuth', async (_, {extra: api}) => {
   if (!getToken()) {
-    console.log('Error');
     throw new Error();
   }
   const {data} = await api.get<FullUser>(ApiRoute.LOGIN);
-  console.log(data);
   return data;
 });
 
