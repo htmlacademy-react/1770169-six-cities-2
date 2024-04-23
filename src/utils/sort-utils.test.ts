@@ -1,4 +1,4 @@
-import {sortTypes} from '../const';
+import {SORT_TYPES} from '../const';
 import {getMockComment, getMockOffer} from './mock-utils';
 import {sortCommentsByDate, sort} from './sort-utils';
 
@@ -25,7 +25,7 @@ describe('Utils: Sort utils', () => {
       const sortedPrice = [800, 400, 200, 100];
       const offers = price.map((item) => ({...offer, price: item}));
       const expectedOffers = sortedPrice.map((item) => ({...offer, price: item}));
-      const result = sort[sortTypes[2].name](offers);
+      const result = sort[SORT_TYPES[2].name](offers);
 
       expect(result).toMatchObject(expectedOffers);
     });
@@ -34,7 +34,7 @@ describe('Utils: Sort utils', () => {
       const sortedPrice = [100, 200, 400, 800];
       const offers = price.map((item) => ({...offer, price: item}));
       const expectedOffers = sortedPrice.map((item) => ({...offer, price: item}));
-      const result = sort[sortTypes[1].name](offers);
+      const result = sort[SORT_TYPES[1].name](offers);
 
       expect(result).toMatchObject(expectedOffers);
     });
@@ -44,7 +44,7 @@ describe('Utils: Sort utils', () => {
       const sortedRating = [5, 4, 2, 1];
       const offers = rating.map((item) => ({...offer, rating: item}));
       const expectedOffers = sortedRating.map((item) => ({...offer, rating: item}));
-      const result = sort[sortTypes[3].name](offers);
+      const result = sort[SORT_TYPES[3].name](offers);
 
       expect(result).toMatchObject(expectedOffers);
     });

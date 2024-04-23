@@ -5,7 +5,7 @@ import {
   selectRawOffers,
   selectSortTypes
 } from './offers.selector';
-import {cities, NameSpace, sortTypes} from '../../const';
+import {CITIES, NameSpace, SORT_TYPES} from '../../const';
 import {getFilteredOffers} from '../../utils/app-utils';
 import {getMockOffer} from '../../utils/mock-utils';
 import {sort} from '../../utils/sort-utils';
@@ -13,8 +13,8 @@ import {sort} from '../../utils/sort-utils';
 describe('Offers selectors', () => {
   const state = {
     [NameSpace.Offers]: {
-      location: cities[0].name,
-      sortType: sortTypes[1].name,
+      location: CITIES[0].name,
+      sortType: SORT_TYPES[1].name,
       offers: Array.from({length: 3}, getMockOffer),
       isLoading: false,
     }

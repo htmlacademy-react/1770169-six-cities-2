@@ -1,16 +1,16 @@
 import {render, screen} from '@testing-library/react';
 
 import SortList from './sort-list';
-import {sortTypes} from '../../const';
+import {SORT_TYPES} from '../../const';
 
 
 describe('Component: SortList', () => {
   it('should render SortList component', () => {
     render(
       <SortList
-        sortTypeList={sortTypes}
+        sortTypeList={SORT_TYPES}
         sortOpened
-        selectedSortType={sortTypes[0].name}
+        selectedSortType={SORT_TYPES[0].name}
         onSortTypeClick={vi.fn()}
       />
     );

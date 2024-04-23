@@ -2,7 +2,7 @@ import {Action} from '@reduxjs/toolkit';
 import {address, commerce, datatype, image, internet, lorem} from 'faker';
 
 import {getRandomElement} from './app-utils';
-import {AuthorizationStatus, cities, housing, sortTypes} from '../const';
+import {AuthorizationStatus, CITIES, housing, SORT_TYPES} from '../const';
 import {Store} from '../types/store-type';
 
 export const getMockComment = () => ({
@@ -28,7 +28,7 @@ export const getMockOffer = (isFavorite = datatype.boolean()) => {
     type: offerType ,
     price: Number(commerce.price()),
     city: {
-      name: cities[0].name,
+      name: CITIES[0].name,
       location: {
         latitude,
         longitude,
@@ -58,7 +58,7 @@ export const getMockExtendedOffer = (isFavorite = datatype.boolean()) => {
     type: offerType,
     price: Number(commerce.price()),
     city: {
-      name: cities[0].name,
+      name: CITIES[0].name,
       location: {
         latitude,
         longitude,
@@ -98,8 +98,8 @@ export const getMockStore = (initialState: Partial<Store> = {}) => ({
   OFFER: {offer: null, isLoading: false},
   OFFERS: {
     offers: [],
-    location: cities[0].name,
-    sortType: sortTypes[0].name,
+    location: CITIES[0].name,
+    sortType: SORT_TYPES[0].name,
     isLoading: false
   },
   FAVORITE_OFFERS: {favoriteOffers: [], isLoading: false},

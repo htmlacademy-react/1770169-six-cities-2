@@ -8,7 +8,7 @@ import Layout from '../../components/layout/layout';
 import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
 import ReviewList from '../../components/review-list/review-list';
-import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW} from '../../const';
+import {AppRoute, AuthorizationStatus, housing, MAX_IMAGES_VIEW, MAX_NEARBY_OFFERS_VIEW} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {
   getCommentsAction,
@@ -17,7 +17,7 @@ import {
   updateFavoriteOfferAction
 } from '../../store/api-actions';
 import {selectComments} from '../../store/comments/comments.selector';
-import {selectNearbyOffers} from '../../store/nearbyOffers/nearbyOffers.selector';
+import {selectNearbyOffers} from '../../store/nearby-offers/nearby-offers.selector';
 import {selectOffer} from '../../store/offer/offer.selector';
 import {selectOffersIsLoading, selectRawOffers} from '../../store/offers/offers.selector';
 import {selectAuthorizationStatus} from '../../store/user/user.selector';
@@ -50,7 +50,7 @@ const OfferPage = () => {
       return;
     }
 
-    navigate(AppRoute.NOT_FOUND);
+    navigate(AppRoute.NotFound);
   }, [id, isOffersLoading]);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const OfferPage = () => {
       }));
       return;
     }
-    navigate(AppRoute.LOGIN);
+    navigate(AppRoute.Login);
   };
 
   return (
@@ -170,14 +170,14 @@ const OfferPage = () => {
           </div>
         </div>
         <section className="offer__map map" >
-          <Map offers={[...nearbyOffers.slice(0, 3), offer]} currentCard={offer.id} />
+          <Map offers={[...nearbyOffers.slice(0, MAX_NEARBY_OFFERS_VIEW), offer]} currentCard={offer.id} />
         </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <PlaceList
-            offers={nearbyOffers.slice(0, 3)}
+            offers={nearbyOffers.slice(0, MAX_NEARBY_OFFERS_VIEW)}
             listClassName='near-places__list places__list'
             placeCardClassName='near-places__card place-card'
             imageWrapperClassName='near-places__image-wrapper place-card__image-wrapper'

@@ -33,7 +33,7 @@ describe('Component: PlaceCard', () => {
     const {withStoreComponent, mockAxiosAdapter, mockStore} = withStore(withHistoryComponent, getMockStore({
       USER: {user: null, authorizationStatus: AuthorizationStatus.Auth}
     }));
-    mockAxiosAdapter.onPost(`${ApiRoute.FAVORITE}/${offer.id}/${status}`).reply(200, offer);
+    mockAxiosAdapter.onPost(`${ApiRoute.Favorite}/${offer.id}/${status}`).reply(200, offer);
 
     render(withStoreComponent);
 
@@ -49,8 +49,8 @@ describe('Component: PlaceCard', () => {
   it('should redirect to login route, when user change isFavorite status, but he not authorized', async() => {
     const withHistoryComponent = withHistory(
       <Routes>
-        <Route path={AppRoute.LOGIN} element={<span>{title}</span>} />
-        <Route path={AppRoute.HOME} element={<PlaceCard offer={offer} />} />
+        <Route path={AppRoute.Login} element={<span>{title}</span>} />
+        <Route path={AppRoute.Home} element={<PlaceCard offer={offer} />} />
       </Routes>
     );
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore());
@@ -65,8 +65,8 @@ describe('Component: PlaceCard', () => {
   it('should redirect to offer route, when user click offer', async() => {
     const withHistoryComponent = withHistory(
       <Routes>
-        <Route path={AppRoute.OFFER_ID} element={<span>{offer.title}</span>} />
-        <Route path={AppRoute.HOME} element={<PlaceCard offer={offer} />} />
+        <Route path={AppRoute.OfferId} element={<span>{offer.title}</span>} />
+        <Route path={AppRoute.Home} element={<PlaceCard offer={offer} />} />
       </Routes>
     );
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore());

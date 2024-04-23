@@ -14,14 +14,14 @@ type MapProps = {
 
 const defaultIcon = new Icon({
   iconUrl: IconPath.DEFAULT_ICON_PATH,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconSize: [28, 39],
+  iconAnchor: [14, 39]
 });
 
 const currentIcon = new Icon({
   iconUrl: IconPath.CURRENT_ICON_PATH,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconSize: [28, 39],
+  iconAnchor: [14, 39]
 });
 
 const Map = ({offers, currentCard}: MapProps) => {

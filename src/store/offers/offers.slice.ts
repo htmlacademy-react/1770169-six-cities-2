@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {cities, NameSpace, sortTypes} from '../../const';
+import {CITIES, NameSpace, SORT_TYPES} from '../../const';
 import {LocationName, SortTypeName} from '../../types/app-type';
 import {Offer} from '../../types/offer-type';
 import {getOffersAction, updateFavoriteOfferAction} from '../api-actions';
@@ -13,8 +13,8 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-  location: cities[0].name,
-  sortType: sortTypes[0].name,
+  location: CITIES[0].name,
+  sortType: SORT_TYPES[0].name,
   offers: [],
   isLoading: false,
 };

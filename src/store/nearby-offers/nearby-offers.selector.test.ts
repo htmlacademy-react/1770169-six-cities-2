@@ -1,4 +1,4 @@
-import {selectNearbyOffers, selectNearbyOffersIsLoading} from './nearbyOffers.selector';
+import {selectNearbyOffers, selectNearbyOffersIsLoading} from './nearby-offers.selector';
 import {NameSpace} from '../../const';
 import {getMockOffer} from '../../utils/mock-utils';
 

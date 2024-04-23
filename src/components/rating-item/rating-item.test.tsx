@@ -1,11 +1,11 @@
 import {render, screen} from '@testing-library/react';
 
 import RatingItem from './rating-item';
-import {ratings} from '../../const';
+import {RATINGS} from '../../const';
 
 describe('Component: RatingItem', () => {
-  const rating = ratings[0];
-  const selectedValue = ratings[0].id.toString();
+  const rating = RATINGS[0];
+  const selectedValue = RATINGS[0].id.toString();
   const isFormsDisabled = false;
   const handleFieldChange = vi.fn();
 

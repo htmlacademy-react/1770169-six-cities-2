@@ -2,10 +2,10 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import SortType from './sort-type';
-import {sortTypes} from '../../const';
+import {SORT_TYPES} from '../../const';
 
 describe('Component: SortType', () => {
-  const sortType = sortTypes[0].name;
+  const sortType = SORT_TYPES[0].name;
   const handleSortTypeClick = vi.fn();
 
   it('should render SortType component', () => {

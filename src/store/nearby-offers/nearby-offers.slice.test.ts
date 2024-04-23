@@ -1,4 +1,4 @@
-import {nearbyOffersSlice} from './nearbyOffers.slice';
+import {nearbyOffersSlice} from './nearby-offers.slice';
 import {getMockOffer} from '../../utils/mock-utils';
 import {getNearbyOffersAction, updateFavoriteOfferAction} from '../api-actions';
 

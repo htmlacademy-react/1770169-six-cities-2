@@ -14,7 +14,7 @@ export const getOffersAction = createAsyncThunk<Offer[], undefined, {
   state: Store;
   extra: AxiosInstance;
 }>('offer/getOffers', async (_, {extra: api}) => {
-  const {data} = await api.get<Offer[]>(ApiRoute.OFFERS);
+  const {data} = await api.get<Offer[]>(ApiRoute.Offers);
   return data;
 });
 
@@ -23,7 +23,7 @@ export const getOfferAction = createAsyncThunk<ExtendedOffer, string, {
   state: Store;
   extra: AxiosInstance;
 }>('offer/getOffer', async (id, {extra: api}) => {
-  const {data} = await api.get<ExtendedOffer>(`${ApiRoute.OFFERS}/${id}`);
+  const {data} = await api.get<ExtendedOffer>(`${ApiRoute.Offers}/${id}`);
   return data;
 });
 
@@ -32,7 +32,7 @@ export const getNearbyOffersAction = createAsyncThunk<Offer[], string, {
   state: Store;
   extra: AxiosInstance;
 }>('offer/getNearbyOffers', async (id, {extra: api}) => {
-  const {data} = await api.get<Offer[]>(`${ApiRoute.OFFERS}/${id}${ApiRoute.NEARBY}`);
+  const {data} = await api.get<Offer[]>(`${ApiRoute.Offers}/${id}${ApiRoute.Nearby}`);
   return data;
 });
 
@@ -41,7 +41,7 @@ export const getFavoriteOffersAction = createAsyncThunk<Offer[], undefined, {
   state: Store;
   extra: AxiosInstance;
 }>('offer/getFavoriteOffers', async (_, {extra: api}) => {
-  const {data} = await api.get<Offer[]>(ApiRoute.FAVORITE);
+  const {data} = await api.get<Offer[]>(ApiRoute.Favorite);
   return data;
 });
 
@@ -53,7 +53,7 @@ export const updateFavoriteOfferAction = createAsyncThunk<Offer, {
   state: Store;
   extra: AxiosInstance;
 }>('offer/updateFavoriteOffer', async ({id, status}, {extra: api}) => {
-  const {data} = await api.post<Offer>(`${ApiRoute.FAVORITE}/${id}/${status}`);
+  const {data} = await api.post<Offer>(`${ApiRoute.Favorite}/${id}/${status}`);
   return data;
 });
 
@@ -62,7 +62,7 @@ export const getCommentsAction = createAsyncThunk<Comment[], string, {
   state: Store;
   extra: AxiosInstance;
 }>('comment/getComments', async (id, {extra: api}) => {
-  const {data} = await api.get<Comment[]>(`${ApiRoute.COMMENTS}/${id}`);
+  const {data} = await api.get<Comment[]>(`${ApiRoute.Comments}/${id}`);
   return data;
 });
 
@@ -71,7 +71,7 @@ export const createCommentAction = createAsyncThunk<Comment, CreateComment, {
   state: Store;
   extra: AxiosInstance;
 }>('comment/createComment', async ({offerId, ...comment}, {extra: api}) => {
-  const {data} = await api.post<Comment>(`${ApiRoute.COMMENTS}/${offerId}`, comment);
+  const {data} = await api.post<Comment>(`${ApiRoute.Comments}/${offerId}`, comment);
   return data;
 });
 
@@ -82,7 +82,7 @@ export const checkAuthAction = createAsyncThunk<FullUser, undefined, {
   if (!getToken()) {
     throw new Error();
   }
-  const {data} = await api.get<FullUser>(ApiRoute.LOGIN);
+  const {data} = await api.get<FullUser>(ApiRoute.Login);
   return data;
 });
 
@@ -90,15 +90,15 @@ export const authAction = createAsyncThunk<FullUser, AuthCredentials, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>('user/auth', async (authData, {dispatch, extra: api}) => {
-  const {data} = await api.post<FullUser>(ApiRoute.LOGIN, authData);
+  const {data} = await api.post<FullUser>(ApiRoute.Login, authData);
   setToken(data.token);
-  dispatch(redirectToRoute(AppRoute.HOME));
+  dispatch(redirectToRoute(AppRoute.Home));
   return data;
 });
 
 export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>('user/logout', async (_, {extra: api}) => {
-  await api.delete(ApiRoute.LOGOUT);
+  await api.delete(ApiRoute.Logout);
   removeToken();
 });

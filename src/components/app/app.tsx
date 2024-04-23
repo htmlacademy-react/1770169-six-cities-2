@@ -12,8 +12,8 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import {getFavoriteOffersAction} from '../../store/api-actions';
 import {selectCommentsIsLoading} from '../../store/comments/comments.selector';
-import {selectFavoriteOffersIsLoading} from '../../store/favoriteOffers/favoriteOffers.selector';
-import {selectNearbyOffersIsLoading} from '../../store/nearbyOffers/nearbyOffers.selector';
+import {selectFavoriteOffersIsLoading} from '../../store/favorite-offers/favorite-offers.selector';
+import {selectNearbyOffersIsLoading} from '../../store/nearby-offers/nearby-offers.selector';
 import {selectOfferIsLoading} from '../../store/offer/offer.selector';
 import {selectOffersIsLoading} from '../../store/offers/offers.selector';
 import {selectAuthorizationStatus} from '../../store/user/user.selector';
@@ -50,39 +50,39 @@ const App = () => {
     <HelmetProvider>
       <Routes>
         <Route
-          path={AppRoute.HOME}
+          path={AppRoute.Home}
           element={<HomePage />}
         />
         <Route
-          path={AppRoute.LOGIN}
+          path={AppRoute.Login}
           element={
             <PrivateRoute
               authorizationStatus={!isAuthenticated}
-              appRoute={AppRoute.HOME}
+              appRoute={AppRoute.Home}
             >
               <LoginPage />
             </PrivateRoute>
           }
         />
         <Route
-          path={AppRoute.FAVORITES}
+          path={AppRoute.Favorites}
           element={
             <PrivateRoute
               authorizationStatus={isAuthenticated}
-              appRoute={AppRoute.LOGIN}
+              appRoute={AppRoute.Login}
             >
               <FavoritesPage />
             </PrivateRoute>
           }
         />
         <Route
-          path={AppRoute.OFFER_ID}
+          path={AppRoute.OfferId}
           element={
             <OfferPage />
           }
         />
         <Route
-          path={AppRoute.NOT_FOUND}
+          path={AppRoute.NotFound}
           element={<NotFoundPage />}
         />
       </Routes>
