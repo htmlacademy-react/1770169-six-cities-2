@@ -141,7 +141,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 };
 
 const ErrorMessage: Record<string, string> = {
-  PASSWORD_ERROR_MESSAGE: 'Пароль должен состоять минимум из одной буквы и цифры'
+  PASSWORD_ERROR_MESSAGE: 'Пароль должен состоять минимум из одной латинской буквы и цифры'
 };
 
 enum NameSpace {

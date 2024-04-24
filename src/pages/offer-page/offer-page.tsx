@@ -5,6 +5,7 @@ import {Helmet} from 'react-helmet-async';
 import {useNavigate, useParams} from 'react-router-dom';
 
 import Layout from '../../components/layout/layout';
+import Loader from '../../components/loader/loader';
 import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
 import ReviewList from '../../components/review-list/review-list';
@@ -18,7 +19,7 @@ import {
 } from '../../store/api-actions';
 import {selectComments} from '../../store/comments/comments.selector';
 import {selectNearbyOffers} from '../../store/nearby-offers/nearby-offers.selector';
-import {selectOffer} from '../../store/offer/offer.selector';
+import {selectOffer, selectOfferIsLoading} from '../../store/offer/offer.selector';
 import {selectOffersIsLoading, selectRawOffers} from '../../store/offers/offers.selector';
 import {selectAuthorizationStatus} from '../../store/user/user.selector';
 import {getRatingPercent} from '../../utils/app-utils';
@@ -31,6 +32,7 @@ const OfferPage = () => {
   const {id} = useParams() as UseParams;
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isOffersLoading = useAppSelector(selectOffersIsLoading);
+  const isOfferLoading = useAppSelector(selectOfferIsLoading);
   const offer = useAppSelector(selectOffer);
   const offers = useAppSelector(selectRawOffers);
   const comments = useAppSelector(selectComments);
@@ -57,8 +59,8 @@ const OfferPage = () => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  if (offer === null) {
-    return;
+  if (isOfferLoading || offer === null) {
+    return <Loader />;
   }
 
   const handleBookmarkClick = () => {
