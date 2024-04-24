@@ -3,18 +3,23 @@ import {Action, ThunkDispatch} from '@reduxjs/toolkit';
 import MockAdapter from 'axios-mock-adapter';
 import thunk from 'redux-thunk';
 
+import {redirectToRoute} from './action';
 import {
+  authAction,
   checkAuthAction,
   createCommentAction,
   getCommentsAction,
   getFavoriteOffersAction,
   getNearbyOffersAction,
   getOfferAction, getOffersAction,
+  logoutAction,
   updateFavoriteOfferAction
 } from './api-actions';
 import {ApiRoute} from '../const';
 import {createAPI} from '../services/api';
+import * as tokenStorage from '../services/token';
 import {Store} from '../types/store-type';
+import {AuthCredentials} from '../types/user-type';
 import {
   extractActionsTypes,
   getMockComment,
@@ -268,19 +273,20 @@ describe('Async actions', () => {
   describe('checkAuthAction', () => {
     const user = getMockUser();
 
-    it('should dispatch "checkAuthAction.pending" and "checkAuthAction.fulfilled" when server response 200', async () => {
+    it('should dispatch "checkAuthAction.pending" and "checkAuthAction.rejected" when server response 200 and there is no saved token', async () => {
       mockAxiosAdapter.onGet(ApiRoute.Login).reply(200, user);
+      const mockGetToken = vi.spyOn(tokenStorage, 'getToken');
       await store.dispatch(checkAuthAction());
       const actions = store.getActions();
       const actionsType = extractActionsTypes(actions);
-      const checkAuthActionFulfilled = actions.at(1) as ReturnType<typeof checkAuthAction.fulfilled>;
 
       expect(actionsType).toEqual([
         checkAuthAction.pending.type,
-        checkAuthAction.fulfilled.type
+        checkAuthAction.rejected.type
       ]);
 
-      expect(checkAuthActionFulfilled.payload).toMatchObject(user);
+      expect(mockGetToken).toBeCalledTimes(1);
+      expect(mockGetToken).toHaveReturnedWith('');
     });
 
     it('should dispatch "checkAuthAction.pending" and "checkAuthAction.rejected" when server response 400', async () => {
@@ -292,6 +298,58 @@ describe('Async actions', () => {
         checkAuthAction.pending.type,
         checkAuthAction.rejected.type
       ]);
+    });
+  });
+
+  describe('authAction', () => {
+    const user = getMockUser();
+    const data: AuthCredentials = {email: 'test@test.ru', password: 'Pas123'};
+
+    it('should dispatch "authAction.pending", "redirectToRoute", "authAction.fulfilled" when server response 200', async() => {
+      mockAxiosAdapter.onPost(ApiRoute.Login).reply(200, user);
+
+      await store.dispatch(authAction(data));
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        authAction.pending.type,
+        redirectToRoute.type,
+        authAction.fulfilled.type,
+      ]);
+    });
+
+    it('should call "saveToken" once with the received token', async () => {
+      mockAxiosAdapter.onPost(ApiRoute.Login).reply(200, user);
+      const mockSaveToken = vi.spyOn(tokenStorage, 'setToken');
+
+      await store.dispatch(authAction(data));
+
+      expect(mockSaveToken).toBeCalledTimes(1);
+      expect(mockSaveToken).toBeCalledWith(user.token);
+    });
+
+  });
+
+  describe('logoutAction', () => {
+    it('should dispatch "logoutAction.pending", "logoutAction.fulfilled" when server response 204', async() => {
+      mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(204);
+
+      await store.dispatch(logoutAction());
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        logoutAction.pending.type,
+        logoutAction.fulfilled.type,
+      ]);
+    });
+
+    it('should one call "dropToken" with "logoutAction"', async () => {
+      mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(204);
+      const mockDropToken = vi.spyOn(tokenStorage, 'removeToken');
+
+      await store.dispatch(logoutAction());
+
+      expect(mockDropToken).toBeCalledTimes(1);
     });
   });
 
