@@ -1,4 +1,4 @@
-import {favoriteOffersSlice} from './favoriteOffers.slice';
+import {favoriteOffersSlice} from './favorite-offers.slice';
 import {getMockOffer} from '../../utils/mock-utils';
 import {getFavoriteOffersAction, updateFavoriteOfferAction} from '../api-actions';
 

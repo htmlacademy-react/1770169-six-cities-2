@@ -30,14 +30,14 @@ describe('Redirect middleware', () => {
   });
 
   it('should redirect to "/login" with redirectToRoute action', () => {
-    const redirectAction = redirectToRoute(AppRoute.LOGIN);
+    const redirectAction = redirectToRoute(AppRoute.Login);
     store.dispatch(redirectAction);
-    expect(browserHistory.location.pathname).toBe(AppRoute.LOGIN);
+    expect(browserHistory.location.pathname).toBe(AppRoute.Login);
   });
 
   it('should not redirect to "/login" with empty action', () => {
-    const emptyAction = {type: '', payload: AppRoute.LOGIN};
+    const emptyAction = {type: '', payload: AppRoute.Login};
     store.dispatch(emptyAction);
-    expect(browserHistory.location.pathname).not.toBe(AppRoute.FAVORITES);
+    expect(browserHistory.location.pathname).not.toBe(AppRoute.Favorites);
   });
 });

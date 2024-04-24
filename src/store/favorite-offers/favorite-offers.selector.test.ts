@@ -3,7 +3,7 @@ import {
   selectFavoriteOffers,
   selectFavoriteOffersGroupedByCity,
   selectFavoriteOffersIsLoading
-} from './favoriteOffers.selector';
+} from './favorite-offers.selector';
 import {NameSpace} from '../../const';
 import {getMockOffer} from '../../utils/mock-utils';
 

@@ -4,7 +4,7 @@ const MAX_IMAGES_VIEW = 6;
 
 const MAX_REVIEWS_VIEW = 10;
 
-const MAP_ZOOM = 10;
+const MAX_NEARBY_OFFERS_VIEW = 3;
 
 const API_URL = 'https://13.design.htmlacademy.pro/six-cities';
 
@@ -14,22 +14,7 @@ const PASSWORD_REGEX = /(?=^.{2,}$)((?=.*\d))(?=.*[A-Za-z]).*$/;
 
 const TOKEN_KEY = 'AuthToken';
 
-const AppRoute = {
-  HOME: '/',
-  LOGIN: '/login',
-  FAVORITES: '/favorites',
-  OFFER: '/offer',
-  OFFER_ID: '/offer/:id',
-  NOT_FOUND: '*'
-} as const;
-
-const AuthorizationStatus = {
-  Auth: 'AUTH',
-  NoAuth: 'NO_AUTH',
-  Unknown: 'UNKNOWN'
-} as const;
-
-const cities = [
+const CITIES = [
   {
     id: 1,
     name: 'Paris'
@@ -56,7 +41,7 @@ const cities = [
   }
 ] as const;
 
-const sortTypes = [
+const SORT_TYPES = [
   {
     id: 1,
     name: 'Popular'
@@ -75,7 +60,7 @@ const sortTypes = [
   }
 ] as const;
 
-const ratings = [
+const RATINGS = [
   {
     id: 5,
     title: 'perfect'
@@ -96,9 +81,41 @@ const ratings = [
     id: 1,
     title: 'terribly'
   },
-];
+] as const;
 
-const rating = [5, 100] as const;
+const AppRoute = {
+  Home: '/',
+  Login: '/login',
+  Favorites: '/favorites',
+  Offer: '/offer',
+  OfferId: '/offer/:id',
+  NotFound: '*'
+} as const;
+
+const ApiRoute = {
+  Offers: '/offers',
+  Favorite: '/favorite',
+  Nearby: '/nearby',
+  Comments: '/comments',
+  Login: '/login',
+  Logout: '/logout'
+} as const;
+
+const AuthorizationStatus = {
+  Auth: 'AUTH',
+  NoAuth: 'NO_AUTH',
+  Unknown: 'UNKNOWN'
+} as const;
+
+const ReviewLength = {
+  Min: 50,
+  Max: 300
+} as const;
+
+const RatingPercent = {
+  Value: 5,
+  Percent: 100
+} as const;
 
 const housing: Record<string, string> = {
   apartment: 'Apartment',
@@ -112,23 +129,9 @@ const DateFormat = {
   REVIEW_DATE_FORMAT: 'MMMM YYYY'
 };
 
-const ReviewLength = {
-  MIN: 50,
-  MAX: 300
-};
-
 const IconPath = {
-  DEFAULT_ICON_PATH: 'img/pin.svg',
-  CURRENT_ICON_PATH: 'img/pin-active.svg'
-};
-
-const ApiRoute = {
-  OFFERS: '/offers',
-  FAVORITE: '/favorite',
-  NEARBY: '/nearby',
-  COMMENTS: '/comments',
-  LOGIN: '/login',
-  LOGOUT: '/logout'
+  DEFAULT_ICON_PATH: '/img/pin.svg',
+  CURRENT_ICON_PATH: '/img/pin-active.svg'
 };
 
 const StatusCodeMapping: Record<number, boolean> = {
@@ -138,7 +141,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 };
 
 const ErrorMessage: Record<string, string> = {
-  PASSWORD_ERROR_MESSAGE: 'Пароль должен состоять минимум из одной буквы и цифры'
+  PASSWORD_ERROR_MESSAGE: 'Пароль должен состоять минимум из одной латинской буквы и цифры'
 };
 
 enum NameSpace {
@@ -153,17 +156,17 @@ enum NameSpace {
 export {
   MAX_IMAGES_VIEW,
   MAX_REVIEWS_VIEW,
-  MAP_ZOOM,
+  MAX_NEARBY_OFFERS_VIEW,
   API_URL,
   REQUEST_TIMEOUT,
   PASSWORD_REGEX,
   TOKEN_KEY,
   AppRoute,
   AuthorizationStatus,
-  cities,
-  sortTypes,
-  ratings,
-  rating,
+  CITIES,
+  SORT_TYPES,
+  RATINGS,
+  RatingPercent,
   housing,
   DateFormat,
   ReviewLength,

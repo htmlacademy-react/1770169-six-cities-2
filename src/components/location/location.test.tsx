@@ -2,11 +2,11 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Location from './location';
-import {cities} from '../../const';
+import {CITIES} from '../../const';
 import {withHistory} from '../../utils/mock-component-utils';
 
 describe('Component: Location', () => {
-  const location = cities[1].name;
+  const location = CITIES[1].name;
   const handleLocationClick = vi.fn();
 
   it('should render Location component', () => {

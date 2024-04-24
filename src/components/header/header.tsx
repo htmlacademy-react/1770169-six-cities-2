@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {logoutAction} from '../../store/api-actions';
-import {selectFavoriteOffers} from '../../store/favoriteOffers/favoriteOffers.selector';
+import {selectFavoriteOffers} from '../../store/favorite-offers/favorite-offers.selector';
 import {selectAuthorizationStatus, selectUser} from '../../store/user/user.selector';
 
 const Header = () => {
@@ -26,7 +26,7 @@ const Header = () => {
           <div className="header__left">
             <Link
               className="header__logo-link header__logo-link--active"
-              to={AppRoute.HOME}
+              to={AppRoute.Home}
             >
               <img
                 className="header__logo"
@@ -45,7 +45,7 @@ const Header = () => {
                     <li className="header__nav-item user">
                       <Link
                         className="header__nav-link header__nav-link--profile"
-                        to={AppRoute.FAVORITES}
+                        to={AppRoute.Favorites}
                       >
                         <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                         <span className="header__user-name user__name">
@@ -69,7 +69,7 @@ const Header = () => {
                   <li className="header__nav-item user">
                     <Link
                       className="header__nav-link header__nav-link--profile"
-                      to={AppRoute.LOGIN}
+                      to={AppRoute.Login}
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       <span className="header__login">Sign in</span>

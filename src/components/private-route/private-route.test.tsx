@@ -15,7 +15,7 @@ describe('Component: PrivateRoute', () => {
   });
 
   beforeEach(() => {
-    mockHistory.push(AppRoute.FAVORITES);
+    mockHistory.push(AppRoute.Favorites);
   });
 
   it('should render component for public route, when user not authorized', () => {
@@ -23,9 +23,9 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'private route';
     const withHistoryComponent = withHistory(
       <Routes>
-        <Route path={AppRoute.LOGIN} element={<span>{expectedText}</span>} />
-        <Route path={AppRoute.FAVORITES} element={
-          <PrivateRoute authorizationStatus={!isAuthenticated} appRoute={AppRoute.LOGIN}>
+        <Route path={AppRoute.Login} element={<span>{expectedText}</span>} />
+        <Route path={AppRoute.Favorites} element={
+          <PrivateRoute authorizationStatus={!isAuthenticated} appRoute={AppRoute.Login}>
             <span>{notExpectedText}</span>
           </PrivateRoute>
         }
@@ -45,9 +45,9 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'public route';
     const withHistoryComponent = withHistory(
       <Routes>
-        <Route path={AppRoute.LOGIN} element={<span>{notExpectedText}</span>} />
-        <Route path={AppRoute.FAVORITES} element={
-          <PrivateRoute authorizationStatus={isAuthenticated} appRoute={AppRoute.LOGIN}>
+        <Route path={AppRoute.Login} element={<span>{notExpectedText}</span>} />
+        <Route path={AppRoute.Favorites} element={
+          <PrivateRoute authorizationStatus={isAuthenticated} appRoute={AppRoute.Login}>
             <span>{expectedText}</span>
           </PrivateRoute>
         }

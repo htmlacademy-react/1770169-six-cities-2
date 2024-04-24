@@ -40,7 +40,7 @@ const PlaceCard = (
       }));
       return;
     }
-    navigate(AppRoute.LOGIN);
+    navigate(AppRoute.Login);
   };
 
   return (
@@ -50,7 +50,7 @@ const PlaceCard = (
         <span>Premium</span>
       </div>}
       <div className={imageWrapperClassName}>
-        <Link to={`${AppRoute.OFFER}/${offer.id}`}>
+        <Link to={`${AppRoute.Offer}/${offer.id}`}>
           <img
             className="place-card__image"
             data-card-id={offer.id}
@@ -93,7 +93,7 @@ const PlaceCard = (
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.OFFER}/${offer.id}`}>{offer.title}</Link>
+          <Link to={`${AppRoute.Offer}/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{housing[offer.type]}</p>
       </div>

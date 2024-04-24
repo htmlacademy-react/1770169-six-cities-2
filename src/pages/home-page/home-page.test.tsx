@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import HomePage from './home-page';
-import {cities, sortTypes} from '../../const';
+import {CITIES, SORT_TYPES} from '../../const';
 import {withHistory, withStore} from '../../utils/mock-component-utils';
 import {getMockOffer, getMockStore} from '../../utils/mock-utils';
 
@@ -23,8 +23,8 @@ describe('Page: HomePage', () => {
     const withHistoryComponent = withHistory(<HomePage />);
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore({
       OFFERS: {
-        location: cities[0].name,
-        sortType: sortTypes[0].name,
+        location: CITIES[0].name,
+        sortType: SORT_TYPES[0].name,
         offers,
         isLoading: false
       }
@@ -40,8 +40,8 @@ describe('Page: HomePage', () => {
     const withHistoryComponent = withHistory(<HomePage />);
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore({
       OFFERS: {
-        location: cities[0].name,
-        sortType: sortTypes[0].name,
+        location: CITIES[0].name,
+        sortType: SORT_TYPES[0].name,
         offers,
         isLoading: false
       }

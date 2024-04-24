@@ -7,7 +7,7 @@ import LocationList from '../../components/location-list/location-list';
 import Map from '../../components/map/map';
 import PlaceList from '../../components/place-list/place-list';
 import SortList from '../../components/sort-list/sort-list';
-import {cities, sortTypes} from '../../const';
+import {CITIES, SORT_TYPES} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks/use-store';
 import {selectLocation, selectOffers, selectSortTypes} from '../../store/offers/offers.selector';
 import {changeLocation, changeSortType} from '../../store/offers/offers.slice';
@@ -30,6 +30,7 @@ const HomePage = () => {
 
   return (
     <Layout mainClassName={classNames({
+      'page__main page__main--index': offers.length,
       'page__main page__main--index page__main--index-empty': !offers.length
     })}
     >
@@ -37,7 +38,7 @@ const HomePage = () => {
       <div className="tabs">
         <section className="locations container">
           <LocationList
-            locations={cities}
+            locations={CITIES}
             selectedLocation={location}
             onLocationClick={(locationName) => dispatch(changeLocation(locationName))}
           />
@@ -73,7 +74,7 @@ const HomePage = () => {
                     </svg>
                   </span>
                   <SortList
-                    sortTypeList={sortTypes}
+                    sortTypeList={SORT_TYPES}
                     sortOpened={sortOpened}
                     selectedSortType={sortType}
                     onSortTypeClick={(type) => dispatch(changeSortType(type))}

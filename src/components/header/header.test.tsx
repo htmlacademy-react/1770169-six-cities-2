@@ -43,7 +43,7 @@ describe('Component: Header', () => {
     const {withStoreComponent, mockAxiosAdapter, mockStore} = withStore(withHistoryComponent, getMockStore({
       USER: {user: null, authorizationStatus: AuthorizationStatus.Auth}
     }));
-    mockAxiosAdapter.onDelete(ApiRoute.LOGOUT).reply(200);
+    mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(200);
 
     render(withStoreComponent);
 
@@ -59,8 +59,8 @@ describe('Component: Header', () => {
   it('should redirect to login route, when user click "Sign in"', async() => {
     const withHistoryComponent = withHistory(
       <Routes>
-        <Route path={AppRoute.LOGIN} element={<span>{title}</span>} />
-        <Route path={AppRoute.HOME} element={<Header />} />
+        <Route path={AppRoute.Login} element={<span>{title}</span>} />
+        <Route path={AppRoute.Home} element={<Header />} />
       </Routes>
     );
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore());

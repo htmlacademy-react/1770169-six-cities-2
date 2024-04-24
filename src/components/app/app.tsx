@@ -11,10 +11,7 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import {getFavoriteOffersAction} from '../../store/api-actions';
-import {selectCommentsIsLoading} from '../../store/comments/comments.selector';
-import {selectFavoriteOffersIsLoading} from '../../store/favoriteOffers/favoriteOffers.selector';
-import {selectNearbyOffersIsLoading} from '../../store/nearbyOffers/nearbyOffers.selector';
-import {selectOfferIsLoading} from '../../store/offer/offer.selector';
+import {selectFavoriteOffersIsLoading} from '../../store/favorite-offers/favorite-offers.selector';
 import {selectOffersIsLoading} from '../../store/offers/offers.selector';
 import {selectAuthorizationStatus} from '../../store/user/user.selector';
 import Loader from '../loader/loader';
@@ -24,14 +21,7 @@ const App = () => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isOffersLoading = useAppSelector(selectOffersIsLoading);
   const isFavoriteOffersLoading = useAppSelector(selectFavoriteOffersIsLoading);
-  const isNearbyOffersLoading = useAppSelector(selectNearbyOffersIsLoading);
-  const isCommentsLoading = useAppSelector(selectCommentsIsLoading);
-  const isSelectedOfferLoading = useAppSelector(selectOfferIsLoading);
-  const isLoading = isOffersLoading ||
-    isFavoriteOffersLoading ||
-    isNearbyOffersLoading ||
-    isCommentsLoading ||
-    isSelectedOfferLoading;
+  const isLoading = isOffersLoading || isFavoriteOffersLoading;
   const dispatch = useAppDispatch();
 
   const isAuthenticated = authorizationStatus === AuthorizationStatus.Auth;
@@ -42,7 +32,7 @@ const App = () => {
     }
   }, [dispatch, isAuthenticated]);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown && isLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isLoading) {
     return <Loader />;
   }
 
@@ -50,39 +40,39 @@ const App = () => {
     <HelmetProvider>
       <Routes>
         <Route
-          path={AppRoute.HOME}
+          path={AppRoute.Home}
           element={<HomePage />}
         />
         <Route
-          path={AppRoute.LOGIN}
+          path={AppRoute.Login}
           element={
             <PrivateRoute
               authorizationStatus={!isAuthenticated}
-              appRoute={AppRoute.HOME}
+              appRoute={AppRoute.Home}
             >
               <LoginPage />
             </PrivateRoute>
           }
         />
         <Route
-          path={AppRoute.FAVORITES}
+          path={AppRoute.Favorites}
           element={
             <PrivateRoute
               authorizationStatus={isAuthenticated}
-              appRoute={AppRoute.LOGIN}
+              appRoute={AppRoute.Login}
             >
               <FavoritesPage />
             </PrivateRoute>
           }
         />
         <Route
-          path={AppRoute.OFFER_ID}
+          path={AppRoute.OfferId}
           element={
             <OfferPage />
           }
         />
         <Route
-          path={AppRoute.NOT_FOUND}
+          path={AppRoute.NotFound}
           element={<NotFoundPage />}
         />
       </Routes>

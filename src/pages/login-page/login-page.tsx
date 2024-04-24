@@ -4,7 +4,7 @@ import {Helmet} from 'react-helmet-async';
 import {Link, useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 
-import {AppRoute, cities, ErrorMessage} from '../../const';
+import {AppRoute, CITIES, ErrorMessage} from '../../const';
 import {useAppDispatch} from '../../hooks/use-store';
 import {authAction} from '../../store/api-actions';
 import {changeLocation} from '../../store/offers/offers.slice';
@@ -21,7 +21,7 @@ const LoginPage = () => {
   );
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const location = useMemo(() => getRandomElement<Locations[number]>(cities), []);
+  const location = useMemo(() => getRandomElement<Locations[number]>(CITIES), []);
 
   const handelFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
@@ -43,7 +43,7 @@ const LoginPage = () => {
   const handleLocationClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     dispatch(changeLocation(location.name));
-    navigate(AppRoute.HOME);
+    navigate(AppRoute.Home);
   };
 
   return (
@@ -55,7 +55,7 @@ const LoginPage = () => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to={AppRoute.HOME} className="header__logo-link header__logo-link--active">
+              <Link to={AppRoute.Home} className="header__logo-link header__logo-link--active">
                 <img
                   className="header__logo"
                   src="img/logo.svg"

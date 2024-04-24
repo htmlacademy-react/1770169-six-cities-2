@@ -1,6 +1,6 @@
 import {ChangeEvent} from 'react';
 
-import {ratings} from '../../const';
+import {RATINGS} from '../../const';
 import RatingItem from '../rating-item/rating-item';
 
 type RatingFormProps = {
@@ -11,7 +11,7 @@ type RatingFormProps = {
 
 const RatingForm = ({selectedValue, isFormsDisabled, onFieldChange}: RatingFormProps) => (
   <div className="reviews__rating-form form__rating" data-testid="rating-form">
-    {ratings.map((rating) => (
+    {RATINGS.map((rating) => (
       <RatingItem
         key={rating.id}
         rating={rating}

@@ -4,11 +4,11 @@ import {Helmet} from 'react-helmet-async';
 import Layout from '../../components/layout/layout';
 import PlaceList from '../../components/place-list/place-list';
 import {useAppSelector} from '../../hooks/use-store';
-import {selectFavoriteOffers, selectFavoriteOffersGroupedByCity} from '../../store/favoriteOffers/favoriteOffers.selector';
+import {selectFavoriteOffers, selectFavoriteOffersGroupedByCity} from '../../store/favorite-offers/favorite-offers.selector';
 
 const FavoritesPage = () => {
   const favoriteOffers = useAppSelector(selectFavoriteOffers);
-  const groupedFavoriteOffer = useAppSelector(selectFavoriteOffersGroupedByCity);
+  const groupedFavoriteOffers = useAppSelector(selectFavoriteOffersGroupedByCity);
 
   return (
     <Layout
@@ -29,7 +29,7 @@ const FavoritesPage = () => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {groupedFavoriteOffer.map((offer) => (
+              {groupedFavoriteOffers.map((offer) => (
                 <li className="favorites__locations-items" key={offer.city}>
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">

@@ -1,8 +1,8 @@
 import {combineReducers} from '@reduxjs/toolkit';
 
 import {commentsSlice} from './comments/comments.slice';
-import {favoriteOffersSlice} from './favoriteOffers/favoriteOffers.slice';
-import {nearbyOffersSlice} from './nearbyOffers/nearbyOffers.slice';
+import {favoriteOffersSlice} from './favorite-offers/favorite-offers.slice';
+import {nearbyOffersSlice} from './nearby-offers/nearby-offers.slice';
 import {offerSlice} from './offer/offer.slice';
 import {offersSlice} from './offers/offers.slice';
 import {userSlice} from './user/user.slice';

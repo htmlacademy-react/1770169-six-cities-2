@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {createMemoryHistory, MemoryHistory} from 'history';
 
 import App from './app';
-import {AppRoute, AuthorizationStatus, cities, sortTypes} from '../../const';
+import {AppRoute, AuthorizationStatus, CITIES, SORT_TYPES} from '../../const';
 import {withHistory, withStore} from '../../utils/mock-component-utils';
 import {getMockExtendedOffer, getMockOffer, getMockStore} from '../../utils/mock-utils';
 
@@ -16,7 +16,7 @@ describe('Application Routing', () => {
   it('should render "HomePage" when navigate to "/"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore());
-    mockHistory.push(AppRoute.HOME);
+    mockHistory.push(AppRoute.Home);
 
     render(withStoreComponent);
 
@@ -26,7 +26,7 @@ describe('Application Routing', () => {
   it('should render "LoginPage" when navigate to "/login"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore());
-    mockHistory.push(AppRoute.LOGIN);
+    mockHistory.push(AppRoute.Login);
 
     render(withStoreComponent);
 
@@ -38,7 +38,7 @@ describe('Application Routing', () => {
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore({
       USER: {user: null, authorizationStatus: AuthorizationStatus.Auth}
     }));
-    mockHistory.push(AppRoute.FAVORITES);
+    mockHistory.push(AppRoute.Favorites);
 
     render(withStoreComponent);
 
@@ -53,13 +53,13 @@ describe('Application Routing', () => {
     const {withStoreComponent} = withStore(withHistoryComponent, getMockStore({
       OFFER: {offer, isLoading: false},
       OFFERS: {
-        location: cities[0].name,
-        sortType: sortTypes[0].name,
+        location: CITIES[0].name,
+        sortType: SORT_TYPES[0].name,
         offers,
         isLoading: false
       }
     }));
-    mockHistory.push(`${AppRoute.OFFER}/${offer.id}`);
+    mockHistory.push(`${AppRoute.Offer}/${offer.id}`);
 
     render(withStoreComponent);
 

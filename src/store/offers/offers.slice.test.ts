@@ -1,5 +1,5 @@
 import {changeLocation, changeSortType, offersSlice} from './offers.slice';
-import {cities, sortTypes} from '../../const';
+import {CITIES, SORT_TYPES} from '../../const';
 import {getMockOffer} from '../../utils/mock-utils';
 import {getOffersAction, updateFavoriteOfferAction} from '../api-actions';
 
@@ -7,8 +7,8 @@ describe('Offers slice', () => {
   it('should return initial state with empty action', () => {
     const emptyAction = {type: ''};
     const expectedState = {
-      location: cities[0].name,
-      sortType: sortTypes[0].name,
+      location: CITIES[0].name,
+      sortType: SORT_TYPES[0].name,
       offers: [],
       isLoading: false,
     };
@@ -19,8 +19,8 @@ describe('Offers slice', () => {
   it('should return default initial state with empty action', () => {
     const emptyAction = {type: ''};
     const expectedState = {
-      location: cities[0].name,
-      sortType: sortTypes[0].name,
+      location: CITIES[0].name,
+      sortType: SORT_TYPES[0].name,
       offers: [],
       isLoading: false,
     };
@@ -30,30 +30,30 @@ describe('Offers slice', () => {
 
   it('should change location with "changeLocation" action', () => {
     const expectedState = {
-      location: cities[1].name,
-      sortType: sortTypes[0].name,
+      location: CITIES[1].name,
+      sortType: SORT_TYPES[0].name,
       offers: [],
       isLoading: false,
     };
-    const result = offersSlice.reducer(undefined, changeLocation(cities[1].name));
+    const result = offersSlice.reducer(undefined, changeLocation(CITIES[1].name));
     expect(result).toEqual(expectedState);
   });
 
   it('should change sortType with "changeSortType" action', () => {
     const expectedState = {
-      location: cities[0].name,
-      sortType: sortTypes[1].name,
+      location: CITIES[0].name,
+      sortType: SORT_TYPES[1].name,
       offers: [],
       isLoading: false,
     };
-    const result = offersSlice.reducer(undefined, changeSortType(sortTypes[1].name));
+    const result = offersSlice.reducer(undefined, changeSortType(SORT_TYPES[1].name));
     expect(result).toEqual(expectedState);
   });
 
   it('should set "isLoading" to "true" with "getOffersAction.pending"', () => {
     const expectedState = {
-      location: cities[0].name,
-      sortType: sortTypes[0].name,
+      location: CITIES[0].name,
+      sortType: SORT_TYPES[0].name,
       offers: [],
       isLoading: true,
     };
@@ -64,8 +64,8 @@ describe('Offers slice', () => {
   it('should set "offers" to array with offers, "isLoading" to "false" with "getOffersAction.fulfilled"', () => {
     const offers = Array.from({length: 3}, getMockOffer);
     const expectedState = {
-      location: cities[0].name,
-      sortType: sortTypes[0].name,
+      location: CITIES[0].name,
+      sortType: SORT_TYPES[0].name,
       offers,
       isLoading: false,
     };
@@ -75,8 +75,8 @@ describe('Offers slice', () => {
 
   it('should set "isLoading" to "false" with "getOffersAction.rejected"', () => {
     const expectedState = {
-      location: cities[0].name,
-      sortType: sortTypes[0].name,
+      location: CITIES[0].name,
+      sortType: SORT_TYPES[0].name,
       offers: [],
       isLoading: false,
     };
@@ -91,14 +91,14 @@ describe('Offers slice', () => {
       status: 0
     };
     const initialState = {
-      location: cities[0].name,
-      sortType: sortTypes[0].name,
+      location: CITIES[0].name,
+      sortType: SORT_TYPES[0].name,
       offers: [{...offer, isFavorite: !offer.isFavorite}],
       isLoading: false,
     };
     const expectedState = {
-      location: cities[0].name,
-      sortType: sortTypes[0].name,
+      location: CITIES[0].name,
+      sortType: SORT_TYPES[0].name,
       offers: [offer],
       isLoading: false,
     };
