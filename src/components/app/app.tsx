@@ -11,7 +11,6 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import {getFavoriteOffersAction} from '../../store/api-actions';
-import {selectFavoriteOffersIsLoading} from '../../store/favorite-offers/favorite-offers.selector';
 import {selectOffersIsLoading} from '../../store/offers/offers.selector';
 import {selectAuthorizationStatus} from '../../store/user/user.selector';
 import Loader from '../loader/loader';
@@ -20,8 +19,6 @@ import PrivateRoute from '../private-route/private-route';
 const App = () => {
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isOffersLoading = useAppSelector(selectOffersIsLoading);
-  const isFavoriteOffersLoading = useAppSelector(selectFavoriteOffersIsLoading);
-  const isLoading = isOffersLoading || isFavoriteOffersLoading;
   const dispatch = useAppDispatch();
 
   const isAuthenticated = authorizationStatus === AuthorizationStatus.Auth;
@@ -32,7 +29,7 @@ const App = () => {
     }
   }, [dispatch, isAuthenticated]);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return <Loader />;
   }
 
