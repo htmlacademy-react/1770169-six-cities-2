@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CITIES, NameSpace, SORT_TYPES} from '../../const';
 import {LocationName, SortTypeName} from '../../types/app-type';
 import {Offer} from '../../types/offer-type';
-import {getOffersAction, updateFavoriteOfferAction} from '../api-actions';
+import {getFavoriteOffersAction, getOffersAction, updateFavoriteOfferAction} from '../api-actions';
 
 type InitialState = {
   location: LocationName;
@@ -28,6 +28,9 @@ export const offersSlice = createSlice({
     },
     changeSortType: (state, action: PayloadAction<SortTypeName>) => {
       state.sortType = action.payload;
+    },
+    clearOffers: (state) => {
+      state.offers = [];
     }
   },
   extraReducers(builder) {
@@ -52,8 +55,21 @@ export const offersSlice = createSlice({
             ...state.offers.slice(index + 1)
           ];
         }
+      })
+      .addCase(getFavoriteOffersAction.fulfilled, (state, action) => {
+        action.payload.forEach((element) => {
+          const index = state.offers.findIndex((offer) => offer.id === element.id);
+
+          if (index !== -1) {
+            state.offers = [
+              ...state.offers.slice(0, index),
+              element,
+              ...state.offers.slice(index + 1)
+            ];
+          }
+        });
       });
   },
 });
 
-export const {changeLocation, changeSortType} = offersSlice.actions;
+export const {changeLocation, changeSortType, clearOffers} = offersSlice.actions;

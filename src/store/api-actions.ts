@@ -8,6 +8,8 @@ import {redirectToRoute} from '../store/action';
 import {Comment, CreateComment} from '../types/comment-type';
 import {ExtendedOffer, Offer} from '../types/offer-type';
 import {AuthCredentials, FullUser} from '../types/user-type';
+import {clearOffers} from './offers/offers.slice';
+import {clearFavoriteOffers} from './favorite-offers/favorite-offers.slice';
 
 export const getOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
@@ -97,8 +99,12 @@ export const authAction = createAsyncThunk<FullUser, AuthCredentials, {
 });
 
 export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
   extra: AxiosInstance;
-}>('user/logout', async (_, {extra: api}) => {
+}>('user/logout', async (_, {dispatch, extra: api}) => {
   await api.delete(ApiRoute.Logout);
   removeToken();
+  dispatch(clearOffers());
+  dispatch(clearFavoriteOffers());
+  dispatch(getOffersAction());
 });

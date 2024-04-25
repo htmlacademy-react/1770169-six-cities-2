@@ -17,7 +17,11 @@ const initialState: InitialState = {
 export const favoriteOffersSlice = createSlice({
   name: NameSpace.FavoriteOffers,
   initialState,
-  reducers: {},
+  reducers: {
+    clearFavoriteOffers: (state) => {
+      state.favoriteOffers = [];
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(getFavoriteOffersAction.pending, (state) => {
@@ -47,3 +51,5 @@ export const favoriteOffersSlice = createSlice({
       });
   },
 });
+
+export const {clearFavoriteOffers} = favoriteOffersSlice.actions;

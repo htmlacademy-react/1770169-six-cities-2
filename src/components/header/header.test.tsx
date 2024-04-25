@@ -5,9 +5,12 @@ import {Route, Routes} from 'react-router-dom';
 
 import Header from './header';
 import {ApiRoute, AppRoute, AuthorizationStatus} from '../../const';
-import {logoutAction} from '../../store/api-actions';
+import {getOffersAction, logoutAction} from '../../store/api-actions';
 import {withHistory, withStore} from '../../utils/mock-component-utils';
 import {extractActionsTypes, getMockStore} from '../../utils/mock-utils';
+import {clearOffers} from '../../store/offers/offers.slice';
+import {clearFavoriteOffers} from '../../store/favorite-offers/favorite-offers.slice';
+import {store} from '../../store';
 
 
 describe('Component: Header', () => {
@@ -48,11 +51,16 @@ describe('Component: Header', () => {
     render(withStoreComponent);
 
     await userEvent.click(screen.getByText(logout));
+    await store.dispatch(getOffersAction());
     const actionsType = extractActionsTypes(mockStore.getActions());
 
     expect(actionsType).toEqual([
       logoutAction.pending.type,
-      logoutAction.fulfilled.type
+      clearOffers.type,
+      clearFavoriteOffers.type,
+      getOffersAction.pending.type,
+      logoutAction.fulfilled.type,
+      getOffersAction.rejected.type
     ]);
   });
 

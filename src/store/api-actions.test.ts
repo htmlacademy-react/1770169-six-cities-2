@@ -28,6 +28,8 @@ import {
   getMockStore,
   getMockUser
 } from '../utils/mock-utils';
+import {clearOffers} from '../store/offers/offers.slice';
+import {clearFavoriteOffers} from '../store/favorite-offers/favorite-offers.slice';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -331,7 +333,7 @@ describe('Async actions', () => {
   });
 
   describe('logoutAction', () => {
-    it('should dispatch "logoutAction.pending", "logoutAction.fulfilled" when server response 204', async() => {
+    it('should dispatch "logoutAction.pending", "clearOffers", "clearFavoriteOffers", "getOffersAction.pending", "logoutAction.fulfilled", when server response 204', async() => {
       mockAxiosAdapter.onDelete(ApiRoute.Logout).reply(204);
 
       await store.dispatch(logoutAction());
@@ -339,6 +341,9 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         logoutAction.pending.type,
+        clearOffers.type,
+        clearFavoriteOffers.type,
+        getOffersAction.pending.type,
         logoutAction.fulfilled.type,
       ]);
     });
@@ -352,5 +357,4 @@ describe('Async actions', () => {
       expect(mockDropToken).toBeCalledTimes(1);
     });
   });
-
 });
